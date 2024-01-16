@@ -5,23 +5,20 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #1688A1;
+  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-p {
-  color: #FFF;
-}
 a {
   font-weight: 500;
-  color: #FFF;
+  color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
-  font-weight: 700;
+  color: #535bf2;
 }
 
 body {

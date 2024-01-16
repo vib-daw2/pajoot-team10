@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/vib-daw2/pajoot-team10/issues"
   },
-  "homepage": "https://github.com/vib-daw2/pajoot-team10#readme"
+  "homepage": "https://github.com/vib-daw2/pajoot-team10#readme",
+  "dependencies": {
+    "sass": "^1.69.7"
+  }
 }
