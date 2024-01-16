@@ -17,6 +17,8 @@
     "http": "^0.0.1-security",
     "nodemailer": "^6.9.8",
     "nodemon": "^3.0.2",
-    "socket.io": "^4.7.4"
+    "socket.io": "^4.7.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }
