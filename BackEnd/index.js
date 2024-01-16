@@ -50,19 +50,19 @@ app.use(express.json());
 io.on("connection", (socket) => {
     console.log("A user connected");
 });
-
+// ToDo: Ajustar tamaño logo en desktop/mobile
 async function sendVerificationEmail(email) {
     const token = Math.floor(100000 + Math.random() * 900000);
     let mailOptions = {
         from: process.env.GMAIL_USER,
         to: email,
-        subject: "Verification token",
+        subject: "Codi de verificació",
         text: "",
         html: `
         <div style='font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2'>
             <div style='margin:50px auto;width:70%;padding:20px 0'>
-               <div style='border-bottom:1px solid #eee'>
-                    <a href='' style='font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600'><img src="https://i.ibb.co/Wx3gTMF/logo-pajoot.png"></a>
+               <div style='border-bottom:1px solid #eee;max-width:50vw'>
+                    <a href='' style='font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600'><img src="https://i.ibb.co/Wx3gTMF/logo-pajoot.png" style='height:auto;width:100%;'></a>
                 </div>
                 <p style='font-size:1.1em'>Holi,</p>
                 <p>Gràcies per escollir Pajoot. Utilitza el següent codi per completar l'accés. Aquest codi serà vàlid durant 15 minuts.</p>
