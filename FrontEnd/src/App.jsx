@@ -5,17 +5,22 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './pages/login';
 import Register from './pages/register';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 function App() {
+
+  const queryClient = new QueryClient();
+
   return (
+    <QueryClientProvider client={queryClient}>
     <Router>
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-
       </Routes>
     </Router>
+    </QueryClientProvider>
   );
 }
 
