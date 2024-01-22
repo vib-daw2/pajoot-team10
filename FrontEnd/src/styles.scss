@@ -12,7 +12,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 24vw;
+    width: 360px;
     .logo-pajoot {
         width: 100%;
     }
@@ -24,7 +24,7 @@ a {
         border-radius: 4px;
         padding: 16px;
         height: fit-content;
-        width: 80%;
+        width: 280px;
         margin: 16px;
         .form-login {
             display: flex;
@@ -61,20 +61,23 @@ a {
         padding: 14px 16px;
         display: flex;
         border-radius: 4px;
-        width: 12vw;
+        width: 220px;
+        margin-top: 8px;
         img {
             height: auto;
-            width: 6vw;
+            width: 50%;
             margin: auto;
         }
     }
     p {
         font-size: 18px;
         margin: 8px;
+        line-height: 150%;
     }
     .login-anonim {
         text-decoration: underline;
         font-size: 18px;
+        line-height: 150%;
         &:hover {
             color: #FFF;
         }
