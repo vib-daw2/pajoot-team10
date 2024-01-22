@@ -135,36 +135,45 @@ app.get("/api/users", (req, res) => {
  *               message: Email sent successfully
  */
 
-app.post("/api/send-verification-email", (req, res) => {
+app.post("/api/send-verification-email", async (req, res) => {
     const userEmail = req.body.email;
     
     // Generar el token de verificación
     const verificationToken = Math.floor(100000 + Math.random() * 900000);
 
-    // Crear un objeto con los datos del token
-    const verificationData = {
-        email: userEmail,
-        verification_token: verificationToken.toString() // Convertir a cadena
-    };
+    const db = admin.database();
+    const verificationTokensRef = db.ref("Verification_tokens");
 
-    // Enviar el correo electrónico
-    sendVerificationEmail(userEmail,verificationToken)
-        .then(() => {
-            // Agregar el token a la colección Verification_tokens
-            const db = admin.database();
-            const verificationTokensRef = db.ref("Verification_tokens");
-            verificationTokensRef.push(verificationData);
+    try {
+        // Verificar si ya existe un registro para el correo electrónico
+        const existingTokenSnapshot = await verificationTokensRef.orderByChild("email").equalTo(userEmail).once("value");
+        
+        if (existingTokenSnapshot.exists()) {
+            // Si ya existe, actualizar el token existente
+            const existingTokenKey = Object.keys(existingTokenSnapshot.val())[0];
+            const updateData = {
+                verification_token: verificationToken.toString()
+            };
+            await verificationTokensRef.child(existingTokenKey).update(updateData);
+        } else {
+            // Si no existe, crear un nuevo registro
+            const verificationData = {
+                email: userEmail,
+                verification_token: verificationToken.toString()
+            };
+            await verificationTokensRef.push(verificationData);
+        }
 
-            // Respuesta exitosa
-            res.json({ message: "Email sent successfully" });
-        })
-        .catch((error) => {
-            console.error(`Error sending verification email: ${error}`);
-            res.status(500).json({ error: "Internal server error" });
-        });
+        // Enviar el correo electrónico
+        await sendVerificationEmail(userEmail, verificationToken);
+
+        // Respuesta exitosa
+        res.json({ message: "Email sent successfully" });
+    } catch (error) {
+        console.error(`Error processing verification email: ${error}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
 });
-
-
 
 
 server.listen(port, () => {
