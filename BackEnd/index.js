@@ -137,8 +137,32 @@ app.get("/api/users", (req, res) => {
  */
 
 app.post("/api/send-verification-email", (req, res) => {
-    sendVerificationEmail(req.body.email);
-    res.json({ message: "Email sent successfully" });
+    const userEmail = req.body.email;
+    
+    // Generar el token de verificación
+    const verificationToken = Math.floor(100000 + Math.random() * 900000);
+
+    // Crear un objeto con los datos del token
+    const verificationData = {
+        email: userEmail,
+        verification_token: verificationToken.toString() // Convertir a cadena
+    };
+
+    // Enviar el correo electrónico
+    sendVerificationEmail(userEmail,verificationToken)
+        .then(() => {
+            // Agregar el token a la colección Verification_tokens
+            const db = admin.database();
+            const verificationTokensRef = db.ref("Verification_tokens");
+            verificationTokensRef.push(verificationData);
+
+            // Respuesta exitosa
+            res.json({ message: "Email sent successfully" });
+        })
+        .catch((error) => {
+            console.error(`Error sending verification email: ${error}`);
+            res.status(500).json({ error: "Internal server error" });
+        });
 });
 
 
