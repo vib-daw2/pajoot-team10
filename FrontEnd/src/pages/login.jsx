@@ -12,6 +12,8 @@ const Login = () => {
                     <input type='submit' className="form-login_button" value='Acceder' />
                 </form>
             </div>
+            <p class="register-text">Todavía no estás registrado?</p><br/><a href="" className="register-new">Regístrate aquí</a>
+            <hr/>
             <a href="" className="login-google" ><img src="./assets/img/logo-google.png" alt="Logo-Google" /></a>
             <p>o</p>
             <a href="" className="login-anonim">Acceder de manera anónima</a>
