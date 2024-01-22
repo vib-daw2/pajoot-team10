@@ -8,6 +8,8 @@ const swaggerUI = require("swagger-ui-express");
 const admin = require("firebase-admin");
 const serviceAccount = require("./firebase-adminsdk-credentials.json");
 const { send } = require("process");
+// Mapa para almacenar las referencias a los temporizadores
+const timersMap = new Map();
 
 
 admin.initializeApp({
@@ -135,22 +137,26 @@ app.get("/api/users", (req, res) => {
  *               message: Email sent successfully
  */
 
+// ...
+
 app.post("/api/send-verification-email", async (req, res) => {
     const userEmail = req.body.email;
-    
+
     // Generar el token de verificación
     const verificationToken = Math.floor(100000 + Math.random() * 900000);
 
     const db = admin.database();
     const verificationTokensRef = db.ref("Verification_tokens");
 
+    let existingTokenKey;
+
     try {
         // Verificar si ya existe un registro para el correo electrónico
         const existingTokenSnapshot = await verificationTokensRef.orderByChild("email").equalTo(userEmail).once("value");
-        
+
         if (existingTokenSnapshot.exists()) {
             // Si ya existe, actualizar el token existente
-            const existingTokenKey = Object.keys(existingTokenSnapshot.val())[0];
+            existingTokenKey = Object.keys(existingTokenSnapshot.val())[0];
             const updateData = {
                 verification_token: verificationToken.toString()
             };
@@ -161,14 +167,39 @@ app.post("/api/send-verification-email", async (req, res) => {
                 email: userEmail,
                 verification_token: verificationToken.toString()
             };
-            await verificationTokensRef.push(verificationData);
+            const newTokenSnapshot = await verificationTokensRef.push(verificationData);
+            existingTokenKey = newTokenSnapshot.key;
+            console.log(`New verification token added for email: ${userEmail}`);
         }
 
         // Enviar el correo electrónico
         await sendVerificationEmail(userEmail, verificationToken);
 
+        // Cancelar el temporizador existente, si hay alguno
+        if (timersMap.has(userEmail) && timersMap.get(userEmail).length > 0) {
+            const existingTimeouts = timersMap.get(userEmail);
+            existingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
+            timersMap.set(userEmail, []);
+        }
+
+        // Programar la eliminación del registro después de 1 minuto
+        const timeoutId = setTimeout(async () => {
+            try {
+                await verificationTokensRef.child(existingTokenKey).remove();
+                console.log(`Verification token removed after 15 minutes for email: ${userEmail}`);
+            } catch (error) {
+                console.error(`Error removing verification token: ${error}`);
+            }
+        }, 900000); // 15 minutos en milisegundos
+
         // Respuesta exitosa
         res.json({ message: "Email sent successfully" });
+
+        // Almacenar la referencia del temporizador asociada al correo electrónico
+        if (!timersMap.has(userEmail)) {
+            timersMap.set(userEmail, []);
+        }
+        timersMap.get(userEmail).push(timeoutId);
     } catch (error) {
         console.error(`Error processing verification email: ${error}`);
         res.status(500).json({ error: "Internal server error" });
