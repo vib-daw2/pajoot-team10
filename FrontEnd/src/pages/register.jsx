@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom'; 
 import useStore from '../store';
 
 const Register = () => {
     const { userEmail, setUserEmail } = useStore();
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         setUserEmail(e.target.value);
@@ -45,8 +47,7 @@ const Register = () => {
     const mutation = useMutation(sendVerificationEmail, {
         onSuccess: (data) => {
             console.log('Verification email sent successfully:', data);
-            // Redirigir a la página de verificación
-            // Puedes usar la lógica de redirección que necesites aquí
+            navigate('/verify');
         },
         onError: (error) => {
             console.error('Error sending verification email:', error);
