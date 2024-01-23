@@ -12,7 +12,7 @@ a {
 }
 h1 {
     font-family: "Rancho";
-    font-size: 80px;
+    font-size: 88px;
     margin: 16px 0;
 }
 hr {
@@ -24,7 +24,7 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 360px;
+    width: 396px;
     .logo-pajoot {
         width: 100%;
     }
@@ -68,7 +68,9 @@ hr {
                 cursor: pointer;
                 &:active {
                     box-shadow: inset 1px 1px 2px 2px #015669;
-                    font-size: 19px;
+                }
+                &:disabled {
+                    color: #3b3b3b;
                 }
             }
         }
@@ -78,12 +80,29 @@ hr {
         margin: 0;
     }
     .register-new {
-        text-decoration: underline;
+        position: relative;
+        font-weight: 700;
+        color: #FFF;
         font-size: 18px;
         line-height: 150%;
         margin: 0 0 16px 0;
+        text-decoration: none;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background-color: #FFF;
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
         &:hover {
             color: #FFF;
+        }
+        &:hover::before {
+            width: 100%;
         }
     }
     .login-google {
@@ -110,11 +129,29 @@ hr {
         line-height: 150%;
     }
     .login-anonim {
-        text-decoration: underline;
+        position: relative;
+        font-weight: 700;
+        color: #FFF;
         font-size: 18px;
         line-height: 150%;
+        margin: 0 0 16px 0;
+        text-decoration: none;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background-color: #FFF;
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
         &:hover {
             color: #FFF;
+        }
+        &:hover::before {
+            width: 100%;
         }
     }
 }
