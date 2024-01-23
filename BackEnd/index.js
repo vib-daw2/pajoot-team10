@@ -139,8 +139,6 @@ app.get("/api/users", (req, res) => {
  *               message: Email sent successfully
  */
 
-// ...
-
 app.post("/api/send-verification-email", async (req, res) => {
     const userEmail = req.body.email;
 
@@ -223,6 +221,78 @@ app.post("/api/send-verification-email", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+/**
+ * @swagger
+ * /api/verify-token:
+ *   post:
+ *     summary: Verify a verification token
+ *     description: Verify a verification token for the specified email address
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               verification_token:
+ *                 type: string
+ *             example:
+ *               email: "example@example.com"
+ *               verification_token: "123456"
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Verification successful
+ */
+app.post("/api/verify-token", async (req, res) => {
+    const userEmail = req.body.email;
+    const verificationToken = req.body.verification_token;
+
+    if (!userEmail) {
+        res.status(400).json({ error: 'Email is required' });
+        return;
+    }
+
+    if (!verificationToken) {
+        res.status(400).json({ error: 'Verification token is required' });
+        return;
+    }
+
+    try {
+        const db = admin.database();
+        const verificationTokensRef = db.ref("Verification_tokens");
+        const existingTokenSnapshot = await verificationTokensRef.orderByChild("email").equalTo(userEmail).once("value");
+
+        if (!existingTokenSnapshot.exists()) {
+            res.status(400).json({ error: 'Invalid verification token' });
+            return;
+        }
+
+        const tokenKey = Object.keys(existingTokenSnapshot.val())[0];
+        const tokenData = existingTokenSnapshot.val()[tokenKey];
+
+        if (tokenData.verification_token === verificationToken) {
+            // Eliminar el registro de la base de datos
+            await verificationTokensRef.child(tokenKey).remove();
+            console.log(`Verification token removed after successful verification for email: ${userEmail}`);
+
+            // Respuesta exitosa
+            res.json({ message: "Verification successful" });
+        } else {
+            res.status(400).json({ error: 'Invalid verification token' });
+        }
+    } catch (error) {
+        console.error(`Error verifying token: ${error}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+);
 
 
 server.listen(port, () => {
