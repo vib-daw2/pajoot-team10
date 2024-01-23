@@ -74,6 +74,29 @@ hr {
                 }
             }
         }
+        .form-verify {
+            p {
+                margin-bottom: 0;
+            }
+            div {
+                gap: 8px;
+            }
+            .form-verify_input {
+                height: 48px;
+                width: 36px!important;
+                background-color: #FFF;
+                color: #1C1C1C;
+                font-family: 'Montserrat';
+                font-size: 20px;
+            }
+            .form-verify_countdown {
+                font-size: 20px;
+                color:#1C1C1C;
+            }
+            .form-verify_button {
+                width: 80%;
+            }
+        }
         
     }
     .register-text {
@@ -156,11 +179,17 @@ hr {
     }
 }
 .new-register {
-    p {
-        color: #1C1C1C;
-        text-align: left;
-    }
     .new-credentials {
         width: 360px;
+    }
+    .entry-credentials .form-login {
+        p {
+            color: #1C1C1C;
+            text-align: left;
+        }
+        .form-register_input,
+        .form-register_button {
+            width: 80%;
+        }
     }
 }

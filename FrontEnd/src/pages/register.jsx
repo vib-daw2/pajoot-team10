@@ -69,13 +69,13 @@ const Register = () => {
                             type='email'
                             value={userEmail || ''}
                             onChange={handleEmailChange}
-                            className="form-login_input"
+                            className="form-login_input form-register_input"
                             name='correu'
                             placeholder="Email"
                             required
                         />
                         {error && <p className="error-message">{error}</p>}
-                        <button type='submit' className="form-login_button" disabled={mutation.isLoading}>
+                        <button type='submit' className="form-login_button form-register_button" disabled={mutation.isLoading}>
                             {mutation.isLoading ? 'Enviando...' : 'Enviar código'}
                         </button>
                     </form>
