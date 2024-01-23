@@ -8,8 +8,8 @@ const Verify = () => {
     const { userEmail, setUserEmail } = useStore();
     const [error, setError] = useState(null);
     const [otp, setOtp] = useState('');
+    const [targetDate, setTargetDate] = useState(Date.now() + 900000);
 
-    const targetDate = Date.now() + 900000;
     // Función para formatear la salida del contador
     const formatTime = ({ minutes, seconds }) => {
         // Puedes personalizar el formato según tus necesidades
