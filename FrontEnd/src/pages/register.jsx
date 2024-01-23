@@ -1,34 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation } from 'react-query';
 import useStore from '../store';
 
 const Register = () => {
     const { userEmail, setUserEmail } = useStore();
+    const [error, setError] = useState(null);
 
     const handleEmailChange = (e) => {
         setUserEmail(e.target.value);
+        setError(null); // Limpiar el mensaje de error cuando el correo se actualiza
     };
 
     const sendVerificationEmail = async () => {
-        // Hacer la petición POST a localhost:3001/api/send-verification-email
-        const response = await fetch('http://localhost:3001/api/send-verification-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: userEmail }),
-        });
-
-        const data = await response.json();
-
-        // Retornar el resultado de la petición
-        return data;
+        try {
+            // Hacer la petición POST a localhost:3001/api/send-verification-email
+            const response = await fetch('http://localhost:3001/api/send-verification-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: userEmail }),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                // Si la respuesta es exitosa, retornar los datos
+                return data;
+            } else {
+                // Si hay un error en la respuesta, manejarlo
+                throw new Error(data.error || 'Error sending verification email');
+            }
+        } catch (error) {
+            // Manejar errores de red u otros errores
+            if (error.message.includes('Email is already registered')) {
+                setError('El correo electrónico ya está registrado');
+            } else {
+                setError('Error enviando el correo de verificación');
+            }
+            throw error;
+        }
     };
 
     const mutation = useMutation(sendVerificationEmail, {
         onSuccess: (data) => {
             console.log('Verification email sent successfully:', data);
             // Redirigir a la página de verificación
+            // Puedes usar la lógica de redirección que necesites aquí
         },
         onError: (error) => {
             console.error('Error sending verification email:', error);
@@ -55,6 +73,7 @@ const Register = () => {
                             name='correu'
                             placeholder="Email"
                         />
+                        {error && <p className="error-message">{error}</p>}
                         <button type='submit' className="form-login_button" disabled={mutation.isLoading}>
                             {mutation.isLoading ? 'Loading...' : 'Enviar código'}
                         </button>
@@ -66,4 +85,3 @@ const Register = () => {
 };
 
 export default Register;
-
