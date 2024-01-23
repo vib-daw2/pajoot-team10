@@ -142,6 +142,17 @@ app.get("/api/users", (req, res) => {
 app.post("/api/send-verification-email", async (req, res) => {
     const userEmail = req.body.email;
 
+    try {
+        const userRecord = await admin.auth().getUserByEmail(userEmail);
+        if (userRecord) {
+            // El correo electrónico ya está registrado, devolver un error
+            res.status(400).json({ error: 'Email is already registered' });
+            return;
+        }
+    } catch (authError) {
+        // Si hay un error, seguir con el proceso de envío del correo de verificación
+    }
+    
     // Generar el token de verificación
     const verificationToken = Math.floor(100000 + Math.random() * 900000);
 
