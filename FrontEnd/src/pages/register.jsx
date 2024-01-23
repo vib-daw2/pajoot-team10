@@ -72,10 +72,11 @@ const Register = () => {
                             className="form-login_input"
                             name='correu'
                             placeholder="Email"
+                            required
                         />
                         {error && <p className="error-message">{error}</p>}
                         <button type='submit' className="form-login_button" disabled={mutation.isLoading}>
-                            {mutation.isLoading ? 'Loading...' : 'Enviar código'}
+                            {mutation.isLoading ? 'Enviando...' : 'Enviar código'}
                         </button>
                     </form>
                 </div>

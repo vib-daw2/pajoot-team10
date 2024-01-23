@@ -57,24 +57,26 @@ async function sendVerificationEmail(email, token) {
     let mailOptions = {
         from: process.env.GMAIL_USER,
         to: email,
-        subject: "Codi de verificació",
+        subject: "Código de verificación",
         text: "",
         html: `
         <div style='font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2'>
-        <div style='margin:50px auto;width:400px;padding:20px 0'>
-            <div style='border-bottom:1px solid #eee;display:flex;justify-content:center'>
-                <a href='' style='margin:0 auto'><img src="https://i.ibb.co/Wx3gTMF/logo-pajoot.png" style='height:auto;width:280px;'></a>
+            <div style='width:60%'>
+                <div style='margin:50px auto;width:400px;padding:20px 0'>
+                    <div style='border-bottom:1px solid #eee;display:flex;justify-content:center'>
+                        <a href='' style='margin:0 auto'><img src="https://i.ibb.co/Wx3gTMF/logo-pajoot.png" style='height:auto;width:280px;'></a>
+                    </div>
+                    <p style='font-size:1.1em;color:#000;margin-left:20px'>Holi,</p>
+                    <p style='font-size:1.1em;color:#000;margin-left:20px'>Gracias por escoger Pajoot.<br>Utiliza el siguiente código para completar el registro.<br>Este coódigo será válido durante 15 minutos.</p>
+                    <h2 style='background:#1688A1;margin:0 auto;width: max-content;padding:6px 18px;color: #fff;border-radius: 4px;'>${token}</h2>
+                    <p style='font-size:1.1em;color:#000;margin-left:20px'>Atentamente,<br>el equipo de Pajoot.</p> <hr style='border:none;border-top:1px solid #eee' />
+                    <div style='padding:8px 0;color:#aaa;font-size:0.9em;line-height:1;font-weight:300'>
+                        <p style='margin-left:20px'>Ins (ViB) Dpt Pajoot</p>
+                        <p style='margin-left:20px'>Rambla President Lluís Companys, 3</p>
+                        <p style='margin-left:20px'>43005 Tarragona</p>
+                    </div>
+                </div>
             </div>
-            <p style='font-size:1.1em;color:#000;margin-left:20px'>Holi,</p>
-            <p style='font-size:1.1em;color:#000;margin-left:20px'>Gràcies per escollir Pajoot.<br>Utilitza el següent codi per completar l'accés.<br>Aquest codi serà vàlid durant 15 minuts.</p>
-            <h2 style='background:#1688A1;margin:0 auto;width: max-content;padding:6px 18px;color: #fff;border-radius: 4px;'>${token}</h2>
-            <p style='font-size:1.1em;color:#000;margin-left:20px'>Atentament,<br>l'equip de Pajoot.</p> <hr style='border:none;border-top:1px solid #eee' />
-            <div style='padding:8px 0;color:#aaa;font-size:0.9em;line-height:1;font-weight:300'>
-                <p style='margin-left:20px'>Ins (ViB) Dpt Pajoot</p>
-                <p style='margin-left:20px'>Rambla President Lluís Companys, 3</p>
-                <p style='margin-left:20px'>43005 Tarragona</p>
-            </div>
-        </div>
         </div>
         `
     };
