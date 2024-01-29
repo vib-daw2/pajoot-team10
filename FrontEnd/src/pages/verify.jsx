@@ -97,6 +97,7 @@ const Verify = () => {
     const mutation = useMutation(verifyToken, {
         onSuccess: (data) => {
             console.log('Token verified successfully:');
+            navigate('/create');
         },
         onError: (error) => {
             console.error('Error verifying token:', error);
