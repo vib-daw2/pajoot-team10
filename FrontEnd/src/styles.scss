@@ -36,7 +36,7 @@ hr {
         border-radius: 4px;
         padding: 16px;
         height: fit-content;
-        width: 280px;
+        width: 360px;
         margin: 16px;
         .form-login {
             display: flex;
@@ -179,9 +179,6 @@ hr {
     }
 }
 .new-register {
-    .new-credentials {
-        width: 360px;
-    }
     .entry-credentials .form-login {
         p {
             color: #1C1C1C;
