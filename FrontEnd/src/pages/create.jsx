@@ -89,9 +89,10 @@ const Create = () => {
                         <p>Introduce un nombre de usuario</p>
                         <input type='text' onChange={e=>setUser(e.currentTarget.value)} className="form-login_input" name='correu' placeholder="Nombre" required/>
                         <p>Elige una contraseña</p>
-                        <input type="password" onChange={e=>setPassword(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
+                        <p class="regex-contr">(mínimo 8 caracteres, con 1 dígito y 1 mayúscula)</p>
+                        <input type="password" onChange={e=>setPassword(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" pattern="^(?=.*[A-Z])(?=.*\d).{8,}$" required/>
                         <p>Repite la contraseña</p>
-                        <input type="password" onChange={e=>setPassword2(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
+                        <input type="password" onChange={e=>setPassword2(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" pattern="^(?=.*[A-Z])(?=.*\d).{8,}$" required/>
                         <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Creando...' : 'Crear usuario'} disabled={mutation.isLoading}/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
