@@ -7,6 +7,8 @@ import Login from './pages/login';
 import Register from './pages/register';
 import Verify from './pages/verify';
 import Create from './pages/create';
+import Home from './pages/home';
+
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 
@@ -22,6 +24,8 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/verify" element={<Verify/>} />
         <Route path="/create" element={<Create/>} />
+        <Route path="/" element={<Home/>} />
+
       </Routes>
     </Router>
     </QueryClientProvider>

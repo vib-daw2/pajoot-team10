@@ -4,7 +4,7 @@ import useStore from '../store';
 import OtpInput from 'react-otp-input';
 import { useNavigate } from 'react-router-dom';  // Importa useNavigate
 
-const Create = () => {
+const Home = () => {
     const {userEmail, setUserEmail} = useStore();
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
@@ -83,16 +83,17 @@ const Create = () => {
     return (
         <>
             <div className="entry-container new-register create-register">
-                <h1>Nuevo Usuario</h1>
+                <h1>¡A jugar!</h1>
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create" onSubmit={handleSubmit}>
-                        <p>Introduce un nombre de usuario</p>
-                        <input type='text' onChange={e=>setUser(e.currentTarget.value)} className="form-login_input" name='correu' placeholder="Nombre" required/>
-                        <p>Elige una contraseña</p>
-                        <input type="password" onChange={e=>setPassword(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
-                        <p>Repite la contraseña</p>
-                        <input type="password" onChange={e=>setPassword2(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
-                        <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Creando...' : 'Crear usuario'} disabled={mutation.isLoading}/>
+                        <p>Introduce código de juego</p>
+                        <input type='tel' className="form-login_input" name='codigo' placeholder="Código" required/>
+                        <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Entrando...' : 'Unirse a partida'} disabled={mutation.isLoading}/>
+                        {error && <p className="error-message">{error}</p>}
+                    </form>
+                    <form className="form-login form-create" onSubmit={handleSubmit}>
+                        <p>Crear un nuevo Pajoot</p>
+                        <input type='submit' className="form-login_button" value="Crear"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
                 </div>
@@ -101,4 +102,4 @@ const Create = () => {
     );
 };
 
-export default Create;
+export default Home;
