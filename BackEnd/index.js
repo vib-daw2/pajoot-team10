@@ -295,6 +295,74 @@ app.post("/api/verify-token", async (req, res) => {
 );
 
 
+/**
+ * @swagger
+ * /api/create-user:
+ *   post:
+ *     summary: Create a new user
+ *     description: Create a new user with the provided email, password, and display name
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               user:
+ *                 type: string
+ *             example:
+ *               email: "example@example.com"
+ *               password: "password123"
+ *               user: "John Doe"
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User created successfully
+ */
+app.post ("/api/create-user", async (req, res) =>{
+    const userEmail = req.body.email;
+    const userPassword = req.body.password;
+    const userDisplayName = req.body.user;
+
+    if (!userEmail) {
+        res.status(400).json({ error: 'Email is required' });
+        return;
+    }
+
+    if (!userPassword) {
+        res.status(400).json({ error: 'Password is required' });
+        return;
+    }
+
+    if (!userDisplayName) {
+        res.status(400).json({ error: 'Display name is required' });
+        return;
+    }
+
+    try {
+        const userRecord = await admin.auth().createUser({
+            email: userEmail,
+            password: userPassword,
+            displayName: userDisplayName
+        });
+
+        console.log(`Successfully created new user: ${userRecord.uid}`);
+
+        res.json({ message: "User created successfully" });
+    } catch (error) {
+        console.error(`Error creating new user: ${error}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
 server.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
