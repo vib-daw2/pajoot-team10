@@ -3,7 +3,6 @@ import { useMutation } from 'react-query';
 import useStore from '../store';
 import OtpInput from 'react-otp-input';
 import { useNavigate } from 'react-router-dom';  // Importa useNavigate
-import { set } from '../../../BackEnd/mailer';
 
 const Create = () => {
     const {userEmail, setUserEmail} = useStore();
