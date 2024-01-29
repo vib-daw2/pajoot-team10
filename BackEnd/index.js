@@ -64,7 +64,7 @@ async function sendVerificationEmail(email, token) {
             <div style='width:60%'>
                 <div style='margin:50px auto;width:400px;padding:20px 0'>
                     <div style='border-bottom:1px solid #eee;display:flex;justify-content:center'>
-                        <a href='' style='margin:0 auto'><img src="https://i.ibb.co/Wx3gTMF/logo-pajoot.png" style='height:auto;width:280px;'></a>
+                        <a href='' style='margin:0 auto'><img src="https://i.ibb.co/n8bPt5R/Logo-Sombra.png" style='height:auto;width:280px;'></a>
                     </div>
                     <p style='font-size:1.1em;color:#000;margin-left:20px'>Holi,</p>
                     <p style='font-size:1.1em;color:#000;margin-left:20px'>Gracias por escoger Pajoot.<br>Utiliza el siguiente código para completar el registro.<br>Este coódigo será válido durante 15 minutos.</p>
