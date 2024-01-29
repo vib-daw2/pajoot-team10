@@ -15,27 +15,24 @@ const Create = () => {
     useEffect(() => {
         if (!userEmail) {
             // Si no hay un email, navegar automáticamente a /login
-            navigate('/login');
+            // navigate('/login');
         }
     }, [userEmail, navigate]);
 
     return (
         <>
-            <div className="entry-container new-register">
+            <div className="entry-container new-register create-register">
                 <h1>Nuevo Usuario</h1>
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-verify">
                         <p>Introduce un nombre de usuario</p>
-                        <input type='text' className="form-login_input" name='correu' placeholder="Email" required/>
+                        <input type='text' className="form-login_input" name='correu' placeholder="Nombre" required/>
                         <p>Elige una contraseña</p>
                         <input type="password" className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
                         <p>Repite la contraseña</p>
                         <input type="password" className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
                         <input type='submit' className="form-login_button" value='Crear' />
                         {error && <p className="error-message">{error}</p>}
-                        <button type='submit' className="form-login_button form-verify_button">
-                            Validar
-                        </button>
                     </form>
                 </div>
             </div>
