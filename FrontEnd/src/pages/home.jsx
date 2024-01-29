@@ -16,7 +16,7 @@ const Home = () => {
     useEffect(() => {
         if (!userEmail) {
             // Si no hay un email, navegar automáticamente a /login
-            navigate('/login');
+            // navigate('/login');
         }
     }, [userEmail, navigate]);
 
@@ -91,6 +91,8 @@ const Home = () => {
                         <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Entrando...' : 'Unirse a partida'} disabled={mutation.isLoading}/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
+                    </div>
+                <div className="entry-credentials new-credentials">
                     <form className="form-login form-create" onSubmit={handleSubmit}>
                         <p>Crear un nuevo Pajoot</p>
                         <input type='submit' className="form-login_button" value="Crear"/>
