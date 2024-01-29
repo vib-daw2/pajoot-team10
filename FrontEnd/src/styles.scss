@@ -59,6 +59,8 @@ hr {
             }
             .form-login_button {
                 font-size: 20px;
+                font-weight: 500;
+                color: #FFF;
                 padding: 16px 10px;
                 border-radius: 4px;
                 background-color: #1688A1;
@@ -96,6 +98,8 @@ hr {
             }
             .form-verify_button {
                 width: 80%;
+                color: #FFF;
+                font-weight: 500;
             }
         }
         .form-create {
@@ -193,6 +197,10 @@ hr {
         .form-register_input,
         .form-register_button {
             width: 80%;
+        }
+        .form-register_button {
+            color: #FFF;
+            font-weight: 500;
         }
     }
 }
