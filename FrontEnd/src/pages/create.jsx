@@ -24,7 +24,7 @@ const Create = () => {
             <div className="entry-container new-register create-register">
                 <h1>Nuevo Usuario</h1>
                 <div className="entry-credentials new-credentials">
-                    <form className="form-login form-verify">
+                    <form className="form-login form-create">
                         <p>Introduce un nombre de usuario</p>
                         <input type='text' className="form-login_input" name='correu' placeholder="Nombre" required/>
                         <p>Elige una contraseña</p>
