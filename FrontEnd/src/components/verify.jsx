@@ -28,6 +28,7 @@ const Verify = () => {
     }, [userEmail, navigate]);
 
     const handleTokenResend = async (event) => {
+
         event.preventDefault();
 
         const currentTime = Date.now();
@@ -54,6 +55,7 @@ const Verify = () => {
                 // La petición fue exitosa
                 console.log('Email de verificación reenviado con éxito.');
                 setTargetDate(Date.now() + 900000);
+                setError('Codigo reenviado, por favor revise su correo electrónico.')
                 setLastResendTime(currentTime);
             } else {
                 // La petición no fue exitosa, manejar el error según tus necesidades
@@ -101,11 +103,12 @@ const Verify = () => {
         },
         onError: (error) => {
             console.error('Error verifying token:', error);
-            setError('Token incorrecto');
+            setError('Codigo incorrecto');
         },
     });
 
     const handleSubmit = (e) => {
+        setError(null);
         e.preventDefault();
         mutation.mutate();
     };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import useStore from '../store';
 import OtpInput from 'react-otp-input';
-import { useNavigate } from 'react-router-dom';  // Importa useNavigate
+import { redirect, useNavigate } from 'react-router-dom';  // Importa useNavigate
 
 const Create = () => {
     const {userEmail, setUserEmail, verifiedEmail, setVerifiedEmail} = useStore();
@@ -61,13 +61,7 @@ const Create = () => {
             }
         }
         catch (error) {
-            // Manejar errores de red u otros errores
-            if (error.message.includes('User already exists')) {
-                setError('El usuario ya existe');
-            }
-            else {
-                setError('Error creando el usuario');
-            }
+
             throw error;
         }
     }
@@ -75,7 +69,7 @@ const Create = () => {
     const mutation = useMutation(createUser, {
         onSuccess: (data) => {
             console.log('User created successfully:', data);
-            //navigate('/verify');
+            location.href = '/login';
         },
         onError: (error) => {
             console.error('Error creating user:', error);
