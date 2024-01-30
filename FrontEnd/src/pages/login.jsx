@@ -41,7 +41,15 @@ const Login = () => {
         },
         onError: (error) => {
             console.error('Error Logging in', error.message);
-            setError(error.message);
+            if (error.code === 'auth/user-not-found') {
+                setError('Usuario no encontrado');
+            }
+            else if (error.code === 'auth/invalid-credential') {
+                setError('Usuario o contraseña incorrectos');
+            }
+            else {
+                setError(error.message);
+            }
         },
     });
 
@@ -59,6 +67,7 @@ const Login = () => {
                     <input type='email' onChange={handleEmailChange} className="form-login_input" name='correu' placeholder="Email" required/>
                     <input type="password" onChange={handlePasswordChange} className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
                     <input type='submit' className="form-login_button" value='Acceder' />
+                    {error && <p className="error-message">{error}</p>}
                 </form>
             </div>
             <p className="register-text">Todavía no estás registrado?</p><br/><a href="/register" className="register-new">Regístrate aquí</a>
