@@ -43,7 +43,7 @@ const Create = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: userEmail,
+                    email: verifiedEmail,
                     user: user,
                     password: password,
                 }),
