@@ -101,6 +101,7 @@ const Verify = () => {
         },
         onError: (error) => {
             console.error('Error verifying token:', error);
+            setError('Token incorrecto');
         },
     });
 
