@@ -4,7 +4,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './pages/login';
-import Register from './pages/register';
+import Login from './pages/newcount';
+import Register from './components/register';
 import Verify from './components/verify';
 import Create from './components/create';
 import Home from './pages/home';
@@ -21,6 +22,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login/>} />
+        <Route path="/newcount" element={<Newcount/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/verify" element={<Verify/>} />
         <Route path="/create" element={<Create/>} />
