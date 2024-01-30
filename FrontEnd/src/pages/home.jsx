@@ -16,7 +16,7 @@ const Home = () => {
     useEffect(() => {
         if (!userEmail) {
             // Si no hay un email, navegar automáticamente a /login
-            // navigate('/login');
+            navigate('/login');
         }
     }, [userEmail, navigate]);
 
