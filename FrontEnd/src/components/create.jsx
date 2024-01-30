@@ -21,8 +21,8 @@ const Create = () => {
         }
         else{
             if (!verifiedEmail) {
-                // Si el email ya fue verificado, navegar automáticamente a /login
-                navigate('/login');
+                // Si el email ya fue verificado, navegar automáticamente a /register
+                navigate('/register');
             }
         }
     }, [userEmail, navigate]);

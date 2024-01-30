@@ -22,8 +22,8 @@ const Verify = () => {
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
         if (!userEmail) {
-            // Si no hay un email, navegar automáticamente a /login
-            navigate('/login');
+            // Si no hay un email, navegar automáticamente a /register
+            navigate('/register');
         }
     }, [userEmail, navigate]);
 
