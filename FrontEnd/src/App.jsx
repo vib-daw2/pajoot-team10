@@ -4,7 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './pages/login';
-import Login from './pages/newcount';
+import Newcount from './pages/newcount';
 import Register from './components/register';
 import Verify from './components/verify';
 import Create from './components/create';
