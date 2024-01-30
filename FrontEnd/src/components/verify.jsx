@@ -111,7 +111,7 @@ const Verify = () => {
 
     return (
         <>
-            <div className="entry-container new-register">
+            <div className="entry-container new-register verify-register">
                 <h1>Nuevo Usuario</h1>
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-verify" onSubmit={handleSubmit}>

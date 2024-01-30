@@ -5,8 +5,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './pages/login';
 import Register from './pages/register';
-import Verify from './pages/verify';
-import Create from './pages/create';
+import Verify from './components/verify';
+import Create from './components/create';
 import Home from './pages/home';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
