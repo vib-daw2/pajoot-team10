@@ -5,18 +5,25 @@ import OtpInput from 'react-otp-input';
 import { useNavigate } from 'react-router-dom';  // Importa useNavigate
 
 const Create = () => {
-    const {userEmail, setUserEmail} = useStore();
+    const {userEmail, setUserEmail, verifiedEmail, setVerifiedEmail} = useStore();
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();  // Obtén la función de navegación
 
+
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
-        if (!userEmail) {
-            // Si no hay un email, navegar automáticamente a /login
-            navigate('/login');
+        if (userEmail) {
+            setVerifiedEmail(userEmail);
+            setUserEmail(null);
+        }
+        else{
+            if (!verifiedEmail) {
+                // Si el email ya fue verificado, navegar automáticamente a /login
+                navigate('/login');
+            }
         }
     }, [userEmail, navigate]);
 
