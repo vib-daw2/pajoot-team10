@@ -2,7 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom'; 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import useStore from '../store';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from '../../firebaseConfig'; 
 
 const auth = getAuth(app);
@@ -12,7 +13,9 @@ const Login = () => {
     const [error, setError] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const { userLogged, setUserLogged } = useStore();
     const navigate = useNavigate();
+    const provider = new GoogleAuthProvider();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -33,6 +36,43 @@ const Login = () => {
             throw error;
         }
     }
+
+    const signUpWithGoogle = async (e) => {
+        e.preventDefault();
+        try {
+            await signInWithPopup(auth, provider)
+                .then((result) => {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    // The signed-in user info.
+                    setUserLogged(result.user);
+                    // IdP data available using getAdditionalUserInfo(result)
+                    // ...
+                    // You can handle the signed-in user here if needed
+                    console.log("Google User Signed In Successfully.");
+                    navigate('/');
+                })
+                .catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData ? error.customData.email : null;
+                    // The AuthCredential type that was used.
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    // ...
+
+                    // You can handle errors here if needed
+                    console.error("Error signing in with Google:", errorCode, errorMessage);
+                });
+        } catch (error) {
+            // Handle other errors here
+            console.error("Error signing in with Google:", error);
+        }
+    };
+
+
 
     const mutation = useMutation(loginUser, {
         onSuccess: (user) => {
@@ -72,7 +112,7 @@ const Login = () => {
             </div>
             <p className="register-text">Todavía no estás registrado?</p><br/><a href="/register" className="register-new">Regístrate aquí</a>
             <hr/>
-            <a href="" className="login-google" ><img src="./assets/img/logo-google.png" alt="Logo-Google" /></a>
+            <a className="login-google" onClick={signUpWithGoogle} ><img src="./assets/img/logo-google.png" alt="Logo-Google" /></a>
             <p>o</p>
             <a href="" className="login-anonim">Acceder de manera anónima</a>
         </div>

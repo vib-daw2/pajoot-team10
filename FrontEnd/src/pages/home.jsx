@@ -5,18 +5,22 @@ import OtpInput from 'react-otp-input';
 import { useNavigate } from 'react-router-dom';  // Importa useNavigate
 
 const Home = () => {
-    const {userEmail, setUserEmail} = useStore();
-    const [user, setUser] = useState('');
+    const {userLogged, setUserLogged} = useStore();
+    const [anon, isAnon] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();  // Obtén la función de navegación
 
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
-        if (!userEmail) {
+        if (!userLogged) {
+            isAnon(true);
             // Si no hay un email, navegar automáticamente a /login
             // navigate('/login');
         }
-    }, [userEmail, navigate]);
+        else{
+            console.log(userLogged);
+        }
+    }, [userLogged, navigate]);
 
 
     return (
@@ -31,6 +35,7 @@ const Home = () => {
                         {error && <p className="error-message">{error}</p>}
                     </form>
                     </div>
+            {!anon && (
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create">
                         <p>Crear un nuevo Pajoot</p>
@@ -38,6 +43,7 @@ const Home = () => {
                         {error && <p className="error-message">{error}</p>}
                     </form>
                 </div>
+            )}
             </div>
         </>
     );

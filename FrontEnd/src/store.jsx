@@ -8,6 +8,10 @@ const useStore = create((set) => ({
   verifiedEmail: null,
 
   setVerifiedEmail: (email) => set({ verifiedEmail: email }),
+
+  userLogged: null,
+
+  setUserLogged: (user) => set({ userLogged: user }),
   
 }));
 
