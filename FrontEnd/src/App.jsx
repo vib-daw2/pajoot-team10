@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -10,12 +10,31 @@ import Verify from './components/verify';
 import Create from './components/create';
 import Home from './pages/home';
 import Notfound from './pages/notfound';
+import app from '../firebaseConfig'
+import useStore from './store';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 function App() {
+
+  const auth = getAuth(app);
+
+  const {userLogged, setUserLogged} = useStore();
+
+  useEffect(() => {
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserLogged(auth.currentUser);
+      } else {
+      }
+    });
+
+}, [userLogged]);
+
 
   const queryClient = new QueryClient();
 

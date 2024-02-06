@@ -6,20 +6,15 @@ import { useNavigate } from 'react-router-dom';  // Importa useNavigate
 
 const Home = () => {
     const {userLogged, setUserLogged} = useStore();
-    const [anon, isAnon] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();  // Obtén la función de navegación
 
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
-        if (!userLogged) {
-            isAnon(true);
-            // Si no hay un email, navegar automáticamente a /login
-            // navigate('/login');
-        }
-        else{
+        if (userLogged) {
             console.log(userLogged);
         }
+
     }, [userLogged, navigate]);
 
 
@@ -35,7 +30,7 @@ const Home = () => {
                         {error && <p className="error-message">{error}</p>}
                     </form>
                     </div>
-            {!anon && (
+            {userLogged && (
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create">
                         <p>Crear un nuevo Pajoot</p>

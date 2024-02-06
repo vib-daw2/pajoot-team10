@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom'; 
 import useStore from '../store';
@@ -16,6 +16,13 @@ const Login = () => {
     const { userLogged, setUserLogged } = useStore();
     const navigate = useNavigate();
     const provider = new GoogleAuthProvider();
+
+    useEffect(() => {
+        if (userLogged) {
+            navigate('/');
+        }
+
+    }, [userLogged, navigate]);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -98,6 +105,10 @@ const Login = () => {
         mutation.mutate();
     };
 
+    const handleAnonAccess = (e) => {
+        navigate('/');
+    }
+
     return (
         <>
         <div className="entry-container">
@@ -114,7 +125,7 @@ const Login = () => {
             <hr/>
             <a className="login-google" onClick={signUpWithGoogle} ><img src="./assets/img/logo-google.png" alt="Logo-Google" /></a>
             <p>o</p>
-            <a href="" className="login-anonim">Acceder de manera anónima</a>
+            <a href="" className="login-anonim" onClick={handleAnonAccess}>Acceder de manera anónima</a>
         </div>
         </>
     );
