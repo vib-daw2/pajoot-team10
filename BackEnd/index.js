@@ -8,6 +8,8 @@ const swaggerUI = require("swagger-ui-express");
 const admin = require("firebase-admin");
 const serviceAccount = require("./firebase-adminsdk-credentials.json");
 const { send } = require("process");
+const multer = require('multer');
+const AWS = require('aws-sdk');
 // Mapa para almacenar las referencias a los temporizadores
 const timersMap = new Map();
 
@@ -19,6 +21,15 @@ admin.initializeApp({
   databaseURL: process.env.DATABASE_URL
 
 });
+
+AWS.config.update({
+    accessKeyId: process.env.AWS_KEY,
+    secretAccessKey: process.env.AWS_SECRET,
+  });
+
+const s3 = new AWS.S3();
+
+const upload = multer();
 
 require("dotenv").config();
 
@@ -48,6 +59,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 io.on("connection", (socket) => {
     console.log("A user connected");
@@ -326,31 +338,40 @@ app.post("/api/verify-token", async (req, res) => {
  *             example:
  *               message: User created successfully
  */
-app.post ("/api/create-user", async (req, res) =>{
+app.post("/api/create-user", upload.fields([{ name: 'email' }, { name: 'password' }, { name: 'user' }, {name: 'profileImage'}]), async (req, res) => {
+    console.log(req.body);
     const userEmail = req.body.email;
     const userPassword = req.body.password;
     const userDisplayName = req.body.user;
+    const userProfileImage = req.files['profileImage'][0]; // Esto sería el archivo de imagen enviado desde el frontend
 
-    if (!userEmail) {
-        res.status(400).json({ error: 'Email is required' });
-        return;
-    }
-
-    if (!userPassword) {
-        res.status(400).json({ error: 'Password is required' });
-        return;
-    }
-
-    if (!userDisplayName) {
-        res.status(400).json({ error: 'Display name is required' });
+    if (!userEmail || !userPassword || !userDisplayName ) {
+        res.status(400).json({ error: 'Missing required fields' });
         return;
     }
 
     try {
+        // Subir la imagen de perfil a AWS S3
+        const uploadParams = {
+            Bucket: 'pajoot',
+            Key: `profiles/${userEmail}/${Date.now()}_${userProfileImage.originalname}`, // Ruta en S3 donde se almacenará la imagen
+            Body: userProfileImage.data, // Datos de la imagen
+            ACL: 'public-read', // Hacer la imagen pública para que sea accesible
+            ContentType: userProfileImage.type // Tipo de contenido de la imagen
+        };
+
+        const uploadResult = await s3.upload(uploadParams).promise();
+
+        // Ahora uploadResult.Location contiene la URL de la imagen en S3
+
+        // Crear el usuario en la base de datos con la URL de la imagen de perfil
+        // Aquí debes insertar la URL de la imagen en tu base de datos junto con otros datos del usuario
+
         const userRecord = await admin.auth().createUser({
             email: userEmail,
             password: userPassword,
-            displayName: userDisplayName
+            displayName: userDisplayName,
+            photoURL: uploadResult.Location // URL de la imagen de perfil
         });
 
         console.log(`Successfully created new user: ${userRecord.uid}`);
