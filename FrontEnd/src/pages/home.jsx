@@ -27,6 +27,9 @@ const Home = () => {
                 </a>
                 <div className='user-info'>
                     <p>Nombre</p>
+                    <ul>
+                        <li>Cerrar sesión</li>
+                    </ul>
                     <img src='./assets/img/usuario-de-perfil.png' className='user-avatar' alt='Avatar-Usuario' />
                 </div>
             </div>

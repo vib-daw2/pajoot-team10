@@ -149,6 +149,7 @@ hr {
         width: 160px;
         margin-top: 16px;
         box-shadow: 2px 2px 2px 0 #575757;
+        cursor: pointer;
         &:active {
             box-shadow: inset 1px 1px 2px 2px #575757;
             padding: 13px;
@@ -280,12 +281,17 @@ hr {
         display: flex;
         align-items: center;
         gap: 16px;
+        .user-avatar {
+            height: 40px;
+        }
+        ul {
+            display: none;
+        }
         p {
             font-size: 18px;
             color: #1C1C1C;
-        }
-        .user-avatar {
-            height: 40px;
+            cursor: pointer;
+
         }
     }
 }
