@@ -2,7 +2,7 @@ const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const transporter = require("./mailer");
+const transporter = require("./utils/mailer");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const admin = require("firebase-admin");
@@ -11,6 +11,8 @@ const { send } = require("process");
 const multer = require('multer');
 const AWS = require('aws-sdk');
 const expressFileUpload = require('express-fileupload');
+const {Games} = require('./utils/games');
+const {Players} = require('./utils/players');
 // Mapa para almacenar las referencias a los temporizadores
 const timersMap = new Map();
 
@@ -38,6 +40,8 @@ const app = express();
 const port = 3001;
 const server = createServer(app);
 const io = new Server(server);
+let games = new Games();
+let players = new Players();
 
 // Swagger configuration
 const swaggerOptions = {
@@ -63,9 +67,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressFileUpload());
 
-io.on("connection", (socket) => {
-    console.log("A user connected");
-});
 // ToDo: Ajustar tamaño logo en desktop/mobile
 async function sendVerificationEmail(email, token) {
     let mailOptions = {
@@ -383,6 +384,13 @@ app.post("/api/create-user" , async (req, res) => {
         console.error(`Error creating new user: ${error}`);
         res.status(500).json({ error: "Internal server error" });
     }
+});
+
+//When a connection to server is made from client
+io.on('connection', (socket) => {
+
+    
+    
 });
 
 
