@@ -20,6 +20,17 @@ const Home = () => {
 
     return (
         <>
+        {userLogged && (
+            <div className='menu-top'>
+                <a href=''>
+                    <img src='./assets/img/logo-pajoot.png' className="logo-pajoot" alt="Logo-Pajoot" />
+                </a>
+                <div className='user-info'>
+                    <p>Nombre</p>
+                    <img src='./assets/img/usuario-de-perfil.png' className='user-avatar' alt='Avatar-Usuario' />
+                </div>
+            </div>
+        )}
             <div className="entry-container new-register create-register">
                 <h1>¡A jugar!</h1>
                 <div className="entry-credentials new-credentials">
@@ -29,7 +40,11 @@ const Home = () => {
                         <input type='submit' className="form-login_button" value="Unirse"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
-                    </div>
+                </div>
+                {!userLogged && (
+                <a href='/login' className='login-link'>Iniciar sesión</a>
+                )}
+
             {userLogged && (
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create">
