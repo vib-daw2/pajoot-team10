@@ -26,8 +26,8 @@ const Home = () => {
                     <img src='./assets/img/logo-pajoot.png' className="logo-pajoot" alt="Logo-Pajoot" />
                 </a>
                 <div className='user-info'>
-                    <p>Nombre</p>
-                    <img src='./assets/img/usuario-de-perfil.png' className='user-avatar' alt='Avatar-Usuario' />
+                    <p>{userLogged.displayName}</p>
+                    <img src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} className='user-avatar' alt='Avatar-Usuario' />
                 </div>
             </div>
         )}
