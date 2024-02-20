@@ -37,17 +37,17 @@ const Create = () => {
             throw new Error('Las contraseñas no coinciden');
         }
 
+        let formdata = new FormData();
+        formdata.append('image', profileImage);
+        formdata.append('email', verifiedEmail);
+        formdata.append('user', user);
+        formdata.append('password', password);
+
         try {
+            console.log(formdata);
             const response = await fetch('http://localhost:3001/api/create-user', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: verifiedEmail,
-                    user: user,
-                    password: password
-                }),
+                body: formdata,
             });
 
             const data = await response.json();
