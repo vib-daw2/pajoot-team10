@@ -10,7 +10,7 @@ const serviceAccount = require("./firebase-adminsdk-credentials.json");
 const { send } = require("process");
 const multer = require('multer');
 const AWS = require('aws-sdk');
-const expressFileUpload = require('express-fileupload');
+const bodyParser = require('body-parser')
 const {Games} = require('./utils/games');
 const {Players} = require('./utils/players');
 // Mapa para almacenar las referencias a los temporizadores
@@ -65,7 +65,6 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(expressFileUpload());
 
 // ToDo: Ajustar tamaño logo en desktop/mobile
 async function sendVerificationEmail(email, token) {
@@ -341,12 +340,12 @@ app.post("/api/verify-token", async (req, res) => {
  *             example:
  *               message: User created successfully
  */
-app.post("/api/create-user" , async (req, res) => {
+app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
     console.log(req.body);
     const userEmail = req.body.email;
     const userPassword = req.body.password;
     const userDisplayName = req.body.user;
-    //const userProfileImage = req.body.file; // Changed to req.file since it's a single file upload
+    const userProfileImage = req.file; // Changed to req.file since it's a single file upload
 
     if (!userEmail || !userPassword || !userDisplayName /*|| !userProfileImage*/) {
         res.status(400).json({ error: 'Missing required fields' });
@@ -355,11 +354,10 @@ app.post("/api/create-user" , async (req, res) => {
 
     try {
         // Subir la imagen de perfil a AWS S3
-        /*const uploadParams = {
+        const uploadParams = {
             Bucket: 'pajoot',
             Key: `profiles/${userEmail}/${Date.now()}_${userProfileImage.originalname}`, // Ruta en S3 donde se almacenará la imagen
             Body: userProfileImage.buffer, // Changed to userProfileImage.buffer since it's a single file upload
-            ACL: 'public-read', // Hacer la imagen pública para que sea accesible
             ContentType: userProfileImage.mimetype // Tipo de contenido de la imagen
         };
 
@@ -368,13 +366,13 @@ app.post("/api/create-user" , async (req, res) => {
         // Ahora uploadResult.Location contiene la URL de la imagen en S3
 
         // Crear el usuario en la base de datos con la URL de la imagen de perfil
-        // Aquí debes insertar la URL de la imagen en tu base de datos junto con otros datos del usuario*/
+        // Aquí debes insertar la URL de la imagen en tu base de datos junto con otros datos del usuario
 
         const userRecord = await admin.auth().createUser({
             email: userEmail,
             password: userPassword,
             displayName: userDisplayName,
-            //photoURL: uploadResult.Location // URL de la imagen de perfil
+            photoURL: uploadResult.Location // URL de la imagen de perfil
         });
 
         console.log(`Successfully created new user: ${userRecord.uid}`);
