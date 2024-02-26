@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { socket } from '../socket';
 
 const HostLobby = () => {
-    
+
   return (
     <div>
 
@@ -17,8 +18,8 @@ const HostLobby = () => {
       <h3>Player 4</h3>
       <h3>Player 5</h3>
 
-      <button>Start Game</button>
-      <button>Cancel Game</button>
+      <button onClick={() => socket.emit('startGame')}>Start Game</button>
+      <button onClick={() => socket.emit('cancelGame')}>Cancel Game</button>
 
     </div>
   );

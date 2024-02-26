@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../socket';
 
-const PlayerLobby = () => {
+const PlayerGameOver = () => {
     
   return (
     <div>
-      <h2>Waiting on host to start game</h2>
+        <h2>Player Game Over</h2>
     </div>
   );
 };
 
-export default PlayerLobby;
+export default PlayerGameOver;
