@@ -5,7 +5,7 @@ import PlayerTimeUp from '../components/PlayerTimeUp';
 import PlayerLobby from '../components/PlayerLobby';
 
 const PlayerGame = () => {
-  const [GamePhase, setGamePhase] = useState('register');
+  const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
 
   const renderComponent = () => {
       switch (GamePhase) {

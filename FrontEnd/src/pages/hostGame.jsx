@@ -5,7 +5,7 @@ import HostTimeUp from '../components/hostTimeUp';
 import HostLobby from '../components/hostLobby';
 
 const HostGame = () => {
-  const [GamePhase, setGamePhase] = useState('register');
+  const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
 
   const renderComponent = () => {
       switch (GamePhase) {
