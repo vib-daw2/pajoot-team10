@@ -26,6 +26,7 @@ hr {
     flex-direction: column;
     align-items: center;
     width: 396px;
+    margin-top: 20px;
     .logo-pajoot {
         width: 100%;
     }
@@ -288,16 +289,80 @@ hr {
             width: auto;
             }
     }
+    .login-link {
+        font-weight: 400;
+        margin: 0;
+        &:before {
+            background-color: #1C1C1C;
+        }
+    }
     .user-info {
         display: flex;
         align-items: center;
+        justify-content: flex-end;
+        width: 20vw;
         gap: 16px;
+        a {
+            margin: 0;
+            color: #1C1C1C;
+        }
         .user-avatar {
             height: 40px;
+            border-radius: 50%;
         }
-        ul {
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .dropbtn {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: transparent;
+            font-size: 16px;
+            border: none;
+            gap: 16px;
+            cursor: pointer;
+        }
+        
+        .dropdown-content {
             display: none;
+            position: absolute;
+            margin-top: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
         }
+        
+        .dropdown-content a {
+            display: block;
+            color: #1C1C1C;
+            padding: 12px 16px;
+            text-decoration: none;
+            background-color: #FFF;
+            border: 1px solid #1C1C1C;
+            border-radius: 4px;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #037189;
+        }
+        
+        .dropdown.active .dropdown-content {
+            display: flex;
+            flex-direction: column;
+            right: 0;
+        }
+
+        .dropdown:focus-visible,
+        .dropbtn:focus,
+        .dropbtn:focus-visible {
+            outline: none;
+        }
+        
         p {
             font-size: 18px;
             color: #1C1C1C;
@@ -308,22 +373,22 @@ hr {
 }
 .login-link {
     position: relative;
-        font-weight: 700;
-        color: #FFF;
-        font-size: 18px;
-        line-height: 150%;
-        margin: 0 0 16px 0;
-        text-decoration: none;
-        &:before {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background-color: #FFF;
-            transition: width 0.3s ease;
-            transform: translateX(-50%);
+    font-weight: 700;
+    color: #FFF;
+    font-size: 18px;
+    line-height: 150%;
+    margin: 0 0 16px 0;
+    text-decoration: none;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background-color: #FFF;
+        transition: width 0.3s ease;
+        transform: translateX(-50%);
         }
         &:hover {
             color: #FFF;
