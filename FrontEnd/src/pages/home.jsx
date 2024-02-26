@@ -32,9 +32,13 @@ const Home = () => {
             </div>
         )}
             <div className="entry-container new-register create-register">
+            <img src='./assets/img/logo-pajoot.png' className="logo-pajoot" alt="Logo-Pajoot" />
                 <h1>¡A jugar!</h1>
                 <div className="entry-credentials new-credentials">
+                    <p className='entry-title'>Unirse de manera anónima:</p>
                     <form className="form-login form-create">
+                        <p>Introduce un nombre</p>
+                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" required/>
                         <p>Introduce código de juego</p>
                         <input type='tel' className="form-login_input" name='codigo' placeholder="Código" required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
@@ -42,14 +46,17 @@ const Home = () => {
                     </form>
                 </div>
                 {!userLogged && (
-                <a href='/login' className='login-link'>Iniciar sesión</a>
+                    <div className='go-login'>
+                        <p>o</p>
+                        <a href='/login' className='login-link'>Iniciar sesión</a>
+                    </div>
                 )}
 
             {userLogged && (
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create">
-                        <p>Crear un nuevo Pajoot</p>
-                        <input type='submit' className="form-login_button" value="Crear"/>
+                        <p>Administrar un Pajoot</p>
+                        <input type='submit' className="form-login_button" value="Ver Pajoots"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
                 </div>

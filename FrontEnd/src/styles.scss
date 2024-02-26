@@ -13,7 +13,7 @@ a {
 h1 {
     font-family: "Rancho";
     font-size: 88px;
-    margin: 16px 0;
+    margin: 0 0 16px 0;
     color: #1C1C1C;
 }
 hr {
@@ -39,6 +39,12 @@ hr {
         height: fit-content;
         width: 360px;
         margin: 16px;
+        .entry-title {
+            color: #1C1C1C;
+            text-align: left;
+            margin-left: 0;
+            font-weight: 600;
+        }
         .form-login {
             display: flex;
             flex-direction: column;
@@ -189,6 +195,11 @@ hr {
         }
         &:hover::before {
             width: 100%;
+        }
+    }
+    .go-login {
+        p {
+            margin-top: 0;
         }
     }
 }
