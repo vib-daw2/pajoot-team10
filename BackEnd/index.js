@@ -39,7 +39,7 @@ require("dotenv").config();
 const app = express();
 const port = 3001;
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server,{});
 let games = new Games();
 let players = new Players();
 
@@ -387,10 +387,27 @@ app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
 //When a connection to server is made from client
 io.on('connection', (socket) => {
 
-    
-    
-});
+    socket.on("timeUp", function(data) {
+        socket.emit('timeUp')
+    })
 
+    socket.on("startGame", function(data) {
+        socket.emit('startGame')
+    })
+
+    socket.on("cancelGame", function(data) {
+        socket.emit()
+    })
+
+    socket.on("nextQuestion", function(data) {
+        socket.emit('nextQuestion')
+    })
+
+    socket.on("endGame", function(data) {
+        socket.emit('gameOver')
+    })
+
+});
 
 server.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);

@@ -11,6 +11,7 @@ import Create from './components/create';
 import Home from './pages/home';
 import Notfound from './pages/notfound';
 import app from '../firebaseConfig'
+import HostGame from './pages/hostGame';
 import useStore from './store';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/verify" element={<Verify/>} />
         <Route path="/create" element={<Create/>} />
+        <Route path="/host" element={<HostGame/>}/>
         
         <Route path="/*" element={<Notfound/>} />
 
