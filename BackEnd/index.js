@@ -409,6 +409,45 @@ io.on('connection', (socket) => {
         socket.emit('gameOver')
     })
 
+    socket.on("createGame", async function(data) {
+        const parsedData = JSON.parse(data);
+        let players = new Players();
+        let gamePin = Math.floor(Math.random() * 90000) + 10000;
+    
+        try {
+            // Referencia a la base de datos de Firebase
+            const db = admin.database();
+    
+            // Obtener referencia a la colección de preguntas
+            const preguntasRef = db.ref("preguntas");
+    
+            // Obtener referencia a la temática específica dentro de la colección de preguntas
+            const tematicaRef = preguntasRef.child(parsedData.tematica);
+    
+            // Leer las preguntas desde la base de datos
+            tematicaRef.once("value", snapshot => {
+                const questions = [];
+    
+                // Iterar sobre las preguntas y agregarlas al array 'questions'
+                snapshot.forEach(childSnapshot => {
+                    const question = childSnapshot.val();
+                    questions.push(question);
+                });
+    
+                // Agregar el juego con las preguntas al objeto de juegos
+                let game = games.addGame(gamePin, socket.id, false, { tematica: parsedData.tematica, questions: questions, players });
+    
+                // Emitir el juego creado con las preguntas al cliente
+                socket.emit('gameCreated', game);
+            });
+        } catch (error) {
+            console.error('Error fetching questions:', error);
+            // En caso de error, emitir un mensaje de error al cliente
+            socket.emit('gameCreationError', { message: 'Error fetching questions' });
+        }
+    });
+    
+
 });
 
 server.listen(port, () => {
