@@ -39,7 +39,9 @@ require("dotenv").config();
 const app = express();
 const port = 3001;
 const server = createServer(app);
-const io = new Server(server,{});
+const io = new Server(server,{
+    cors:'*'
+});
 let games = new Games();
 let players = new Players();
 
