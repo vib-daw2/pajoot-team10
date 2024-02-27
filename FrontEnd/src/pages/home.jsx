@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import useStore from '../store';
 import OtpInput from 'react-otp-input';
-import { useNavigate } from 'react-router-dom';  // Importa useNavigate
+import { useNavigate } from 'react-router-dom';
+import app from '../../firebaseConfig';
+import { getAuth, signOut } from 'firebase/auth';
 
 const Home = () => {
     const {userLogged, setUserLogged} = useStore();
     const [error, setError] = useState(null);
     const navigate = useNavigate();  // Obtén la función de navegación
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const auth = getAuth(app);
 
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
@@ -35,6 +38,8 @@ const Home = () => {
     const handleLogout = () => {
         // Cerrar sesión
         console.log('Cerrando sesión..');
+
+        auth.signOut();
         setUserLogged(null);
         
         navigate('/');
