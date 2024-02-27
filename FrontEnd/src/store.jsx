@@ -12,6 +12,10 @@ const useStore = create((set) => ({
   userLogged: null,
 
   setUserLogged: (user) => set({ userLogged: user }),
+
+  game: null,
+
+  setGame: (currentGame) => set({ game: currentGame }),
   
 }));
 
