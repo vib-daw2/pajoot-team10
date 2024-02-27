@@ -34,7 +34,10 @@ const Home = () => {
 
     const handleLogout = () => {
         // Cerrar sesión
+        console.log('Cerrando sesión..');
         setUserLogged(null);
+        
+        navigate('/');
     };
 
     const toggleDropdown = () => {
@@ -62,8 +65,9 @@ const Home = () => {
                             <img src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} className='user-avatar' alt='Avatar-Usuario' />
                         </button>
                         <div className='dropdown-content'>
+                            <a onClick={toggleDropdown}>v</a>
                             <a href='#'>Editar Perfil</a>
-                            <a href='#' onClick={handleLogout}>Cerrar Sesión</a>
+                            <a href='' onClick={handleLogout}>Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>
