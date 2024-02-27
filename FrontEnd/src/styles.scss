@@ -337,9 +337,13 @@ hr {
         .dropdown-content {
             display: none;
             position: absolute;
-            margin-top: 6px;
+            margin-top: 14px;
             z-index: 1;
-            gap: 4px;
+            gap: 6px;
+            padding: 10px;
+            background-color: #1688A1;
+            border: 1px solid #037189;
+            border-radius: 4px;
         }
         
         .dropdown-content a {
@@ -371,6 +375,17 @@ hr {
             border-style: none;
             border-color: #037189;
             box-shadow: 2px 2px 2px 0 #003946;
+        }
+        .triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            right: 0%;
+            top: -29px;
+            border-right: 16px solid transparent;
+            border-top: 16px solid transparent;
+            border-left: 16px solid transparent;
+            border-bottom: 16px solid #1688A1;
         }
         
         .dropdown.active .dropdown-content {
