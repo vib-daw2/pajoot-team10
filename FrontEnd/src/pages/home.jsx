@@ -79,7 +79,7 @@ const Home = () => {
         <>
         
             <div className='menu-top'>
-                <a href=''>
+                <a href='/'>
                     <img src='./assets/img/logo-pajoot.png' className="logo-pajoot" alt="Logo-Pajoot" />
                 </a>
                 {!userLogged && (
@@ -97,7 +97,7 @@ const Home = () => {
                         </button>
                         <div className='dropdown-content'>
                             <div className='triangle'></div>
-                            <a href='#'>Editar Perfil</a>
+                            <a href='/profile'>Editar Perfil</a>
                             <a href='' onClick={handleLogout}>Cerrar Sesión</a>
                         </div>
                     </div>
