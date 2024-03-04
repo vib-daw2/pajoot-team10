@@ -3,10 +3,12 @@ import HostGameOver from '../components/hostGameOver';
 import HostQuestion from '../components/hostQuestion';
 import HostTimeUp from '../components/hostTimeUp';
 import HostLobby from '../components/hostLobby';
+import useStore from '../store';
 import { socket } from '../socket';
 
 const HostGame = () => {
   const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
+  const { game, setGame } = useStore();
 
   useEffect(() => {
     function startGame() {
