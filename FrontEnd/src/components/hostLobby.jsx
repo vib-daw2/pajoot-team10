@@ -5,6 +5,13 @@ import useStore from '../store';
 const HostLobby = () => {
   const { game, setGame } = useStore();
 
+  useEffect(() => {
+    socket.on('playerJoined', (game) => {
+      setGame(game);
+    });
+  }
+  , []);
+
   return (
     <div>
       <h2>Join this Game using the game pin:</h2>

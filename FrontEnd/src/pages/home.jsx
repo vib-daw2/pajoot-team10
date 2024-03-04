@@ -5,6 +5,7 @@ import OtpInput from 'react-otp-input';
 import { useNavigate } from 'react-router-dom';
 import app from '../../firebaseConfig';
 import { getAuth, signOut } from 'firebase/auth';
+import { socket } from '../socket';
 
 const Home = () => {
     const {userLogged, setUserLogged} = useStore();
@@ -51,18 +52,26 @@ const Home = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    const handleAnonJoin = () => {
+    const handleAnonJoin = (event) => {
+
+        event.preventDefault();
+        
+        const id = Math.floor(Math.random() * 90000) + 10000;
+
+        socket.emit('playerJoin',JSON.stringify({pin:gameCode, playerName:anonName, playerId:id}))
 
 
     }
 
-    const handleUserJoin = () => {
+    const handleUserJoin = (event) => {
+        event.preventDefault();
+        socket.emit('playerJoin',JSON.stringify({pin:gameCode, playerName:userLogged.displayName, playerId:userLogged.uid}))
 
 
     }
 
-    const handleRedirect = () => {
-        event.preventDefault
+    const handleRedirect = (event) => {
+        event.preventDefault();
         navigate('/choose')
     }
 
@@ -100,7 +109,7 @@ const Home = () => {
                 {!userLogged && (
                 <div className="entry-credentials new-credentials">
                     <p className='entry-title'>Unirse de manera anónima</p>
-                    <form className="form-login form-create" onSubmit={handleAnonJoin()}>
+                    <form className="form-login form-create" onSubmit={e => handleAnonJoin(e)}>
                         <p>Introduce un nombre</p>
                         <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" onChange={e => setAnonName(e.currentTarget.value)}required/>
                         <p>Introduce código de juego</p>
@@ -112,7 +121,7 @@ const Home = () => {
                 )}
                 {userLogged && (
                 <div className="entry-credentials new-credentials">
-                    <form className="form-login form-create" onSubmit={handleUserJoin()}>
+                    <form className="form-login form-create" onSubmit={e => handleUserJoin(e)}>
                         <p>Introduce código de juego</p>
                         <input type='tel' className="form-login_input" name='codigo' placeholder="Código" onChange={e => setGameCode(e.currentTarget.value)}required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
