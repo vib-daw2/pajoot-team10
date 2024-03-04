@@ -3,13 +3,13 @@ import useStore from '../store';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import app from '../../firebaseConfig';
-import { getAuth, signOut } from 'firebase/auth';
+import { getAuth, signOut, updateProfile } from 'firebase/auth';
 
 const Profile = () => {
     const {userLogged, setUserLogged} = useStore();
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState(userLogged ? userLogged.displayName || '' : '');
     const [error, setError] = useState(null);
-    const navigate = useNavigate();  // Obtén la función de navegación
+    const navigate = useNavigate(); 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const auth = getAuth(app);
     const [profileImage, setProfileImage] = useState(null);
@@ -17,7 +17,7 @@ const Profile = () => {
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
         if (userLogged) {
-            console.log(userLogged);
+            setUser(userLogged.displayName || '');
         };
         const handleClickOutside = (event) => {
             if (!event.target.closest('.dropdown')) {
@@ -35,26 +35,35 @@ const Profile = () => {
 
     }, [userLogged, navigate]);
 
-    const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen);
-    };
+    const mutation = useMutation(() => {
+        // Actualizar el nombre de usuario en Firebase
+        return updateProfile(auth.currentUser, { displayName: user })
+            .then(() => {
+                // Actualizar el estado global con el nuevo nombre de usuario
+                setUserLogged({ ...userLogged, displayName: user });
+            })
+            .catch((error) => {
+                setError(error.message);
+            });
+    });
 
-    const createUser = async () => {
-
-        let formdata = new FormData();
-        formdata.append('image', profileImage);
-        formdata.append('user', user);
-
-    };
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setProfileImage(file);
-        console.log(file);
+    const handleInputChange = (e) => {
+        setUser(e.currentTarget.value);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         mutation.mutate();
+    };
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setProfileImage(file);
+        console.log(file);
     };
 
     const handleLogout = () => {
@@ -71,7 +80,7 @@ const Profile = () => {
         <>
         
             <div className='menu-top'>
-                <a href=''>
+                <a href='/'>
                     <img src='./assets/img/logo-pajoot.png' className="logo-pajoot" alt="Logo-Pajoot" />
                 </a>
                 {userLogged && (
@@ -96,7 +105,7 @@ const Profile = () => {
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create" onSubmit={handleSubmit}>
                         <p>Nombre</p>
-                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" value={userLogged.displayName} onChange={e => setUser(e.currentTarget.value)} required/>
+                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" value={user} onChange={handleInputChange} required/>
                         <p>Avatar</p>
                         <img src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} onChange={handleImageChange} className='user-avatar' alt='Avatar-Usuario' />
                         <button className='form-avatar_button'>Elegir otro</button>
