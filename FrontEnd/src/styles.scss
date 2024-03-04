@@ -53,6 +53,7 @@ hr {
             gap: 16px;
             min-width: 252px;
             .form-login_input {
+                font-family: "Montserrat";
                 font-size: 18px;
                 color: #1C1C1C;
                 padding: 16px 10px;
@@ -66,6 +67,7 @@ hr {
                 }
             }
             .form-login_button {
+                font-family: "Montserrat";
                 font-size: 20px;
                 font-weight: 500;
                 color: #FFF;
@@ -433,4 +435,18 @@ hr {
         &:hover::before {
             width: 100%;
         }
+}
+.form-avatar_button {
+    color: #1C1C1C;
+    font-weight: 500;
+    font-family: "Montserrat";
+    background-color: #DCDCDC;
+    box-shadow: outset 0 0 4px 1px #a0a0a0;
+    border: none;
+    &:hover {
+        outline: none;
+        border: none;
+        box-shadow: outset 0 0 4px 1px #a0a0a0;
+
+    }
 }

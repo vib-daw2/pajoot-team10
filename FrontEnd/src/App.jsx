@@ -13,6 +13,7 @@ import Notfound from './pages/notfound';
 import app from '../firebaseConfig'
 import HostGame from './pages/hostGame';
 import NewQuiz from './pages/newQuiz';
+import Profile from './pages/profile';
 import useStore from './store';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -52,6 +53,7 @@ function App() {
         <Route path="/create" element={<Create/>} />
         <Route path="/host" element={<HostGame/>}/>
         <Route path = "/choose" element={<NewQuiz/>}/>
+        <Route path = "/profile" element={<Profile/>}/>
         <Route path="/*" element={<Notfound/>} />
 
       </Routes>
