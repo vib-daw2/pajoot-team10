@@ -463,10 +463,12 @@ io.on('connection', (socket) => {
         console.log(game.gameData.players);
         console.log(game.gameData.players.players);
 
-        //game.gameData.players.addPlayer();
-        // console.log('player joined at game:' + parsedData.gamePin);
+        game.gameData.players.addPlayer(game.hostId,parsedData.playerId,parsedData.playerName,{score: 0});
+        console.log('player joined at game:' + parsedData.pin);
 
-        // socket.emit("playerJoined", game)
+
+
+        socket.emit("playerJoined", game);
         
         
     })
