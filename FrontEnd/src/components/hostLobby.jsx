@@ -7,10 +7,11 @@ const HostLobby = () => {
 
   useEffect(() => {
     socket.on('playerJoined', (game) => {
+      console.log('hola');
       setGame(game);
     });
   }
-  , []);
+  , [game]);
 
   return (
     <div>
