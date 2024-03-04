@@ -15,8 +15,13 @@ class Games {
         }
         return game;
     }
-    getGame(hostId){
-        return this.games.filter((game) => game.hostId === hostId)[0]
+
+    // getGame(hostId){
+    //     return this.games.filter((game) => game.hostId === hostId)[0]
+    // }
+
+    getGameByPin(pin){
+        return this.games.filter((game) => game.pin === pin)[0]
     }
 }
 
