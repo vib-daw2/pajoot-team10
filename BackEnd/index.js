@@ -411,7 +411,6 @@ io.on('connection', (socket) => {
 
     socket.on("createGame", async function(data) {
         const parsedData = JSON.parse(data);
-        let players = new Players();
         let gamePin = Math.floor(Math.random() * 90000) + 10000;
     
         try {
@@ -435,9 +434,9 @@ io.on('connection', (socket) => {
                 });
     
                 // Agregar el juego con las preguntas al objeto de juegos
-                let game = games.addGame(gamePin, socket.id, false, { tematica: parsedData.tematica, questions: questions, players });
-    
-                // Emitir el juego creado con las preguntas al cliente
+                let game = games.addGame(gamePin, socket.id, false, { tematica: parsedData.tematica, questions: questions, players: new Players()});
+
+                 // Emitir el juego creado con las preguntas al cliente
                 socket.emit('gameCreated', game);
             });
         } catch (error) {
@@ -446,6 +445,31 @@ io.on('connection', (socket) => {
             socket.emit('gameCreationError', { message: 'Error fetching questions' });
         }
     });
+
+    socket.on("playerJoin", async function(data) {
+        
+        const parsedData = JSON.parse(data);
+
+        console.log(parsedData.pin);
+
+        console.log (games);
+
+        console.log (games.games);
+
+        let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
+
+        console.log(game);
+        console.log(game.gameData);
+        console.log(game.gameData.players);
+        console.log(game.gameData.players.players);
+
+        //game.gameData.players.addPlayer();
+        // console.log('player joined at game:' + parsedData.gamePin);
+
+        // socket.emit("playerJoined", game)
+        
+        
+    })
     
 
 });
