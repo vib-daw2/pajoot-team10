@@ -117,7 +117,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit} method='POST' className="form-login" action=''>
                     <input type='email' onChange={handleEmailChange} className="form-login_input" name='correu' placeholder="Email" required/>
                     <input type="password" onChange={handlePasswordChange} className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
-                    <input type='submit' className="form-login_button" value='Acceder' />
+                    <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Accediendo...' : 'Acceder'} disabled= {mutation.isLoading}/>
                     {error && <p className="error-message">{error}</p>}
                 </form>
             </div>

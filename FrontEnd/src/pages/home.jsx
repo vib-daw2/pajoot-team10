@@ -11,6 +11,8 @@ const Home = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();  // Obtén la función de navegación
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [anonName, setAnonName] = useState(null);
+    const [gameCode, setGameCode] = useState(0);
     const auth = getAuth(app);
 
     // Comprobar si hay un email en el estado global al cargar la página
@@ -49,6 +51,21 @@ const Home = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
+    const handleAnonJoin = () => {
+
+
+    }
+
+    const handleUserJoin = () => {
+
+
+    }
+
+    const handleRedirect = () => {
+        event.preventDefault
+        navigate('/choose')
+    }
+
     return (
         <>
         
@@ -83,11 +100,11 @@ const Home = () => {
                 {!userLogged && (
                 <div className="entry-credentials new-credentials">
                     <p className='entry-title'>Unirse de manera anónima</p>
-                    <form className="form-login form-create">
+                    <form className="form-login form-create" onSubmit={handleAnonJoin()}>
                         <p>Introduce un nombre</p>
-                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" required/>
+                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" onChange={e => setAnonName(e.currentTarget.value)}required/>
                         <p>Introduce código de juego</p>
-                        <input type='tel' className="form-login_input" name='codigo' placeholder="Código" required/>
+                        <input type='tel' className="form-login_input" name='codigo' placeholder="Código" onChange={e => setGameCode(e.currentTarget.value)}required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
@@ -95,9 +112,9 @@ const Home = () => {
                 )}
                 {userLogged && (
                 <div className="entry-credentials new-credentials">
-                    <form className="form-login form-create">
+                    <form className="form-login form-create" onSubmit={handleUserJoin()}>
                         <p>Introduce código de juego</p>
-                        <input type='tel' className="form-login_input" name='codigo' placeholder="Código" required/>
+                        <input type='tel' className="form-login_input" name='codigo' placeholder="Código" onChange={e => setGameCode(e.currentTarget.value)}required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
@@ -106,7 +123,7 @@ const Home = () => {
 
             {userLogged && (
                 <div className="entry-credentials new-credentials">
-                    <form className="form-login form-create">
+                    <form className="form-login form-create" onSubmit={e => handleRedirect(e)}>
                         <p>Administrar un Pajoot</p>
                         <input type='submit' className="form-login_button" value="Ver Pajoots"/>
                         {error && <p className="error-message">{error}</p>}
