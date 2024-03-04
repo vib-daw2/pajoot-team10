@@ -13,6 +13,8 @@ const Profile = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const auth = getAuth(app);
     const [profileImage, setProfileImage] = useState(null);
+    const [selectedAvatar, setSelectedAvatar] = useState(userLogged ? userLogged.photoURL || null : null);
+    const [showAvatarSelector, setShowAvatarSelector] = useState(false);
 
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
@@ -66,6 +68,10 @@ const Profile = () => {
         console.log(file);
     };
 
+    const handleChooseAvatar = () => {
+        setShowAvatarSelector(true);
+    };
+
     const handleLogout = () => {
         // Cerrar sesión
         console.log('Cerrando sesión..');
@@ -108,9 +114,12 @@ const Profile = () => {
                         <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" value={user} onChange={handleInputChange} required/>
                         <p>Avatar</p>
                         <img src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} onChange={handleImageChange} className='user-avatar' alt='Avatar-Usuario' />
-                        <button className='form-avatar_button'>Elegir otro</button>
+                        <button type='button' className='form-avatar_button' onClick={handleChooseAvatar}>Elegir otro</button>
                         <input type='submit' className="form-login_button" value="Guardar"/>
                         {error && <p className="error-message">{error}</p>}
+                        {showAvatarSelector && (
+                        <ProfileAvatar avatars={avatarsArray} onSelect={(avatar) => { setSelectedAvatar(avatar); setShowAvatarSelector(false); }} />
+                        )}
                     </form>
                 </div>
                 )}
