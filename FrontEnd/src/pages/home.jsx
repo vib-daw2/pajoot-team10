@@ -38,6 +38,12 @@ const Home = () => {
 
     }, [userLogged, navigate]);
 
+    useEffect(() => {
+        socket.on('patatas', (game) => {
+          console.log('hola');
+        });
+      },[]);
+
     const handleLogout = () => {
         // Cerrar sesión
         console.log('Cerrando sesión..');

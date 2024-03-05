@@ -33,6 +33,11 @@ const HostGame = () => {
     socket.on('nextQuestion', nextQuestion);
     socket.on('gameOver', gameOver);
 
+    socket.on('patatas', (game) => {
+        console.log('hola');
+        setGame(game);
+      });
+
 
   }, []);
 
