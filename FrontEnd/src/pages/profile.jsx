@@ -4,6 +4,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import app from '../../firebaseConfig';
 import { getAuth, signOut, updateProfile } from 'firebase/auth';
+import ProfileAvatar, { avatarsArray } from '../components/profileAvatar';
 
 const Profile = () => {
     const {userLogged, setUserLogged} = useStore();
@@ -69,7 +70,20 @@ const Profile = () => {
     };
 
     const handleChooseAvatar = () => {
-        setShowAvatarSelector(true);
+        setShowAvatarSelector(!showAvatarSelector);
+    };
+    const handleSaveSelection = (selectedAvatar) => {
+        // Actualiza la imagen de perfil del usuario loggeado
+        updateProfile(auth.currentUser, { photoURL: selectedAvatar })
+            .then(() => {
+                // Actualiza el estado global con la nueva photoURL
+                setUserLogged({ ...userLogged, photoURL: selectedAvatar });
+                // Cierra el selector de avatar
+                setShowAvatarSelector(false);
+            })
+            .catch((error) => {
+                setError(error.message);
+            });
     };
 
     const handleLogout = () => {
@@ -117,10 +131,15 @@ const Profile = () => {
                         <button type='button' className='form-avatar_button' onClick={handleChooseAvatar}>Elegir otro</button>
                         <input type='submit' className="form-login_button" value="Guardar"/>
                         {error && <p className="error-message">{error}</p>}
-                        {showAvatarSelector && (
-                        <ProfileAvatar avatars={avatarsArray} onSelect={(avatar) => { setSelectedAvatar(avatar); setShowAvatarSelector(false); }} />
-                        )}
                     </form>
+                    {showAvatarSelector && (
+                        <div className="avatar-selector-container">
+                            <div className='avatar-images'>
+                                <ProfileAvatar avatars={avatarsArray} onSelect={handleSaveSelection} />
+                            </div>
+                            <button className="save-avatar-button" onClick={() => setShowAvatarSelector(false)}>Guardar selección</button>
+                        </div>
+                    )}
                 </div>
                 )}
             </div>

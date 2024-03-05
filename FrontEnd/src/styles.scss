@@ -2,6 +2,26 @@
 * {
     box-sizing: border-box;
 }
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #757575 #D9D9D9;
+  }
+  
+  *::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 8px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #D9D9D9;
+    border-radius: 8px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #757575;
+    border-radius: 20px;
+    border: 2px solid #757575;
+  }
 body {
     background-color: #1688A1;
 }
@@ -91,6 +111,12 @@ hr {
             }
             .error-message {
                 color: #1C1C1C;
+            }
+            .user-avatar {
+                width: 190px;
+                height: auto;
+                border: 1px solid #1C1C1C;
+                border-radius: 50%;
             }
         }
         .form-verify {
@@ -450,3 +476,59 @@ hr {
 
     }
 }
+.avatar-selector-container {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 16px;
+    height: 56vh;
+    max-height: 500px;
+    width: 80vw;
+    max-width: 780px;
+    gap: 32px;
+    .avatar-images {
+        overflow-y: scroll;
+        border: 1px solid #1C1C1C;
+        border-radius: 4px;
+        .avatar-selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        img {
+            width: 190px;
+            height: auto;
+            cursor: pointer;
+            &:hover {
+                filter: drop-shadow(0px 0px 18px #037189);
+            }
+        }
+    }
+    .save-avatar-button {
+        font-family: "Montserrat";
+        font-size: 20px;
+        font-weight: 500;
+        color: #FFF;
+        padding: 16px;
+        border-radius: 4px;
+        background-color: #1688A1;
+        border-style: none;
+        border-color: #037189;
+        box-shadow: 2px 2px 2px 0 #003946;
+        width: fit-content;
+        cursor: pointer;
+        &:active {
+            box-shadow: inset 1px 1px 2px 2px #015669;
+        }
+        &:disabled {
+            color: #3b3b3b;
+        }
+        &:hover {
+            background-color: #037189;
+        }
+    }
+}
+  
