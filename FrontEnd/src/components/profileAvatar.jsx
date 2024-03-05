@@ -26,7 +26,7 @@ import React from 'react';
         './assets/avatar/humano-9.png',
         './assets/avatar/humano-10.png'
     ];
-    const ProfileAvatar = ({ avatars, onSelect }) => {
+    const ProfileAvatar = ({ avatars, onSelect, selectedAvatar }) => {
     
     if(!avatars) {
         return null;
@@ -39,6 +39,7 @@ import React from 'react';
                     key={index}
                     src={avatar}
                     alt={`Avatar-${index}`}
+                    className={selectedAvatar === avatar ? 'selected-image' : ''}
                     onClick={() => onSelect(avatar)}
                 />
             ))}

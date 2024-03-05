@@ -74,16 +74,23 @@ const Profile = () => {
     };
     const handleSaveSelection = (selectedAvatar) => {
         // Actualiza la imagen de perfil del usuario loggeado
-        updateProfile(auth.currentUser, { photoURL: selectedAvatar })
-            .then(() => {
-                // Actualiza el estado global con la nueva photoURL
-                setUserLogged({ ...userLogged, photoURL: selectedAvatar });
-                // Cierra el selector de avatar
-                setShowAvatarSelector(false);
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
+        setSelectedAvatar(selectedAvatar);
+    };
+    const handleSaveButtonClick = () => {
+        // Actualiza la imagen de perfil del usuario loggeado al hacer clic en "Guardar"
+        if (selectedAvatar) {
+            updateProfile(auth.currentUser, { photoURL: selectedAvatar })
+                .then(() => {
+                    // Actualiza el estado global con la nueva photoURL
+                    setUserLogged({ ...userLogged, photoURL: selectedAvatar });
+                })
+                .catch((error) => {
+                    setError(error.message);
+                });
+        }
+        setShowAvatarSelector(false);
+
+        // ... (resto de la lógica de guardado y posiblemente la navegación)
     };
 
     const handleLogout = () => {
@@ -135,9 +142,9 @@ const Profile = () => {
                     {showAvatarSelector && (
                         <div className="avatar-selector-container">
                             <div className='avatar-images'>
-                                <ProfileAvatar avatars={avatarsArray} onSelect={handleSaveSelection} />
+                                <ProfileAvatar avatars={avatarsArray} onSelect={handleSaveSelection} selectedAvatar={selectedAvatar}/>
                             </div>
-                            <button className="save-avatar-button" onClick={() => setShowAvatarSelector(false)}>Guardar selección</button>
+                            <button className="save-avatar-button" onClick={handleSaveButtonClick}>Guardar selección</button>
                         </div>
                     )}
                 </div>
