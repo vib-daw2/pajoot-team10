@@ -391,10 +391,13 @@ io.on('connection', (socket) => {
 
     socket.on("timeUp", function(data) {
         socket.emit('timeUp')
+        io.emit('hostTimeUp')
     })
 
     socket.on("startGame", function(data) {
+
         socket.emit('startGame')
+        io.emit('hostStartGame')
     })
 
     socket.on("cancelGame", function(data) {
@@ -403,10 +406,12 @@ io.on('connection', (socket) => {
 
     socket.on("nextQuestion", function(data) {
         socket.emit('nextQuestion')
+        io.emit('hostNextQuestion')
     })
 
     socket.on("endGame", function(data) {
         socket.emit('gameOver')
+        io.emit('hostGameOver')
     })
 
     socket.on("createGame", async function(data) {
@@ -450,21 +455,12 @@ io.on('connection', (socket) => {
         
         const parsedData = JSON.parse(data);
 
-        console.log(parsedData.pin);
-
-        console.log (games);
-
-        console.log (games.games);
-
         let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
 
-        console.log(game);
-        console.log(game.gameData);
-        console.log(game.gameData.players);
-        console.log(game.gameData.players.players);
-
         game.gameData.players.addPlayer(game.hostId,parsedData.playerId,parsedData.playerName,{score: 0});
+
         console.log('player joined at game:' + parsedData.pin);
+        
         socket.emit('playerJoined', game);
         io.emit('updatePlayerBoard',game);
         
