@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
-import PlayerGameOver from '../components/PlayerGameOver';
-import PlayerQuestion from '../components/PlayerQuestion';
-import PlayerTimeUp from '../components/PlayerTimeUp';
-import PlayerLobby from '../components/PlayerLobby';
+import React, { useState, useEffect} from 'react';
+import useStore from '../store';
+import { useNavigate } from 'react-router-dom';
+import PlayerGameOver from '../components/playerGameOver';
+import PlayerQuestion from '../components/playerQuestion';
+import PlayerTimeUp from '../components/playerTimeUp';
+import PlayerLobby from '../components/playerLobby';
+
 
 const PlayerGame = () => {
   const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
+  const {game,setGame} = useStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    if(!game){
+
+        navigate('/')
+        
+    }
+
+
+
+  },[game])
+  
+
 
   const renderComponent = () => {
       switch (GamePhase) {

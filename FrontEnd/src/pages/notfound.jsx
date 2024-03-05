@@ -8,7 +8,7 @@ const Notfound = () => {
                     <p class="not-text">¡Ups!</p>
                     <p class="not-text">No hemos encontrado la página<br/>o está temporalmente fuera de servicio.</p>
                 </div>
-                <img src='./assets/img/NotFoundCat.png' className="404Image" alt="Not found image" />
+                <img src='/assets/img/NotFoundCat.png' className="404Image" alt="Not found image" />
             </div>
             <a href="/" className="not-button">Volver a Inicio</a>
         </div>

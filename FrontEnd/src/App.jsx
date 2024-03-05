@@ -12,6 +12,7 @@ import Home from './pages/home';
 import Notfound from './pages/notfound';
 import app from '../firebaseConfig'
 import HostGame from './pages/hostGame';
+import PlayerGame from './pages/playerGame';
 import NewQuiz from './pages/newQuiz';
 import Profile from './pages/profile';
 import useStore from './store';
@@ -52,6 +53,7 @@ function App() {
         <Route path="/verify" element={<Verify/>} />
         <Route path="/create" element={<Create/>} />
         <Route path="/host" element={<HostGame/>}/>
+        <Route path="/game" element={<PlayerGame/>}/>
         <Route path = "/choose" element={<NewQuiz/>}/>
         <Route path = "/profile" element={<Profile/>}/>
         <Route path="/*" element={<Notfound/>} />
