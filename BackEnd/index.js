@@ -446,7 +446,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on("playerJoin", async function(data) {
+    socket.on("playerJoin", function(data) {
         
         const parsedData = JSON.parse(data);
 
@@ -465,11 +465,7 @@ io.on('connection', (socket) => {
 
         game.gameData.players.addPlayer(game.hostId,parsedData.playerId,parsedData.playerName,{score: 0});
         console.log('player joined at game:' + parsedData.pin);
-
-
-
-        socket.emit("playerJoined", game);
-        
+        io.emit('patatas', game);
         
     })
     
