@@ -6,19 +6,22 @@ const HostLobby = () => {
   const { game, setGame } = useStore();
 
   useEffect(() => {
-    socket.on('patatas', (game) => {
-      console.log('hola');
+
+    socket.on('updatePlayerBoard', (game) => {
+
       setGame(game);
-      console.log(game);
+      
     });
+
   },[]);
 
   return (
     <div>
       <h2>Join this Game using the game pin:</h2>
-      <h1>{game.pin}</h1>
+      
+      {game &&(<h1>{game.pin}</h1>)}
       <h2>Players:</h2>
-      {Array.isArray(game.gameData.players.players) ? (
+      {game && Array.isArray(game.gameData.players.players) ? (
         game.gameData.players.players.map((player, index) => (
           <h3 key={index}>{player.name}</h3>
         ))

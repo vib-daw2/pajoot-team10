@@ -8,7 +8,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import { socket } from '../socket';
 
 const Home = () => {
-    const {userLogged, setUserLogged} = useStore();
+    const {userLogged, setUserLogged, game, setGame} = useStore();
     const [error, setError] = useState(null);
     const navigate = useNavigate();  // Obtén la función de navegación
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -39,8 +39,9 @@ const Home = () => {
     }, [userLogged, navigate]);
 
     useEffect(() => {
-        socket.on('patatas', (game) => {
-          console.log('hola');
+        socket.on('playerJoined', (game) => {
+          setGame(game);
+          navigate('/game')
         });
       },[]);
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import HostGameOver from '../components/hostGameOver';
 import HostQuestion from '../components/hostQuestion';
 import HostTimeUp from '../components/hostTimeUp';
@@ -7,8 +8,25 @@ import useStore from '../store';
 import { socket } from '../socket';
 
 const HostGame = () => {
+
   const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
   const { game, setGame } = useStore();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+
+    if(!game){
+
+        navigate('/')
+        
+    }
+
+
+
+  },[game])
+
+
 
   useEffect(() => {
     function startGame() {
@@ -32,11 +50,6 @@ const HostGame = () => {
     socket.on('timeUp', timeUp);
     socket.on('nextQuestion', nextQuestion);
     socket.on('gameOver', gameOver);
-
-    socket.on('patatas', (game) => {
-        console.log('hola');
-        setGame(game);
-      });
 
 
   }, []);
