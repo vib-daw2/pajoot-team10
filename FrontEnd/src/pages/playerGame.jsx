@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import useStore from '../store';
+import { socket } from '../socket';
 import { useNavigate } from 'react-router-dom';
 import PlayerGameOver from '../components/playerGameOver';
 import PlayerQuestion from '../components/playerQuestion';
@@ -23,6 +24,32 @@ const PlayerGame = () => {
 
 
   },[game])
+
+  useEffect(() => {
+    function startGame() {
+      setGamePhase('Question');
+    }
+
+    function timeUp() {
+        setGamePhase('TimeUp');
+    }
+
+    function nextQuestion() {
+        setGamePhase('Question');
+    }
+
+    function gameOver() {
+        setGamePhase('GameOver');
+    }
+
+
+    socket.on('hostStartGame', startGame);
+    socket.on('hostTimeUp', timeUp);
+    socket.on('hostNextQuestion', nextQuestion);
+    socket.on('hostGameOver', gameOver);
+
+
+  }, []);
   
 
 
