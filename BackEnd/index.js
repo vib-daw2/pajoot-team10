@@ -465,7 +465,8 @@ io.on('connection', (socket) => {
 
         game.gameData.players.addPlayer(game.hostId,parsedData.playerId,parsedData.playerName,{score: 0});
         console.log('player joined at game:' + parsedData.pin);
-        io.emit('patatas', game);
+        socket.emit('playerJoined', game);
+        io.emit('updatePlayerBoard',game);
         
     })
     
