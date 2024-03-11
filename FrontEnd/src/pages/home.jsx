@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import app from '../../firebaseConfig';
 import { getAuth, signOut } from 'firebase/auth';
 import { socket } from '../socket';
+import { avatarsArray } from '../components/profileAvatar';
 
 const Home = () => {
     const {userLogged, setUserLogged, game, setGame} = useStore();
@@ -63,16 +64,22 @@ const Home = () => {
 
         event.preventDefault();
         
-        const id = Math.floor(Math.random() * 90000) + 10000;
+        const id = Math.floor(Math.random() * 900000) + 100000;
 
-        socket.emit('playerJoin',JSON.stringify({pin:gameCode, playerName:anonName, playerId:id}))
+        let avatar = avatarsArray[Math.floor(Math.random() * avatarsArray.length)];
+
+        setUserLogged({displayName:anonName, uid:id, photoURL:avatar});
+
+        socket.emit('playerJoin',JSON.stringify({pin:gameCode, playerName:anonName, playerId:id, photoURL:avatar}))
+
+        
 
 
     }
 
     const handleUserJoin = (event) => {
         event.preventDefault();
-        socket.emit('playerJoin',JSON.stringify({pin:gameCode, playerName:userLogged.displayName, playerId:userLogged.uid}))
+        socket.emit('playerJoin',JSON.stringify({pin:gameCode, playerName:userLogged.displayName, playerId:userLogged.uid, photoURL:userLogged.photoURL}))
 
 
     }
