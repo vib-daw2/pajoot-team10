@@ -414,13 +414,23 @@ io.on('connection', (socket) => {
     })
 
     socket.on("nextQuestion", function(data) {
-        socket.emit('nextQuestion')
-        io.emit('hostNextQuestion')
-    })
 
-    socket.on("endGame", function(data) {
-        socket.emit('gameOver')
-        io.emit('hostGameOver')
+        const parsedData = JSON.parse(data);
+
+        let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
+
+        //get the next question
+
+        let question = game.gameData.questions.shift();
+
+        if(question == undefined){
+            socket.emit('gameOver')
+            io.emit('hostGameOver')
+            return;
+        }
+
+        socket.emit('nextQuestion', question);
+        io.emit('hostNextQuestion', question);
     })
 
     socket.on("createGame", async function(data) {
