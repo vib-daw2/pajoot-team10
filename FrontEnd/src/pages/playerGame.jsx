@@ -10,7 +10,7 @@ import PlayerLobby from '../components/playerLobby';
 
 const PlayerGame = () => {
   const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
-  const {game,setGame} = useStore();
+  const {game,setGame,question,setQuestion} = useStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,8 +26,9 @@ const PlayerGame = () => {
   },[game])
 
   useEffect(() => {
-    function startGame() {
-      setGamePhase('Question');
+    function startGame(question) {
+        setQuestion(question);
+        setGamePhase('Question');
     }
 
     function timeUp() {
@@ -43,7 +44,10 @@ const PlayerGame = () => {
     }
 
 
-    socket.on('hostStartGame', startGame);
+    socket.on('hostStartGame', (question) => {
+        console.log (question);
+        startGame(question);
+    });
     socket.on('hostTimeUp', timeUp);
     socket.on('hostNextQuestion', nextQuestion);
     socket.on('hostGameOver', gameOver);
