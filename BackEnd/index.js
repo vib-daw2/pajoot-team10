@@ -458,7 +458,7 @@ io.on('connection', (socket) => {
                 });
     
                 // Agregar el juego con las preguntas al objeto de juegos
-                let game = games.addGame(gamePin, socket.id, false, { tematica: parsedData.tematica, questions: questions, players: new Players()});
+                let game = games.addGame(gamePin, socket.id, false, { tematica: parsedData.tematica, questions: questions, playersAnswered:0, players: new Players()});
 
                  // Emitir el juego creado con las preguntas al cliente
                 socket.emit('gameCreated', game);
@@ -476,13 +476,32 @@ io.on('connection', (socket) => {
 
         let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
 
-        game.gameData.players.addPlayer(game.hostId,parsedData.playerId,parsedData.playerName,{score: 0});
+        game.gameData.players.addPlayer(game.hostId,parsedData.playerId,parsedData.playerName,parsedData.photoURL,{score: 0});
 
         console.log('player joined at game:' + parsedData.pin);
         
         socket.emit('playerJoined', game);
         io.emit('updatePlayerBoard',game);
         
+    })
+
+    socket.on("answer", function(data) {
+        const parsedData = JSON.parse(data);
+
+        let game = games.games.filter((game) => game.pin == parsedData.gamePin)[0];
+
+        let player = game.gameData.players.players.filter((player) => player.playerId == parsedData.playerId)[0];
+
+
+        game.gameData.playersAnswered++;
+
+        if(parsedData.answer == parsedData.correctAnswer){
+            player.gameData.score += (100+(parsedData.timeLeft/300));
+            console.log('player '+parsedData.playerId+' answered correctly, score:'+player.gameData.score);
+
+        }
+
+        socket.emit('questionAnswered');
     })
     
 
