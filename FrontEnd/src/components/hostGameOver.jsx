@@ -6,6 +6,7 @@ const HostGameOver = () => {
   return (
     <div>
         <h2>Host Game Over</h2>
+        <button onClick={() => socket.emit('hostPlayAgain')}>Play Again</button>
     </div>
   );
 };

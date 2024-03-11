@@ -28,7 +28,7 @@ const HostLobby = () => {
       ) : (
         <p>No players available</p>
       )}
-      <button onClick={() => socket.emit('startGame')}>Start Game</button>
+      <button onClick={() => socket.emit('startGame', JSON.stringify({pin:game.pin}))}>Start Game</button>
       <button onClick={() => socket.emit('cancelGame')}>Cancel Game</button>
     </div>
   );

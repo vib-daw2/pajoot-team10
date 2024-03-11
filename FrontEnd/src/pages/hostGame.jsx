@@ -10,7 +10,7 @@ import { socket } from '../socket';
 const HostGame = () => {
 
   const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
-  const { game, setGame } = useStore();
+  const { game, setGame, question, setQuestion} = useStore();
   const navigate = useNavigate();
 
 
@@ -29,15 +29,17 @@ const HostGame = () => {
 
 
   useEffect(() => {
-    function startGame() {
-      setGamePhase('Question');
+    function startGame(question) {
+        setQuestion(question);
+        setGamePhase('Question');
     }
 
     function timeUp() {
         setGamePhase('TimeUp');
     }
 
-    function nextQuestion() {
+    function nextQuestion(question) {
+        setQuestion(question);
         setGamePhase('Question');
     }
 
@@ -46,9 +48,17 @@ const HostGame = () => {
     }
 
 
-    socket.on('startGame', startGame);
+    socket.on('startGame', (question) => {
+        console.log (question);
+        startGame(question);
+    });
+
     socket.on('timeUp', timeUp);
-    socket.on('nextQuestion', nextQuestion);
+    
+    socket.on('nextQuestion', (question) => {
+        console.log (question);
+        nextQuestion(question);
+    });
     socket.on('gameOver', gameOver);
 
 

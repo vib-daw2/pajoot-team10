@@ -16,6 +16,10 @@ const useStore = create((set) => ({
   game: null,
 
   setGame: (currentGame) => set({ game: currentGame }),
+
+  question: null,
+
+  setQuestion: (currentQuestion) => set({ question: currentQuestion }),
   
 }));
 
