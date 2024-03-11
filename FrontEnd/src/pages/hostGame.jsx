@@ -38,7 +38,8 @@ const HostGame = () => {
         setGamePhase('TimeUp');
     }
 
-    function nextQuestion() {
+    function nextQuestion(question) {
+        setQuestion(question);
         setGamePhase('Question');
     }
 
@@ -53,7 +54,11 @@ const HostGame = () => {
     });
 
     socket.on('timeUp', timeUp);
-    socket.on('nextQuestion', nextQuestion);
+    
+    socket.on('nextQuestion', (question) => {
+        console.log (question);
+        nextQuestion(question);
+    });
     socket.on('gameOver', gameOver);
 
 
