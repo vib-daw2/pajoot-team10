@@ -90,7 +90,6 @@ const Profile = () => {
         }
         setShowAvatarSelector(false);
 
-        // ... (resto de la lógica de guardado y posiblemente la navegación)
     };
 
     const handleLogout = () => {

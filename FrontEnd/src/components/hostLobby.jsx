@@ -22,15 +22,19 @@ const HostLobby = () => {
       {game &&(<h1>{game.pin}</h1>)}
 
       <p>Jugadores</p>
-      {game && Array.isArray(game.gameData.players.players) ? (
-        game.gameData.players.players.map((player, index) => (
-          <h3 key={index}>{player.name}</h3>
-        ))
-      ) : (
-        <p>Todavía no hay jugadores</p>
-      )}
-      <button className= 'lobby-button' onClick={() => socket.emit('cancelGame')}>Cancelar</button>
-      <button className= 'lobby-button' onClick={() => socket.emit('startGame', JSON.stringify({pin:game.pin}))}>Iniciar</button>
+      <div className='lobby-content'>
+        {game && Array.isArray(game.gameData.players.players) ? (
+          game.gameData.players.players.map((player, index) => (
+            <p className='player-name' key={index}>{player.name}</p>
+          ))
+        ) : (
+          <p>Todavía no hay jugadores</p>
+        )}
+      </div>
+      <div className='lobby-buttons'>
+        <button className= 'lobby-button' onClick={() => socket.emit('cancelGame')}>Cancelar</button>
+        <button className= 'lobby-button' onClick={() => socket.emit('startGame', JSON.stringify({pin:game.pin}))}>Iniciar</button>
+      </div>
     </div>
   );
 };

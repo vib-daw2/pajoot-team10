@@ -7,9 +7,9 @@ const PlayerLobby = () => {
   const { game, setGame } = useStore();
     
   return (
-    <div>
-      <h2>Waiting on host to start game</h2>
-      <h3>Do you see your name on the host screen?</h3>
+    <div className='lobby-container'>
+      <p>Esperando a otros jugadores</p>
+      <h1>Do you see your name on the host screen?</h1>
     </div>
   );
 };

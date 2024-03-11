@@ -263,20 +263,18 @@ hr {
                 padding: 18px 60px;
                 border-radius: 4px;
                 &:hover {
-                    color: #FFF;
-                    background-color: #037189;
                     border-radius: 4px;
                     border-color: #037189;
-                    box-shadow: 2px 2px 2px 0 #003946;
+                    box-shadow: 1px 1px 8px 4px #015669;
                 }
                 &:active {
                     box-shadow: inset 1px 1px 2px 2px #015669;
                 }
                 &:focus {
-                    outline: 1px solid #029dc0;
+                    outline: none;
                 }
                 &:focus-visible {
-                    outline: 1px solid #029dc0;
+                    outline: none;
                 }
             }
         }
@@ -303,45 +301,86 @@ hr {
                 color: #3b3b3b;
             }
             &:hover {
-                background-color: #016a81;
+                background-color: #015669;
             }
         }
     }
 }
 .lobby-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #037189;
-    width: 90vw;
+    border: 1px solid #006075;
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px 2px #006075;
     height: fit-content;
-    padding: 48px;
+    padding: 48px 204px;
     gap: 16px;
     h1 {
         color: #FFF;
         font-size: 60px;
+        margin: 0;
     }
     p {
         font-size: 20px;
         font-weight: 400;
+        margin: 0;
     }
-    .lobby-button {
-        font-family: "Montserrat";
-        font-size: 20px;
-        font-weight: 500;
-        color: #FFF;
-        padding: 16px 10px;
+    .lobby-content {
+        background-color: #FFF;
         border-radius: 4px;
-        background-color:#1688A1;
-        border-style: none;
-        box-shadow: 2px 2px 2px 0 #003946;
-        width: 30%;
-        cursor: pointer;
-        &:active {
-            box-shadow: inset 1px 1px 2px 2px #015669;
+        height: 400px;
+        overflow-y: auto;
+        width: 400px;
+        box-shadow: 2px 2px 8px 2px #006075;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+        .player-name {
+            color: #1C1C1C;
+            padding: 8px 0;
+            border-top: 1px solid #bfbfbf;
+            width: 50%;
+            &:first-child {
+                border: none;
+            }
         }
-        &:disabled {
-            color: #3b3b3b;
-        }
-        &:hover {
-            background-color: #016a81;
+    }
+    .lobby-buttons {
+        display: flex;
+        justify-content: center;
+        width: 400px;
+        gap: 16px;
+        .lobby-button {
+            font-family: "Montserrat";
+            font-size: 20px;
+            font-weight: 500;
+            color: #FFF;
+            padding: 16px 10px;
+            border-radius: 4px;
+            background-color:#1688A1;
+            border-style: none;
+            box-shadow: 2px 2px 2px 0 #003946;
+            width: 50%;
+            cursor: pointer;
+            &:active {
+                box-shadow: inset 1px 1px 2px 2px #015669;
+            }
+            &:disabled {
+                color: #3b3b3b;
+            }
+            &:hover {
+                background-color: #015669;
+                outline: none;
+            }
+            &:focus {
+                outline: none;
+            }
+            &:focus-visible {
+                outline: none;
+            }
         }
     }
 }
