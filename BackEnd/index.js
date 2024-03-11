@@ -396,8 +396,17 @@ io.on('connection', (socket) => {
 
     socket.on("startGame", function(data) {
 
-        socket.emit('startGame')
-        io.emit('hostStartGame')
+        const parsedData = JSON.parse(data);
+
+        let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
+
+        //get the first question
+
+        let question = game.gameData.questions.shift();
+
+
+        socket.emit('startGame', question);
+        io.emit('hostStartGame', question);
     })
 
     socket.on("cancelGame", function(data) {
