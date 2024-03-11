@@ -308,6 +308,43 @@ hr {
         }
     }
 }
+.lobby-container {
+    background-color: #037189;
+    width: 90vw;
+    height: fit-content;
+    padding: 48px;
+    gap: 16px;
+    h1 {
+        color: #FFF;
+        font-size: 60px;
+    }
+    p {
+        font-size: 20px;
+        font-weight: 400;
+    }
+    .lobby-button {
+        font-family: "Montserrat";
+        font-size: 20px;
+        font-weight: 500;
+        color: #FFF;
+        padding: 16px 10px;
+        border-radius: 4px;
+        background-color:#1688A1;
+        border-style: none;
+        box-shadow: 2px 2px 2px 0 #003946;
+        width: 30%;
+        cursor: pointer;
+        &:active {
+            box-shadow: inset 1px 1px 2px 2px #015669;
+        }
+        &:disabled {
+            color: #3b3b3b;
+        }
+        &:hover {
+            background-color: #016a81;
+        }
+    }
+}
 .new-register {
     .entry-credentials .form-login {
         p {
