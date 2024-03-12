@@ -390,8 +390,10 @@ app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
 io.on('connection', (socket) => {
 
     socket.on("timeUp", function(data) {
-        socket.emit('timeUp')
-        io.emit('hostTimeUp')
+        const parsedData = JSON.parse(data);
+        let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
+        socket.emit('timeUp',game)
+        io.emit('hostTimeUp',game)
     })
 
     socket.on("startGame", function(data) {
@@ -419,6 +421,8 @@ io.on('connection', (socket) => {
 
         let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
 
+        game.gameData.playersAnswered = 0;
+
         //get the next question
 
         let question = game.gameData.questions.shift();
@@ -429,7 +433,7 @@ io.on('connection', (socket) => {
             return;
         }
 
-        socket.emit('nextQuestion', question);
+        socket.emit('nextQuestion', question, game);
         io.emit('hostNextQuestion', question);
     })
 
@@ -486,7 +490,10 @@ io.on('connection', (socket) => {
     })
 
     socket.on("answer", function(data) {
+
         const parsedData = JSON.parse(data);
+
+        let answeredCorrectly = false;
 
         let game = games.games.filter((game) => game.pin == parsedData.gamePin)[0];
 
@@ -495,13 +502,18 @@ io.on('connection', (socket) => {
 
         game.gameData.playersAnswered++;
 
+        io.emit('updatePlayersAnswered',game);
+
         if(parsedData.answer == parsedData.correctAnswer){
             player.gameData.score += (100+(parsedData.timeLeft/300));
             console.log('player '+parsedData.playerId+' answered correctly, score:'+player.gameData.score);
-
+            answeredCorrectly = true;
+            socket.emit('questionAnswered', answeredCorrectly);
+            return;
         }
 
-        socket.emit('questionAnswered');
+        socket.emit('questionAnswered', answeredCorrectly);
+        
     })
     
 
