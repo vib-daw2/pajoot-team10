@@ -10,7 +10,7 @@ import PlayerLobby from '../components/playerLobby';
 
 const PlayerGame = () => {
   const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
-  const {game,setGame,question,setQuestion} = useStore();
+  const {game,setGame,question,setQuestion,userLogged,setUserLogge,answeredCorrectly,setAnsweredCorrectly} = useStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,13 +31,15 @@ const PlayerGame = () => {
         setGamePhase('Question');
     }
 
-    function timeUp() {
+    function timeUp(game) {
+        setGame(game);
         setGamePhase('TimeUp');
     }
 
     function nextQuestion(question) {
         setQuestion(question);
         setGamePhase('Question');
+        setAnsweredCorrectly(false);
     }
 
     function gameOver() {
@@ -49,7 +51,9 @@ const PlayerGame = () => {
         console.log (question);
         startGame(question);
     });
-    socket.on('hostTimeUp', timeUp);
+    socket.on('hostTimeUp', (game) => {
+        timeUp(game);
+    });
     socket.on('hostNextQuestion', (question) => {
         console.log (question);
         nextQuestion(question);

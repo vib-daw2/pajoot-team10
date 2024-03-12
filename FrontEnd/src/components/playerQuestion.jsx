@@ -6,7 +6,8 @@ import Countdown from 'react-countdown';
 const PlayerQuestion = () => {
 
   useEffect(() => {
-    socket.on('questionAnswered', () => {
+    socket.on('questionAnswered', (answeredCorrectly) => {
+      setAnsweredCorrectly(answeredCorrectly);
       setQuestionAnswered(true);
     });
   }, []);
@@ -14,10 +15,13 @@ const PlayerQuestion = () => {
   const [targetDate, setTargetDate] = useState(Date.now() + 30000);
   const [questionAnswered, setQuestionAnswered] = useState(false);
 
-  const { game, setGame, question, setQuestion, userLogged, setUserLogged} = useStore();
+  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly} = useStore();
+
+  const score = game.gameData.players.players.find((player) => player.playerId == userLogged.uid).gameData.score;
  
   return (
     <div>
+        <h2>Score: {score.toFixed()}</h2>
         <h2>{question.pregunta}</h2>
         <button disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"a", correctAnswer: question.respuesta, playerId:userLogged.uid, timeLeft: targetDate-Date.now()}))}>{question.opciones.a}</button>
         <button disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"b", correctAnswer: question.respuesta, playerId:userLogged.uid, timeLeft: targetDate-Date.now()}))}>{question.opciones.b}</button>

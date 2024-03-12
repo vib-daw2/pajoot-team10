@@ -20,6 +20,12 @@ const useStore = create((set) => ({
   question: null,
 
   setQuestion: (currentQuestion) => set({ question: currentQuestion }),
+
+  answeredCorrectly: false,
+
+  setAnsweredCorrectly: (correct) => set({ answeredCorrectly: correct }),
+
+
   
 }));
 
