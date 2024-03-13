@@ -393,7 +393,12 @@ io.on('connection', (socket) => {
         const parsedData = JSON.parse(data);
         let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
         socket.emit('timeUp',game)
-        io.emit('hostTimeUp',game)
+
+        game.gameData.players.players.forEach((player) => {
+
+            io.to(player.socketId).emit('hostTimeUp', game);
+        })
+        //io.emit('hostTimeUp',game)
     })
 
     socket.on("startGame", function(data) {
@@ -406,9 +411,14 @@ io.on('connection', (socket) => {
 
         let question = game.gameData.questions.shift();
 
-
         socket.emit('startGame', question);
-        io.emit('hostStartGame', question);
+
+        //for each player in the game, emit a startGame event to the player by his socket id
+        game.gameData.players.players.forEach((player) => {
+
+            io.to(player.socketId).emit('hostStartGame', question);
+        })
+        //io.emit('hostStartGame', question);
     })
 
     socket.on("cancelGame", function(data) {
@@ -429,12 +439,20 @@ io.on('connection', (socket) => {
 
         if(question == undefined){
             socket.emit('gameOver')
-            io.emit('hostGameOver')
+            game.gameData.players.players.forEach((player) => {
+
+                io.to(player.socketId).emit('hostGameOver', question);
+            })
+            //io.emit('hostGameOver')
             return;
         }
 
         socket.emit('nextQuestion', question, game);
-        io.emit('hostNextQuestion', question);
+        game.gameData.players.players.forEach((player) => {
+
+            io.to(player.socketId).emit('hostNextQuestion', question);
+        })
+        //io.emit('hostNextQuestion', question);
     })
 
     socket.on("createGame", async function(data) {
@@ -480,12 +498,14 @@ io.on('connection', (socket) => {
 
         let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
 
-        game.gameData.players.addPlayer(game.hostId,parsedData.playerId,parsedData.playerName,parsedData.photoURL,{score: 0});
+        game.gameData.players.addPlayer(game.hostId,parsedData.playerId,socket.id,parsedData.playerName,parsedData.photoURL,{score: 0});
+
+        let hostSocket = game.hostId;
 
         console.log('player joined at game:' + parsedData.pin);
         
         socket.emit('playerJoined', game);
-        io.emit('updatePlayerBoard',game);
+        io.to(hostSocket).emit('updatePlayerBoard',game);
         
     })
 
@@ -502,7 +522,10 @@ io.on('connection', (socket) => {
 
         game.gameData.playersAnswered++;
 
-        io.emit('updatePlayersAnswered',game);
+        let hostSocket = game.hostId;
+
+
+        io.to(hostSocket).emit('updatePlayersAnswered',game);
 
         if(parsedData.answer == parsedData.correctAnswer){
             player.gameData.score += (100+(parsedData.timeLeft/300));
