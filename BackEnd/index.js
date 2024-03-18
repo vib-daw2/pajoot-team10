@@ -438,10 +438,10 @@ io.on('connection', (socket) => {
         let question = game.gameData.questions.shift();
 
         if(question == undefined){
-            socket.emit('gameOver')
+            socket.emit('gameOver', game);
             game.gameData.players.players.forEach((player) => {
 
-                io.to(player.socketId).emit('hostGameOver', question);
+                io.to(player.socketId).emit('hostGameOver', game);
             })
             //io.emit('hostGameOver')
             return;
