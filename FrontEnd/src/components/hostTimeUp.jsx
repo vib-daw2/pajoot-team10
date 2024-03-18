@@ -7,9 +7,10 @@ const HostTimeUp= () => {
   const { game, setGame, question, setQuestion } = useStore();
    
   return (
-    <div>
-        <h2>Host Time Up</h2>
-        <button onClick={() => socket.emit('nextQuestion',JSON.stringify({pin:game.pin}))}>Next Question</button>
+    <div className='question-container ranking-container'>
+        <h2>Tiempo Finalizado</h2>
+        <h1>Clasificación</h1>
+        <button className='question-button_next' onClick={() => socket.emit('nextQuestion',JSON.stringify({pin:game.pin}))}>Siguiente Pregunta</button>
     </div>
   );
 };

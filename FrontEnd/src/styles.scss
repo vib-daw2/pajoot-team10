@@ -425,6 +425,9 @@ hr {
             margin-right: 8px;
             font-weight: 600;
         }
+        &:disabled {
+            filter: brightness(0.7);
+        }
         }
         .question-button:first-child {
             background-color: #BD78C8;
@@ -470,6 +473,18 @@ hr {
     }
     .question-answered {
         align-self: flex-start;
+        .question-players{
+            font-size: 56px;
+        }
+        .question-score {
+            margin-top: 32px;
+            font-size: 56px;
+        }
+    }
+}
+.ranking-container {
+    .question-button_next {
+        width: 100%;
     }
 }
 .new-register {

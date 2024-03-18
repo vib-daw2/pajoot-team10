@@ -20,7 +20,7 @@ useEffect(() => {
   }
   );
   console.log('reset timer');
-  setTargetDate(Date.now() + 300000000000000);
+  setTargetDate(Date.now() + 30000);
 
 },[])
    
@@ -40,7 +40,7 @@ useEffect(() => {
         </div>
         <button className='question-button_next' onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Siguiente</button>
         <div className='question-answered'>
-          <p>Han contestado</p><h1> {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h1><p>jugadores</p>
+          <p>Han contestado</p><h1 className='question-players'> {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h1><p>jugadores</p>
         </div>
     </div>
   );

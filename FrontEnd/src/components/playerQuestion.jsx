@@ -4,7 +4,9 @@ import useStore from '../store';
 import Countdown from 'react-countdown';
 
 const PlayerQuestion = () => {
-
+  const formatTime = ({ minutes, seconds }) => {
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+};
   useEffect(() => {
     socket.on('questionAnswered', (answeredCorrectly) => {
       setAnsweredCorrectly(answeredCorrectly);
@@ -14,7 +16,7 @@ const PlayerQuestion = () => {
       }
       else {
         setRacha(1);
-        console.log("racha perdida");
+        console.log("Racha perdida");
       }
 
       if (answeredCorrectly && racha > 1.1) {
@@ -39,13 +41,22 @@ const PlayerQuestion = () => {
   const score = game.gameData.players.players.find((player) => player.playerId == userLogged.uid).gameData.score;
  
   return (
-    <div>
-        <h2>Score: {score.toFixed()}</h2>
-        <h2>{question.pregunta}</h2>
-        <button disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"a", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}>{question.opciones.a}</button>
-        <button disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"b", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}>{question.opciones.b}</button>
-        <button disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"c", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}>{question.opciones.c}</button>
-        <button disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"d", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}>{question.opciones.d}</button>
+    <div className='question-container'>
+        <div className='question-content'>
+          <p>{question.pregunta}</p>
+        </div>
+        <div className="form-verify_countdown">
+          <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
+        </div>
+        <div className='question-buttons'>
+          <button className='question-button' disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"a", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}><p>A)</p>{question.opciones.a}</button>
+          <button className='question-button' disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"b", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}><p>B)</p>{question.opciones.b}</button>
+          <button className='question-button' disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"c", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}><p>C)</p>{question.opciones.c}</button>
+          <button className='question-button' disabled = {questionAnswered} onClick={() => socket.emit('answer', JSON.stringify({gamePin: game.pin, answer:"d", correctAnswer: question.respuesta, playerId:userLogged.uid, racha: racha, timeLeft: targetDate-Date.now()}))}><p>D)</p>{question.opciones.d}</button>
+      </div>
+      <div className='question-answered'>
+        <h1 className='question-score'>Puntuación: {score.toFixed()}</h1>
+      </div>
     </div>
   );
 };
