@@ -528,7 +528,7 @@ io.on('connection', (socket) => {
         io.to(hostSocket).emit('updatePlayersAnswered',game);
 
         if(parsedData.answer == parsedData.correctAnswer){
-            player.gameData.score += (100+(parsedData.timeLeft/300));
+            player.gameData.score += (100+(parsedData.timeLeft/300))*parsedData.racha;
             console.log('player '+parsedData.playerId+' answered correctly, score:'+player.gameData.score);
             answeredCorrectly = true;
             socket.emit('questionAnswered', answeredCorrectly);
