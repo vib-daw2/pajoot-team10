@@ -23,7 +23,7 @@ const PlayerGame = () => {
 
 
 
-  },[game])
+  },[])
 
   useEffect(() => {
     function startGame(question) {
@@ -66,7 +66,7 @@ const PlayerGame = () => {
     );
 
 
-  }, []);
+  }, [GamePhase]);
   
 
 

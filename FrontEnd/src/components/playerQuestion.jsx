@@ -28,6 +28,11 @@ const PlayerQuestion = () => {
         setMensajeRacha('Perdiste la racha... Multiplicador actual: x1');
         console.log (mensajeRacha);
       }
+
+      if (answeredCorrectly && racha <= 1.1) {
+        setMensajeRacha('');
+        console.log (mensajeRacha);
+      }
       
       setQuestionAnswered(true);
     });
