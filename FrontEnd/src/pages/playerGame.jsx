@@ -43,7 +43,8 @@ const PlayerGame = () => {
         setMensajeRacha('');
     }
 
-    function gameOver() {
+    function gameOver(game) {
+        setGame(game);
         setGamePhase('GameOver');
     }
 
@@ -59,7 +60,10 @@ const PlayerGame = () => {
         console.log (question);
         nextQuestion(question);
     });
-    socket.on('hostGameOver', gameOver);
+    socket.on('hostGameOver', (game) => {
+        gameOver(game);
+    }
+    );
 
 
   }, []);

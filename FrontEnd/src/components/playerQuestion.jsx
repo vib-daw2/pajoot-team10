@@ -18,7 +18,7 @@ const PlayerQuestion = () => {
       }
 
       if (answeredCorrectly && racha > 1.1) {
-        setMensajeRacha('Estas en racha! Multiplicador actual: x' + racha);
+        setMensajeRacha('Estas en racha! Multiplicador actual: x' + racha.toFixed(2));
         console.log (mensajeRacha);
       }
 
