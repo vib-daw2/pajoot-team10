@@ -10,7 +10,7 @@ import PlayerLobby from '../components/playerLobby';
 
 const PlayerGame = () => {
   const [GamePhase, setGamePhase] = useState('WaitingForPlayers');
-  const {game,setGame,question,setQuestion,userLogged,setUserLogge,answeredCorrectly,setAnsweredCorrectly} = useStore();
+  const {game,setGame,question,setQuestion,userLogged,setUserLogge,answeredCorrectly,setAnsweredCorrectly,racha,setRacha,mensajeRacha,setMensajeRacha} = useStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const PlayerGame = () => {
         setQuestion(question);
         setGamePhase('Question');
         setAnsweredCorrectly(false);
+        setMensajeRacha('');
     }
 
     function gameOver() {

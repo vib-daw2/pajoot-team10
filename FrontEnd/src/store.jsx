@@ -25,6 +25,14 @@ const useStore = create((set) => ({
 
   setAnsweredCorrectly: (correct) => set({ answeredCorrectly: correct }),
 
+  racha: 1,
+
+  setRacha: (racha) => set({ racha: racha }),
+
+  mensajeRacha: null,
+
+  setMensajeRacha: (mensaje) => set({ mensajeRacha: mensaje }),
+
 
   
 }));

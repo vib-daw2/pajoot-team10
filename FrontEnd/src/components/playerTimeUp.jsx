@@ -3,7 +3,7 @@ import { socket } from '../socket';
 import useStore from '../store';
 
 const PlayerTimeUp = () => {
-  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly } = useStore();
+  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha} = useStore();
   
   return (
     <div>
@@ -14,6 +14,9 @@ const PlayerTimeUp = () => {
           <img src='./assets/gif/cat-win.gif' className='cat-waiting' alt='Cat-waiting' />
         ) : (
           <img src='./assets/gif/cat-lose.gif' className='cat-waiting' alt='Cat-waiting' />
+        )}
+        {mensajeRacha && (
+          <h3><img src='./assets/gif/cat-onfire.gif' className='cat-waiting' alt='Cat-onfire' />{mensajeRacha}</h3>
         )}
     </div>
   );
