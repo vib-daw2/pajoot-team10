@@ -438,10 +438,10 @@ io.on('connection', (socket) => {
         let question = game.gameData.questions.shift();
 
         if(question == undefined){
-            socket.emit('gameOver')
+            socket.emit('gameOver', game);
             game.gameData.players.players.forEach((player) => {
 
-                io.to(player.socketId).emit('hostGameOver', question);
+                io.to(player.socketId).emit('hostGameOver', game);
             })
             //io.emit('hostGameOver')
             return;
@@ -528,7 +528,7 @@ io.on('connection', (socket) => {
         io.to(hostSocket).emit('updatePlayersAnswered',game);
 
         if(parsedData.answer == parsedData.correctAnswer){
-            player.gameData.score += (100+(parsedData.timeLeft/300));
+            player.gameData.score += (100+(parsedData.timeLeft/300))*parsedData.racha;
             console.log('player '+parsedData.playerId+' answered correctly, score:'+player.gameData.score);
             answeredCorrectly = true;
             socket.emit('questionAnswered', answeredCorrectly);

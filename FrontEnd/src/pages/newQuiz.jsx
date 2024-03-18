@@ -14,7 +14,6 @@ const NewQuiz = () => {
 
   useEffect(() => {
     socket.on('gameCreated', (game) => {
-      console.log (game)
       setGame(game);
       navigate('/host');
     });
