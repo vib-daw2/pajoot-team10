@@ -33,10 +33,10 @@ useEffect(() => {
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>
         <div className='question-buttons'>
-          <button className='question-button'>{question.opciones.a}</button>
-          <button className='question-button'>{question.opciones.b}</button>
-          <button className='question-button'>{question.opciones.c}</button>
-          <button className='question-button'>{question.opciones.d}</button>
+          <button className='question-button'><p>A)</p>{question.opciones.a}</button>
+          <button className='question-button'><p>B)</p>{question.opciones.b}</button>
+          <button className='question-button'><p>C)</p>{question.opciones.c}</button>
+          <button className='question-button'><p>D)</p>{question.opciones.d}</button>
         </div>
         <button className='question-button_next' onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Siguiente</button>
         <div className='question-answered'>

@@ -406,11 +406,25 @@ hr {
         justify-content: center;
         gap: 32px;
         .question-button {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
             height: 150px;
             width: 45%;
             color: #1C1C1C;
             font-family: "Montserrat";
-            font-size: 20px;
+            font-size: 22px;
+            border-radius: 4px;
+            padding: 8px 32px;
+            &:hover {
+                border-color: transparent;
+                filter: brightness(0.7);
+            }
+        p {
+            color: #1C1C1C;
+            margin-right: 8px;
+            font-weight: 600;
+        }
         }
         .question-button:first-child {
             background-color: #BD78C8;
