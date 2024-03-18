@@ -12,26 +12,21 @@ const PlayerQuestion = () => {
       setAnsweredCorrectly(answeredCorrectly);
       if (answeredCorrectly) {
         setRacha(racha + 0.1);
-        console.log(racha);
       }
       else {
         setRacha(1);
-        console.log("Racha perdida");
       }
 
       if (answeredCorrectly && racha > 1.1) {
         setMensajeRacha('Estas en racha! Multiplicador actual: x' + racha.toFixed(2));
-        console.log (mensajeRacha);
       }
 
       if (!answeredCorrectly && racha > 1.1) {
         setMensajeRacha('Perdiste la racha... Multiplicador actual: x1');
-        console.log (mensajeRacha);
       }
 
       if (answeredCorrectly && racha <= 1.1) {
         setMensajeRacha('');
-        console.log (mensajeRacha);
       }
       
       setQuestionAnswered(true);

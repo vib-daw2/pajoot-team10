@@ -16,10 +16,8 @@ useEffect(() => {
 
   socket.on('updatePlayersAnswered', (game) => {
       setGame(game);
-      console.log(game);
   }
   );
-  console.log('reset timer');
   setTargetDate(Date.now() + 30000);
 
 },[])

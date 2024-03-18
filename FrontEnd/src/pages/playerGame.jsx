@@ -50,14 +50,12 @@ const PlayerGame = () => {
 
 
     socket.on('hostStartGame', (question) => {
-        console.log (question);
         startGame(question);
     });
     socket.on('hostTimeUp', (game) => {
         timeUp(game);
     });
     socket.on('hostNextQuestion', (question) => {
-        console.log (question);
         nextQuestion(question);
     });
     socket.on('hostGameOver', (game) => {

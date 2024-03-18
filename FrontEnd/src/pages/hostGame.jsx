@@ -53,7 +53,6 @@ const HostGame = () => {
 
 
     socket.on('startGame', (question) => {
-        console.log (question);
         startGame(question);
     });
 
@@ -62,7 +61,6 @@ const HostGame = () => {
     });
     
     socket.on('nextQuestion', (question,game) => {
-        console.log (question);
         nextQuestion(question,game);
     });
     socket.on('gameOver', (game) => {

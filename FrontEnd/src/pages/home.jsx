@@ -20,7 +20,6 @@ const Home = () => {
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
         if (userLogged) {
-            console.log(userLogged);
         }
 
         const handleClickOutside = (event) => {
