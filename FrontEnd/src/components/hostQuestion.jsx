@@ -20,23 +20,28 @@ useEffect(() => {
   }
   );
   console.log('reset timer');
-  setTargetDate(Date.now() + 30000);
+  setTargetDate(Date.now() + 300000000000000);
 
 },[])
    
   return (
-    <div>
-        <h2>{question.pregunta}</h2>
-        <div className="form-verify_countdown">
-          <Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/>
+    <div className='question-container'>
+        <div className='question-content'>
+          <p>{question.pregunta}</p>
         </div>
-        <button>{question.opciones.a}</button>
-        <button>{question.opciones.b}</button>
-        <button>{question.opciones.c}</button>
-        <button>{question.opciones.d}</button>
-        <button onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Time Up</button>
-
-        <h3>Players ansered: {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h3>
+        <div className="form-verify_countdown">
+          <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
+        </div>
+        <div className='question-buttons'>
+          <button className='question-button'>{question.opciones.a}</button>
+          <button className='question-button'>{question.opciones.b}</button>
+          <button className='question-button'>{question.opciones.c}</button>
+          <button className='question-button'>{question.opciones.d}</button>
+        </div>
+        <button className='question-button_next' onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Siguiente</button>
+        <div className='question-answered'>
+          <p>Han contestado</p><h1> {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h1><p>jugadores</p>
+        </div>
     </div>
   );
 };
