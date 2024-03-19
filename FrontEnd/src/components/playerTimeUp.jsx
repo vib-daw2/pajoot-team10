@@ -11,9 +11,9 @@ const PlayerTimeUp = () => {
       <h3>The correct answer was: {question.respuesta}</h3>
       <h3>Your answer was: {answeredCorrectly ? "Correct!" : "Incorrect"}</h3>
         {answeredCorrectly ? (
-          <img src='./assets/gif/cat-win.gif' className='cat-waiting' alt='Cat-waiting' />
+          <img src='./assets/gif/cat-yes.gif' className='cat-waiting' alt='Cat-waiting' />
         ) : (
-          <img src='./assets/gif/cat-lose.gif' className='cat-waiting' alt='Cat-waiting' />
+          <img src='./assets/gif/cat-no.gif' className='cat-waiting' alt='Cat-waiting' />
         )}
         {mensajeRacha && (
           <h3><img src='./assets/gif/cat-onfire.gif' className='cat-waiting' alt='Cat-onfire' />{mensajeRacha}</h3>
