@@ -539,6 +539,14 @@ io.on('connection', (socket) => {
         socket.emit('questionAnswered', answeredCorrectly);
         
     })
+
+    socket.on("closeGame", function(data) {
+        const parsedData = JSON.parse(data);
+        let game = games.removeGame(parsedData.pin);
+        game.gameData.players.players.forEach((player) => {
+            io.to(player.socketId).emit('hostCloseGame');
+        })
+    })
     
 
 });

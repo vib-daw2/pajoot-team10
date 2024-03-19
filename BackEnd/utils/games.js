@@ -8,7 +8,7 @@ class Games {
         return game;
     }
     removeGame(hostId){
-        let game = this.getGame(hostId);
+        let game = this.getGameByPin(hostId);
         
         if(game){
             this.games = this.games.filter((game) => game.hostId !== hostId);
