@@ -17,7 +17,7 @@ const HostGame = () => {
   useEffect(() => {
 
     if(!game){
-
+        console.log('No game');
         navigate('/')
         
     }

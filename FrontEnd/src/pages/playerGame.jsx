@@ -6,6 +6,7 @@ import PlayerGameOver from '../components/playerGameOver';
 import PlayerQuestion from '../components/playerQuestion';
 import PlayerTimeUp from '../components/playerTimeUp';
 import PlayerLobby from '../components/playerLobby';
+import PlayerGameClosed from '../components/playerGameClosed';
 
 
 const PlayerGame = () => {
@@ -62,6 +63,9 @@ const PlayerGame = () => {
         gameOver(game);
     }
     );
+    socket.on('hostCloseGame', () => {
+        setGamePhase('GameClosed');
+    });
 
 
   }, [GamePhase]);
@@ -78,6 +82,8 @@ const PlayerGame = () => {
               return <PlayerTimeUp/>;
           case 'GameOver':
               return <PlayerGameOver/>;
+          case 'GameClosed':
+              return <PlayerGameClosed />;
           default:
               return null;
       }
