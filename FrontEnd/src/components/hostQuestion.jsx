@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { socket } from '../socket';
 import Countdown from 'react-countdown';
 import useStore from '../store';
+import Questionsound from '../../public/assets/sounds/question-groovy.mp3';
 
 const HostQuestion = () => {
 
-  const [targetDate, setTargetDate] = useState(Date.now() + 30000);
+  const [targetDate, setTargetDate] = useState(Date.now() + 31000);
   const { game, setGame, question, setQuestion} = useStore();
+  const audioRef = useRef(false);
   const formatTime = ({ minutes, seconds }) => {
     // Puedes personalizar el formato según tus necesidades
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
@@ -18,12 +20,19 @@ useEffect(() => {
       setGame(game);
   }
   );
-  setTargetDate(Date.now() + 30000);
+  setTargetDate(Date.now() + 31000);
 
 },[])
+
+useEffect(() => {
+  if (audioRef.current) {
+    audioRef.current.play();
+  }
+}, [audioRef]);
    
   return (
     <div className='question-container'>
+      <audio id='lobby-music' src={Questionsound} loop autoPlay ref={audioRef} />
         <div className='question-content'>
           <p>{question.pregunta}</p>
         </div>
