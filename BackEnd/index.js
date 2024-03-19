@@ -480,7 +480,7 @@ io.on('connection', (socket) => {
                 });
     
                 // Agregar el juego con las preguntas al objeto de juegos
-                let game = games.addGame(gamePin, socket.id, false, { tematica: parsedData.tematica, questions: questions, playersAnswered:0, players: new Players()});
+                let game = games.addGame(gamePin, socket.id, false, parsedData.modoRemoto, { tematica: parsedData.tematica, questions: questions, playersAnswered:0, players: new Players()});
 
                  // Emitir el juego creado con las preguntas al cliente
                 socket.emit('gameCreated', game);

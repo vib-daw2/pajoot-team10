@@ -2,8 +2,8 @@ class Games {
     constructor () {
         this.games = [];
     }
-    addGame(pin, hostId, gameLive, gameData){
-        let game = {pin, hostId, gameLive, gameData};
+    addGame(pin, hostId, gameLive, remoteMode, gameData){
+        let game = {pin, hostId, gameLive, remoteMode, gameData};
         this.games.push(game);
         return game;
     }
