@@ -6,7 +6,7 @@ import Questionsound from '../../public/assets/sounds/question-groovy.mp3';
 
 const HostQuestion = () => {
 
-  const [targetDate, setTargetDate] = useState(Date.now() + 31000);
+  const [targetDate, setTargetDate] = useState(Date.now() + 32000);
   const { game, setGame, question, setQuestion} = useStore();
   const audioRef = useRef(false);
   const formatTime = ({ minutes, seconds }) => {
@@ -20,7 +20,7 @@ useEffect(() => {
       setGame(game);
   }
   );
-  setTargetDate(Date.now() + 31000);
+  setTargetDate(Date.now() + 32000);
 
 },[])
 
@@ -32,12 +32,12 @@ useEffect(() => {
    
   return (
     <div className='question-container'>
-      <audio id='lobby-music' src={Questionsound} loop autoPlay ref={audioRef} />
-        <div className='question-content'>
-          <p>{question.pregunta}</p>
-        </div>
+      <audio id='lobby-music' src={Questionsound} autoPlay ref={audioRef} />
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
+        </div>
+        <div className='question-content'>
+          <p>{question.pregunta}</p>
         </div>
         <button className='question-button_next' onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Finalizar Tiempo</button>
         <div className='question-answered'>

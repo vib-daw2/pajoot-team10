@@ -33,7 +33,7 @@ const PlayerQuestion = () => {
     });
   }, []);
 
-  const [targetDate, setTargetDate] = useState(Date.now() + 31000);
+  const [targetDate, setTargetDate] = useState(Date.now() + 32000);
   const [questionAnswered, setQuestionAnswered] = useState(false);
 
   const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly,racha,setRacha,mensajeRacha,setMensajeRacha} = useStore();
