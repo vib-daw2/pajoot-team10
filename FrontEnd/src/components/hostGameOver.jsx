@@ -11,7 +11,7 @@ const HostGameOver = () => {
   // Ordenar los jugadores por puntuación
   const sortedPlayers = players.sort((a, b) => b.gameData.score - a.gameData.score);
 
-  function handleCloseGame(game) {
+  function handleCloseGame(){
     socket.emit('closeGame', JSON.stringify({ pin: game.pin }));
     window.location.href = '/';
   }
@@ -28,7 +28,7 @@ const HostGameOver = () => {
           </li>
         ))}
       </ul>
-      <button onClick={(handleCloseGame(game))}>Finalizar juego</button>
+      <button onClick={(handleCloseGame)}>Finalizar juego</button>
     </div>
   );
 };
