@@ -13,7 +13,7 @@ const HostTimeUp= () => {
    
   return (
     <>
-    <p className='time-out'>Tiempo Finalizado!</p>
+    <p className='time-out'>Tiempo Finalizado</p>
     <div className='question-container ranking-container'>
       <div className='ranking-content'>
         <h1>Clasificación</h1>

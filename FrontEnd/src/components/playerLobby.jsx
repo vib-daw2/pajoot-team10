@@ -6,13 +6,19 @@ const PlayerLobby = () => {
   const { game, setGame, userLogged, setUserLogged } = useStore();
 
   return (
+    <>
     <div className='lobby-container'>
-      <p>Esperando a otros jugadores</p>
       {userLogged && userLogged.displayName && (
+      <div className='lobby-player'>
+        <img className='lobby-image' src={userLogged.photoURL} alt={userLogged.displayName} />
         <h1>{userLogged.displayName}</h1>
+      </div>
       )}
       <img src='./assets/gif/cat-waiting.gif' className='cat-waiting' alt='Cat-waiting' />
+      <p>Esperando a otros jugadores</p>
+  
     </div>
+    </>
   );
 };
 

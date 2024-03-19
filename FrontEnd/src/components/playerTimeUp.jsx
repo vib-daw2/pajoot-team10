@@ -6,19 +6,24 @@ const PlayerTimeUp = () => {
   const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha} = useStore();
   
   return (
-    <div>
-      <h2>Time's up!</h2>
-      <h3>The correct answer was: {question.respuesta}</h3>
-      <h3>Your answer was: {answeredCorrectly ? "Correct!" : "Incorrect"}</h3>
-        {answeredCorrectly ? (
-          <img src='./assets/gif/cat-yes.gif' className='cat-waiting' alt='Cat-waiting' />
-        ) : (
-          <img src='./assets/gif/cat-no.gif' className='cat-waiting' alt='Cat-waiting' />
-        )}
-        {mensajeRacha && (
-          <h3><img src='./assets/gif/cat-onfire.gif' className='cat-waiting' alt='Cat-onfire' />{mensajeRacha}</h3>
-        )}
-    </div>
+    <>
+      <p className='time-out'>Se ha acabado el tiempo</p>
+      <div className='question-container answer-container'>
+        <h1>Respuesta {answeredCorrectly ? "Correcta!" : "Incorrecta!"}</h1>
+          {answeredCorrectly ? (
+            <img src='./assets/gif/cat-yes.gif' className='answer-image' alt='Gato asintiendo' />
+          ) : (
+            <img src='./assets/gif/cat-no.gif' className='answer-image' alt='Gato negando' />
+          )}
+          <p className='answer-correct'>La respuesta correcta es: {question.respuesta}</p>
+      </div>
+      {mensajeRacha && (
+      <div className='answer-streak'>
+          <img src='./assets/gif/cat-onfire.gif' className='streak-image' alt='Gato en racha' />
+          <p>{mensajeRacha}</p>
+      </div>
+      )}
+    </>
   );
 };
 

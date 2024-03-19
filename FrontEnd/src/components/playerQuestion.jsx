@@ -18,11 +18,11 @@ const PlayerQuestion = () => {
       }
 
       if (answeredCorrectly && racha > 1.1) {
-        setMensajeRacha('Estas en racha! Multiplicador actual: x' + racha.toFixed(2));
+        setMensajeRacha('Estás en racha! x' + racha.toFixed(2));
       }
 
       if (!answeredCorrectly && racha > 1.1) {
-        setMensajeRacha('Perdiste la racha... Multiplicador actual: x1');
+        setMensajeRacha('Perdiste la racha...');
       }
 
       if (answeredCorrectly && racha <= 1.1) {
@@ -42,9 +42,6 @@ const PlayerQuestion = () => {
  
   return (
     <div className='question-container'>
-        <div className='question-content'>
-          <p>{question.pregunta}</p>
-        </div>
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>
