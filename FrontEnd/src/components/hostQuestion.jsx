@@ -39,6 +39,14 @@ useEffect(() => {
         <div className='question-content'>
           <p>{question.pregunta}</p>
         </div>
+        {game.remoteMode &&(
+        <div className='question-buttons'>
+          <button className='question-button'><p>A)</p>{question.opciones.a}</button>
+          <button className='question-button'><p>B)</p>{question.opciones.b}</button>
+          <button className='question-button'><p>C)</p>{question.opciones.c}</button>
+          <button className='question-button'><p>D)</p>{question.opciones.d}</button>
+        </div>
+        )}
         <button className='question-button_next' onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Finalizar Tiempo</button>
         <div className='question-answered'>
           <p>Han contestado</p><h1 className='question-players'> {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h1><p>jugadores</p>

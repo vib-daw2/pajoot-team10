@@ -126,7 +126,7 @@ const Home = () => {
                         <p>Introduce un nombre</p>
                         <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" onChange={e => setAnonName(e.currentTarget.value)}required/>
                         <p>Introduce código de juego</p>
-                        <input type='number' className="form-login_input" name='codigo' placeholder="Código" onChange={e => setGameCode(e.currentTarget.value)}required/>
+                        <input type='number' className="form-login_input" name='codigo' placeholder="Código" min='0' max='99999' onChange={e => setGameCode(e.currentTarget.value)}required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
@@ -136,7 +136,7 @@ const Home = () => {
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create" onSubmit={e => handleUserJoin(e)}>
                         <p>Introduce código de juego</p>
-                        <input type='number' className="form-login_input" name='codigo' placeholder="Código" onChange={e => setGameCode(e.currentTarget.value)}required/>
+                        <input type='number' className="form-login_input" name='codigo' placeholder="Código" min='0' max='99999' onChange={e => setGameCode(e.currentTarget.value)}required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
