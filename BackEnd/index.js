@@ -547,6 +547,23 @@ io.on('connection', (socket) => {
             io.to(player.socketId).emit('hostCloseGame');
         })
     })
+
+    socket.on('disconnect', () => {
+        // Verificar si el socket desconectado es el host de alguna partida
+        const gameWithDisconnectedHost = games.games.find(game => game.hostId === socket.id,);
+        
+        if (gameWithDisconnectedHost) {
+            // Emitir evento de cancelación de juego a todos los jugadores
+            gameWithDisconnectedHost.gameData.players.players.forEach((player) => {
+                io.to(player.socketId).emit('hostCloseGame');
+            })
+            
+            // Eliminar el juego de la lista de juegos
+            games.removeGame(gameWithDisconnectedHost.hostId);
+            
+            console.log(`Game with PIN ${gameWithDisconnectedHost.pin} cancelled due to host disconnection.`);
+        }
+    });
     
 
 });
