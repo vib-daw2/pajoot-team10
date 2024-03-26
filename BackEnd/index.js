@@ -1,4 +1,5 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
@@ -57,6 +58,12 @@ const swaggerOptions = {
     },
     apis: ["./index.js"], // Especifica la ruta donde se encuentran tus rutas
 };
+
+const emailRateLimit = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 10, // Máximo 10 solicitudes por IP dentro del período de tiempo especificado
+    message: "Demasiadas solicitudes para enviar correos electrónicos desde esta IP, por favor intenta más tarde."
+  });
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
@@ -497,6 +504,13 @@ io.on('connection', (socket) => {
         const parsedData = JSON.parse(data);
 
         let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
+
+        if (!game) {
+            // La partida con el código especificado no existe
+            console.log('Intento de unirse a una partida inexistente con el código:', parsedData.pin);
+            socket.emit('joinError', { message: 'La partida especificada no existe' });
+            return;
+        }
 
         game.gameData.players.addPlayer(game.hostId,parsedData.playerId,socket.id,parsedData.playerName,parsedData.photoURL,{score: 0});
 
