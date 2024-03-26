@@ -43,7 +43,15 @@ const Home = () => {
           setGame(game);
           navigate('/game')
         });
-      },[]);
+
+        socket.on('joinError', (error) => {
+            setError(error.message);
+            if(anonName){
+                setUserLogged(null);
+            }
+        }
+        );
+      },[userLogged]);
 
     const handleLogout = () => {
         // Cerrar sesión
@@ -66,13 +74,10 @@ const Home = () => {
         const id = Math.floor(Math.random() * 900000) + 100000;
 
         let avatar = avatarsArray[Math.floor(Math.random() * avatarsArray.length)];
-
+        
         setUserLogged({displayName:anonName, uid:id, photoURL:avatar});
 
         socket.emit('playerJoin',JSON.stringify({pin:gameCode, playerName:anonName, playerId:id, photoURL:avatar}))
-
-        
-
 
     }
 
@@ -148,7 +153,6 @@ const Home = () => {
                     <form className="form-login form-create" onSubmit={e => handleRedirect(e)}>
                         <p>Administrar un Pajoot</p>
                         <input type='submit' className="form-login_button" value="Ver Pajoots"/>
-                        {error && <p className="error-message">{error}</p>}
                     </form>
                 </div>
             )}

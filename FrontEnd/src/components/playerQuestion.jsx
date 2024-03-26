@@ -56,13 +56,13 @@ const PlayerQuestion = () => {
  
   return (
     <div className='question-container'>
-      {game.remoteMode &&(
+      {game && game.remoteMode &&(
       <audio id='lobby-music' src={Questionsound} autoPlay ref={audioRef} />
       )}
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>
-        {game.remoteMode &&(
+        {game && game.remoteMode &&(
         <div className='question-content'>
           <p>{question.pregunta}</p>
         </div>

@@ -17,7 +17,7 @@ const PlayerLobby = () => {
   return (
     <>
     <div className='lobby-container'>
-      {game.remoteMode && (
+      {game && game.remoteMode && (
       <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />
       )}
       {userLogged && userLogged.displayName && (

@@ -16,7 +16,7 @@ const PlayerTimeUp = () => {
   return (
     <>
       <p className='time-out'>Se ha acabado el tiempo</p>
-      {game.remoteMode && (
+      {game && game.remoteMode && (
         <audio id='timeup-music' src={Gongsound} autoPlay ref={audioRef} />
       )}
       <div className='question-container answer-container'>
