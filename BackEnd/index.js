@@ -162,7 +162,7 @@ app.get("/api/users", (req, res) => {
  *               message: Email sent successfully
  */
 
-app.post("/api/send-verification-email", async (req, res) => {
+app.post("/api/send-verification-email", emailRateLimit, async (req, res) => {
     const userEmail = req.body.email;
 
     if (!userEmail) {
