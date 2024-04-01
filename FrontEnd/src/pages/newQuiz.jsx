@@ -86,12 +86,15 @@ const handleLogout = () => {
               <button className='choose-button' onClick={() => socket.emit('createGame',JSON.stringify({tematica:'cine',modoRemoto:remoteMode}))}>Cine</button>
               <button className='choose-button' onClick={() => socket.emit('createGame',JSON.stringify({tematica:'actualidad',modoRemoto:remoteMode}))}>Actualidad</button>
             </div>
-            <p>o</p>
-            <button className='create-button'>Crear Nuevo</button>
+          </div>
+          <div className='choose-mode'>
+            <p>(Para jugar a distancia, marca la siguiente casilla)</p>
+            <div className='choose-mode_check'>
+              <input type='checkbox' id='remote-mode' name='remote-mode' value='remote-mode' checked={remoteMode} onChange={() => setRemoteMode(!remoteMode)}/>
+              <label for='remote-mode'>Modo Remoto</label>
+            </div>
           </div>
       </div>
-      <input type= 'checkbox' id='remote-mode' name='remote-mode' value='remote-mode' checked={remoteMode} onChange={() => setRemoteMode(!remoteMode)}/>
-      <label for='remote-mode'>Modo Remoto</label>
     </>
   );
 };
