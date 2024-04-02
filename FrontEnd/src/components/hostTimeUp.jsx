@@ -5,7 +5,7 @@ import Gongsound from '../../public/assets/sounds/Gong.mp3';
 
 const HostTimeUp= () => {
 
-  const { game, setGame, question, setQuestion } = useStore();
+  const { game, setGame, question, setQuestion, muted} = useStore();
   const audioRef = useRef(false);
 
   const players = game.gameData.players.players;
@@ -23,7 +23,7 @@ const HostTimeUp= () => {
     <>
     <p className='time-out'>Tiempo Finalizado</p>
     <div className='question-container ranking-container'>
-    <audio id='timeup-music' src={Gongsound} autoPlay ref={audioRef} />
+      {!muted && <audio id='timeup-music' src={Gongsound} autoPlay ref={audioRef} />}
       <div className='ranking-content'>
         <h1>Clasificación</h1>
         <ul className='ranking-list'>

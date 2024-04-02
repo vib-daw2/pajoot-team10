@@ -33,6 +33,10 @@ const useStore = create((set) => ({
 
   setMensajeRacha: (mensaje) => set({ mensajeRacha: mensaje }),
 
+  muted: false,
+
+  setMuted: (muted) => set({ muted: muted }),
+
 
   
 }));

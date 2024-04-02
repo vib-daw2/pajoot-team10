@@ -4,7 +4,7 @@ import useStore from '../store';
 import Gongsound from '../../public/assets/sounds/Gong.mp3';
 
 const PlayerTimeUp = () => {
-  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha } = useStore();
+  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha, muted} = useStore();
   const audioRef = useRef(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const PlayerTimeUp = () => {
   return (
     <>
       <p className='time-out'>Se ha acabado el tiempo</p>
-      {game && game.remoteMode && (
+      {game && game.remoteMode && !muted &&(
         <audio id='timeup-music' src={Gongsound} autoPlay ref={audioRef} />
       )}
       <div className='question-container answer-container'>

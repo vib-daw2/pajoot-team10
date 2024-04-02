@@ -37,7 +37,7 @@ const PlayerQuestion = () => {
     });
   }, []);
 
-  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly,racha,setRacha,mensajeRacha,setMensajeRacha} = useStore();
+  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha, muted} = useStore();
   const [targetDate, setTargetDate] = useState(Date.now() + game.timeLimit*1000 + 2000);
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const score = game.gameData.players.players.find((player) => player.playerId == userLogged.uid).gameData.score;
@@ -52,7 +52,7 @@ const PlayerQuestion = () => {
  
   return (
     <div className='question-container'>
-      {game && game.remoteMode &&(
+      {game && game.remoteMode && !muted &&(
       <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />
       )}
         <div className="form-verify_countdown">

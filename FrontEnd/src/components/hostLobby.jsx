@@ -4,7 +4,7 @@ import useStore from '../store';
 import Lobbysound from '../../public/assets/sounds/lobby-classic-game.mp3';
 
 const HostLobby = () => {
-  const { game, setGame } = useStore();
+  const { game, setGame, muted} = useStore();
   const audioRef = useRef(false);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const HostLobby = () => {
 
   return (
     <div className='lobby-container'>
-      <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />
+      {!muted && <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />}
       <p>Código</p>
 
       {game && (<h1>{game.pin}</h1>)}

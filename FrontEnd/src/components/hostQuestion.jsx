@@ -5,7 +5,7 @@ import useStore from '../store';
 
 const HostQuestion = () => {
 
-  const { game, setGame, question, setQuestion} = useStore();
+  const { game, setGame, question, setQuestion, muted} = useStore();
   const [targetDate, setTargetDate] = useState(Date.now() + game.timeLimit*1000 + 2000);
   const audioRef = useRef(false);
   const formatTime = ({ minutes, seconds }) => {
@@ -32,7 +32,7 @@ useEffect(() => {
    
   return (
     <div className='question-container'>
-      <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />
+      {!muted && <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />}
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>

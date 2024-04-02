@@ -5,7 +5,7 @@ import Lobbysound from '../../public/assets/sounds/lobby-classic-game.mp3';
 
 
 const PlayerLobby = () => {
-  const { game, setGame, userLogged, setUserLogged } = useStore();
+  const { game, setGame, userLogged, setUserLogged, muted} = useStore();
   const audioRef = useRef(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const PlayerLobby = () => {
   return (
     <>
     <div className='lobby-container'>
-      {game && game.remoteMode && (
+      {game && game.remoteMode && !muted &&(
       <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />
       )}
       {userLogged && userLogged.displayName && (
