@@ -17,18 +17,21 @@ const HostGameOver = () => {
   }
 
   return (
-    <div>
-      <h2>¡Podium Final!</h2>
-      <ul>
-        {/* Mapear y renderizar los jugadores en orden de puntuación */}
-        {sortedPlayers.map((player, index) => (
-          <li key={player.playerId}>
-            <img src={player.photo} alt={player.name} style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
-            {index + 1}. {player.name}: {(player.gameData.score).toFixed()}
-          </li>
-        ))}
-      </ul>
-      <button onClick={(handleCloseGame)}>Finalizar juego</button>
+    <div className='question-container podium-container'>
+      <h1>Podium Final</h1>
+      <div className='podium-content'>
+        <ul className='ranking-list'>
+          {/* Mapear y renderizar los jugadores en orden de puntuación */}
+          {sortedPlayers.map((player, index) => (
+            <li className='ranking-player' key={player.playerId}>
+              <p>{index + 1}.</p>
+              <img className='ranking-image' src={player.photo} alt={player.name} style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+              {player.name}: {(player.gameData.score).toFixed()}
+            </li>
+          ))}
+        </ul>
+        <button className='question-button_next' onClick={(handleCloseGame)}>Volver a Inicio</button>
+      </div>
     </div>
   );
 };

@@ -352,7 +352,7 @@ hr {
         display: flex;
         background-color: #FFF;
         padding: 32px 40px;
-        min-height: 300px;
+        min-height: 200px;
         align-items: center;
         margin: 0 32px;
         p {
@@ -425,6 +425,7 @@ hr {
             font-size: 22px;
             border-radius: 4px;
             padding: 8px 32px;
+            text-align: left;
             &:hover {
                 border-color: transparent;
                 filter: brightness(0.7);
@@ -534,12 +535,14 @@ hr {
         }
     }
 }
-.ranking-container {
+.ranking-container,
+.podium-container {
     width: 500px;
     min-height: 500px;
     justify-content: space-between;
     padding: 24px;
-    .ranking-content {
+    .ranking-content,
+    .podium-content {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -572,6 +575,9 @@ hr {
     .question-button_next {
         width: 60%;
     }
+}
+.podium-container {
+    width: unset;
 }
 .answer-container {
     min-width: 460px;

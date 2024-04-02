@@ -4,8 +4,8 @@ import { socket } from '../socket';
 const PlayerGameOver = () => {
     
   return (
-    <div>
-        <h2>Player Game Over</h2>
+    <div className='time-out'>
+        <h1>¡Se acabó el juego!</h1>
     </div>
   );
 };
