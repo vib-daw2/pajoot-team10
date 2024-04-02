@@ -23,13 +23,13 @@ const PlayerTimeUp = () => {
 
         <h1>Respuesta {answeredCorrectly ? "Correcta!" : "Incorrecta!"}</h1>
         {answeredCorrectly ? (
-          userLogged.displayName === "Nyan" ? (
+          userLogged.displayName.toLowerCase() === "nyan" ? (
             <img src='./assets/gif/nyan-cat.gif' className='answer-image' alt='Nyan Cat' />
           ) : (
             <img src='./assets/gif/cat-yes.gif' className='answer-image' alt='Gato asintiendo' />
           )
         ) : (
-          userLogged.displayName === "Nyan" ? (
+          userLogged.displayName.toLowerCase() === "nyan" ? (
             <img src='./assets/gif/sad-nyan-cat.gif' className='answer-image' alt='Sad Nyan Cat' />
           ) : (
             <img src='./assets/gif/cat-no.gif' className='answer-image' alt='Gato negando' />
