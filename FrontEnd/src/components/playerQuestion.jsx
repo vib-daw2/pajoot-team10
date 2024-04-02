@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef} from 'react';
 import { socket } from '../socket';
 import useStore from '../store';
 import Countdown from 'react-countdown';
-import Questionsound from '../../public/assets/sounds/question-groovy-30.mp3';
 
 const PlayerQuestion = () => {
   const formatTime = ({ minutes, seconds }) => {
@@ -38,15 +37,12 @@ const PlayerQuestion = () => {
     });
   }, []);
 
-
-  const [targetDate, setTargetDate] = useState(Date.now() + 32000);
-  const [questionAnswered, setQuestionAnswered] = useState(false);
-
   const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly,racha,setRacha,mensajeRacha,setMensajeRacha} = useStore();
-
+  const [targetDate, setTargetDate] = useState(Date.now() + game.timeLimit*1000 + 2000);
+  const [questionAnswered, setQuestionAnswered] = useState(false);
   const score = game.gameData.players.players.find((player) => player.playerId == userLogged.uid).gameData.score;
-
   const audioRef = useRef(false);
+  const audioPath = `../../public/assets/sounds/question-groovy-${game.timeLimit}.mp3`;
 
   useEffect(() => {
     if (audioRef.current) {
@@ -57,7 +53,7 @@ const PlayerQuestion = () => {
   return (
     <div className='question-container'>
       {game && game.remoteMode &&(
-      <audio id='lobby-music' src={Questionsound} autoPlay ref={audioRef} />
+      <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />
       )}
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
