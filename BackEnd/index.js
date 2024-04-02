@@ -496,7 +496,7 @@ io.on('connection', (socket) => {
           }
       
           // Agregar el juego con las preguntas al objeto de juegos
-          let game = games.addGame(gamePin, socket.id, false, parsedData.modoRemoto, {
+          let game = games.addGame(gamePin, socket.id, false, parsedData.modoRemoto, parsedData.limiteTiempo, {
             tematicas: parsedData.tematicas,
             questions: selectedQuestions,
             playersAnswered: 0,
