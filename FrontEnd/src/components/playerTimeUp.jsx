@@ -29,7 +29,11 @@ const PlayerTimeUp = () => {
             <img src='./assets/gif/cat-yes.gif' className='answer-image' alt='Gato asintiendo' />
           )
         ) : (
-          <img src='./assets/gif/cat-no.gif' className='answer-image' alt='Gato negando' />
+          userLogged.displayName === "Nyan" ? (
+            <img src='./assets/gif/sad-nyan-cat.gif' className='answer-image' alt='Sad Nyan Cat' />
+          ) : (
+            <img src='./assets/gif/cat-no.gif' className='answer-image' alt='Gato negando' />
+          )
         )}
         <p className='answer-correct'>La respuesta correcta es: {question.respuesta}</p>
       </div>
