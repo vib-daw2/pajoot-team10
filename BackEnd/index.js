@@ -462,42 +462,55 @@ io.on('connection', (socket) => {
         //io.emit('hostNextQuestion', question);
     })
 
-    socket.on("createGame", async function(data) {
+    socket.on('createGame', async function (data) {
         const parsedData = JSON.parse(data);
         let gamePin = Math.floor(Math.random() * 90000) + 10000;
-    
+      
         try {
-            // Referencia a la base de datos de Firebase
-            const db = admin.database();
-    
-            // Obtener referencia a la colección de preguntas
-            const preguntasRef = db.ref("preguntas");
-    
+          // Referencia a la base de datos de Firebase
+          const db = admin.database();
+          // Obtener referencia a la colección de preguntas
+          const preguntasRef = db.ref("preguntas");
+      
+          const allQuestions = [];
+          // Iterar sobre cada temática seleccionada
+          for (const tema of parsedData.tematicas) {
             // Obtener referencia a la temática específica dentro de la colección de preguntas
-            const tematicaRef = preguntasRef.child(parsedData.tematica);
-    
+            const tematicaRef = preguntasRef.child(tema);
             // Leer las preguntas desde la base de datos
-            tematicaRef.once("value", snapshot => {
-                const questions = [];
-    
-                // Iterar sobre las preguntas y agregarlas al array 'questions'
-                snapshot.forEach(childSnapshot => {
-                    const question = childSnapshot.val();
-                    questions.push(question);
-                });
-    
-                // Agregar el juego con las preguntas al objeto de juegos
-                let game = games.addGame(gamePin, socket.id, false, parsedData.modoRemoto, { tematica: parsedData.tematica, questions: questions, playersAnswered:0, players: new Players()});
-
-                 // Emitir el juego creado con las preguntas al cliente
-                socket.emit('gameCreated', game);
+            const snapshot = await tematicaRef.once("value");
+            // Obtener las preguntas de esta temática
+            const questions = [];
+            snapshot.forEach((childSnapshot) => {
+              const question = childSnapshot.val();
+              questions.push(question);
             });
+            allQuestions.push(...questions);
+          }
+      
+          // Seleccionar 10 preguntas aleatorias de la lista de preguntas
+          const selectedQuestions = [];
+          for (let i = 0; i < 10; i++) {
+            const randomIndex = Math.floor(Math.random() * allQuestions.length);
+            selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
+          }
+      
+          // Agregar el juego con las preguntas al objeto de juegos
+          let game = games.addGame(gamePin, socket.id, false, parsedData.modoRemoto, {
+            tematicas: parsedData.tematicas,
+            questions: selectedQuestions,
+            playersAnswered: 0,
+            players: new Players(),
+          });
+      
+          // Emitir el juego creado con las preguntas al cliente
+          socket.emit('gameCreated', game);
         } catch (error) {
-            console.error('Error fetching questions:', error);
-            // En caso de error, emitir un mensaje de error al cliente
-            socket.emit('gameCreationError', { message: 'Error fetching questions' });
+          console.error('Error fetching questions:', error);
+          // En caso de error, emitir un mensaje de error al cliente
+          socket.emit('gameCreationError', { message: 'Error fetching questions' });
         }
-    });
+      });
 
     socket.on("playerJoin", function(data) {
         
