@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef} from 'react';
 import { socket } from '../socket';
 import useStore from '../store';
 import Countdown from 'react-countdown';
-import Questionsound from '../../public/assets/sounds/question-groovy.mp3';
+import Questionsound from '../../public/assets/sounds/question-groovy-30.mp3';
 
 const PlayerQuestion = () => {
   const formatTime = ({ minutes, seconds }) => {

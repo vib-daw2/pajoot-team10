@@ -11,7 +11,9 @@ const NewQuiz = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [remoteMode, setRemoteMode] = useState(false);
-  const [selectedThemes, setSelectedThemes] = useState([]); // Estado para almacenar las temáticas seleccionadas
+  const [selectedThemes, setSelectedThemes] = useState([]);
+  const [numQuestions, setNumQuestions] = useState(5); // Estado para el número de preguntas
+  const [timeLimit, setTimeLimit] = useState(10); // Estado para el límite de tiempo de respuesta
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -25,10 +27,8 @@ const NewQuiz = () => {
       }
     };
 
-    // Agregar event listener al montar el componente
     document.addEventListener('click', handleClickOutside);
 
-    // Limpiar event listener al desmontar el componente
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
@@ -39,7 +39,6 @@ const NewQuiz = () => {
   };
 
   const handleLogout = () => {
-    // Cerrar sesión
     console.log('Cerrando sesión..');
 
     auth.signOut();
@@ -58,8 +57,16 @@ const NewQuiz = () => {
   };
 
   const handleCreateGame = () => {
-    // Enviar temáticas seleccionadas al backend
-    socket.emit('createGame', JSON.stringify({ tematicas: selectedThemes, modoRemoto: remoteMode }));
+    if (selectedThemes.length === 0) {
+      setError('Debes seleccionar al menos una temática');
+      return;
+    }
+    socket.emit('createGame', JSON.stringify({ 
+      tematicas: selectedThemes, 
+      modoRemoto: remoteMode,
+      numPreguntas: numQuestions,
+      limiteTiempo: timeLimit 
+    }));
   };
 
   return (
@@ -122,6 +129,26 @@ const NewQuiz = () => {
             </label>
           </div>
         </div>
+        <div className='choose-questions'>
+          <label htmlFor='num-questions'>Número de Preguntas:</label>
+          <select id='num-questions' value={numQuestions} onChange={(e) => setNumQuestions(parseInt(e.target.value))}>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
+        <div className='choose-time-limit'>
+          <label htmlFor='time-limit'>Tiempo límite de respuesta (segundos):</label>
+          <select id='time-limit' value={timeLimit} onChange={(e) => setTimeLimit(parseInt(e.target.value))}>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+            <option value={60}>60</option>
+            <option value={120}>120</option>
+          </select>
+        </div>
         <div className='choose-mode'>
           <p>(Para jugar a distancia, marca la siguiente casilla)</p>
           <div className='choose-mode_check'>
@@ -138,6 +165,7 @@ const NewQuiz = () => {
         <button className='start-button' onClick={handleCreateGame}>
           Iniciar Juego
         </button>
+        {error && <p className='error'>{error}</p>}
       </div>
     </>
   );
