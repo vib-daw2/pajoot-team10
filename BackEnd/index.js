@@ -492,7 +492,7 @@ io.on('connection', (socket) => {
           const selectedQuestions = [];
           for (let i = 0; i < 10; i++) {
             const randomIndex = Math.floor(Math.random() * allQuestions.length);
-            selectedQuestions.push(allQuestions[randomIndex]);
+            selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
           }
       
           // Agregar el juego con las preguntas al objeto de juegos
