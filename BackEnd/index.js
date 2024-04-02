@@ -490,7 +490,7 @@ io.on('connection', (socket) => {
       
           // Seleccionar 10 preguntas aleatorias de la lista de preguntas
           const selectedQuestions = [];
-          for (let i = 0; i < 10; i++) {
+          for (let i = 0; i < parsedData.numPreguntas; i++) {
             const randomIndex = Math.floor(Math.random() * allQuestions.length);
             selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
           }
