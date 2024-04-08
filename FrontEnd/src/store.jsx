@@ -37,6 +37,10 @@ const useStore = create((set) => ({
 
   setMuted: (muted) => set({ muted: muted }),
 
+  isMuted: false,
+
+  setIsMuted: (muted) => set({ isMuted: muted }),
+
 
   
 }));

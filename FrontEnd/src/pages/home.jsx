@@ -9,7 +9,7 @@ import { socket } from '../socket';
 import { avatarsArray } from '../components/profileAvatar';
 
 const Home = () => {
-    const {userLogged, setUserLogged, game, setGame, muted, setMuted} = useStore();
+    const {userLogged, setUserLogged, game, setGame} = useStore();
     const [error, setError] = useState(null);
     const navigate = useNavigate();  // Obtén la función de navegación
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -93,14 +93,6 @@ const Home = () => {
         navigate('/choose')
     }
 
-    const handleMuteChange = (e) => {
-        if (e.target.checked) {
-            setMuted(true);
-        } else {
-            setMuted(false);
-        }
-      };
-
     return (
         <>
         
@@ -141,9 +133,6 @@ const Home = () => {
                         <p>Introduce código de juego</p>
                         <input type='number' className="form-login_input" name='codigo' placeholder="Código" min='0' max='99999' onChange={e => setGameCode(e.currentTarget.value)}required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
-                        <label style={{color:'black'}}> 
-                        <input type='checkbox' value='Mutear Juego' onChange={handleMuteChange} /> Mutear Juego
-                        </label>
                         {error && <p className="error-message">{error}</p>}
                     </form>
                 </div>
@@ -164,9 +153,6 @@ const Home = () => {
                     <form className="form-login form-create" onSubmit={e => handleRedirect(e)}>
                         <p>Administrar un Pajoot</p>
                         <input type='submit' className="form-login_button" value="Ver Pajoots"/>
-                        <label style={{color:'black'}}>
-                        <input type='checkbox' value='Mutear Juego' onChange={handleMuteChange} /> Mutear Juego
-                        </label>
                     </form>
                 </div>
             )}

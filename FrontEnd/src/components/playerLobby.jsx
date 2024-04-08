@@ -5,20 +5,35 @@ import Lobbysound from '../../public/assets/sounds/lobby-classic-game.mp3';
 
 
 const PlayerLobby = () => {
-  const { game, setGame, userLogged, setUserLogged, muted} = useStore();
+  const { game, setGame, userLogged, setUserLogged, muted, setMuted, isMuted, setIsMuted} = useStore();
   const audioRef = useRef(false);
 
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && !muted) {
       audioRef.current.play();
     }
-  }, [audioRef]);
+  }, [muted]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : 1;
+    }
+  }
+  , [isMuted]);
+
+  function toggleMute() {
+    setMuted(!muted);
+    setIsMuted(!isMuted);
+  }
 
   return (
     <>
     <div className='lobby-container'>
-      {game && game.remoteMode && !muted &&(
+      {game && game.remoteMode &&(
+      <>
+      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />
+      </>
       )}
       {userLogged && userLogged.displayName && (
       <div className='lobby-player'>

@@ -37,7 +37,7 @@ const PlayerQuestion = () => {
     });
   }, []);
 
-  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha, muted} = useStore();
+  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha, muted, setMuted, isMuted, setIsMuted} = useStore();
   const [targetDate, setTargetDate] = useState(Date.now() + game.timeLimit*1000 + 2000);
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const score = game.gameData.players.players.find((player) => player.playerId == userLogged.uid).gameData.score;
@@ -45,15 +45,30 @@ const PlayerQuestion = () => {
   const audioPath = `../../public/assets/sounds/question-groovy-${game.timeLimit}.mp3`;
 
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && !muted) {
       audioRef.current.play();
     }
-  }, [audioRef]);
+  }, [muted]);
+  
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : 1;
+    }
+  }
+  , [isMuted]);
+
+  const toggleMute = () => {
+    setMuted(!muted);
+    setIsMuted(!isMuted);
+  };
  
   return (
     <div className='question-container'>
-      {game && game.remoteMode && !muted &&(
+      {game && game.remoteMode &&(
+      <>
+      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />
+      </>
       )}
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>

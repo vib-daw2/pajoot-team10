@@ -4,14 +4,21 @@ import useStore from '../store';
 import Lobbysound from '../../public/assets/sounds/lobby-classic-game.mp3';
 
 const HostLobby = () => {
-  const { game, setGame, muted} = useStore();
-  const audioRef = useRef(false);
+  const { game, setGame, muted, setMuted, isMuted, setIsMuted} = useStore();
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (audioRef.current && !muted) {
+      audioRef.current.play();
+    }
+  }, [muted]);
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.play();
+      audioRef.current.volume = isMuted ? 0 : 1;
     }
-  }, [audioRef]);
+  }
+  , [isMuted]);
 
   useEffect(() => {
     // Escuchar evento 'updatePlayerBoard' del socket
@@ -30,8 +37,14 @@ const HostLobby = () => {
     window.location.href = '/';
   }
 
+  function toggleMute() {
+    setMuted(!muted);
+    setIsMuted(!isMuted);
+  }
+
   return (
     <div className='lobby-container'>
+      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       {!muted && <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />}
       <p>Código</p>
 
@@ -48,7 +61,7 @@ const HostLobby = () => {
         )}
       </div>
       <div className='lobby-buttons'>
-        <button className='lobby-button' onClick={(handleCancelGame)}>Cancelar</button>
+        <button className='lobby-button' onClick={handleCancelGame}>Cancelar</button>
         <button className='lobby-button' onClick={() => socket.emit('startGame', JSON.stringify({ pin: game.pin }))}>Iniciar</button>
       </div>
     </div>
