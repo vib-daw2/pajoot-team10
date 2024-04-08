@@ -107,30 +107,30 @@ const NewQuiz = () => {
           </div>
         )}
       </div>
+      <h1>Iniciar un Pajoot</h1>
       <div className='choose-container'>
-        <h1>Iniciar un Pajoot</h1>
         <div className='choose-content'>
-          <div className='choose-container_buttons'>
-            <label>
+          <p>Escoge una o más temáticas:</p>
+          <div className='choose-container_options'>
+            <label className='choose-type'>
+            Música
               <input type='checkbox' value='musica' onChange={handleThemeChange} />
-              Música
             </label>
-            <label>
+            <label className='choose-type'>
+            Programación
               <input type='checkbox' value='programacion' onChange={handleThemeChange} />
-              Programación
             </label>
-            <label>
+            <label className='choose-type'>
+            Cine
               <input type='checkbox' value='cine' onChange={handleThemeChange} />
-              Cine
             </label>
-            <label>
+            <label className='choose-type'>
+            Actualidad
               <input type='checkbox' value='actualidad' onChange={handleThemeChange} />
-              Actualidad
             </label>
           </div>
-        </div>
-        <div className='choose-questions'>
-          <label htmlFor='num-questions'>Número de Preguntas:</label>
+        <div className='choose-mode'>
+          <label htmlFor='num-questions'>Número de Preguntas: </label>
           <select id='num-questions' value={numQuestions} onChange={(e) => setNumQuestions(parseInt(e.target.value))}>
             <option value={5}>5</option>
             <option value={10}>10</option>
@@ -138,10 +138,9 @@ const NewQuiz = () => {
             <option value={20}>20</option>
           </select>
         </div>
-        <div className='choose-time-limit'>
-          <label htmlFor='time-limit'>Tiempo límite de respuesta (segundos):</label>
+        <div className='choose-mode'>
+          <label htmlFor='time-limit'>Tiempo límite (segundos): </label>
           <select id='time-limit' value={timeLimit} onChange={(e) => setTimeLimit(parseInt(e.target.value))}>
-            <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
             <option value={30}>30</option>
@@ -152,6 +151,7 @@ const NewQuiz = () => {
         <div className='choose-mode'>
           <p>(Para jugar a distancia, marca la siguiente casilla)</p>
           <div className='choose-mode_check'>
+          <label htmlFor='remote-mode'>Modo Remoto</label>
             <input
               type='checkbox'
               id='remote-mode'
@@ -159,8 +159,8 @@ const NewQuiz = () => {
               checked={remoteMode}
               onChange={() => setRemoteMode(!remoteMode)}
             />
-            <label htmlFor='remote-mode'>Modo Remoto</label>
           </div>
+        </div>
         </div>
         <button className='start-button' onClick={handleCreateGame}>
           Iniciar Juego
