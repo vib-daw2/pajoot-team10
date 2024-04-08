@@ -15,6 +15,7 @@ const NewQuiz = () => {
   const [numQuestions, setNumQuestions] = useState(5); // Estado para el número de preguntas
   const [timeLimit, setTimeLimit] = useState(10); // Estado para el límite de tiempo de respuesta
   const auth = getAuth(app);
+  const [errorImage, setErrorImage] = useState(null);
 
   useEffect(() => {
     socket.on('gameCreated', (game) => {
@@ -59,6 +60,7 @@ const NewQuiz = () => {
   const handleCreateGame = () => {
     if (selectedThemes.length === 0) {
       setError('Debes seleccionar al menos una temática');
+      setErrorImage('./assets/img/alerta(1).png');
       return;
     }
     socket.emit('createGame', JSON.stringify({ 
@@ -115,21 +117,25 @@ const NewQuiz = () => {
             <label className='choose-type'>
             Música
               <input type='checkbox' value='musica' onChange={handleThemeChange} />
+            <i></i>
             </label>
             <label className='choose-type'>
             Programación
               <input type='checkbox' value='programacion' onChange={handleThemeChange} />
+              <i></i>
             </label>
             <label className='choose-type'>
             Cine
               <input type='checkbox' value='cine' onChange={handleThemeChange} />
+              <i></i>
             </label>
             <label className='choose-type'>
             Actualidad
               <input type='checkbox' value='actualidad' onChange={handleThemeChange} />
+              <i></i>
             </label>
           </div>
-        <div className='choose-mode'>
+        <div className='choose-select'>
           <label htmlFor='num-questions'>Número de Preguntas: </label>
           <select id='num-questions' value={numQuestions} onChange={(e) => setNumQuestions(parseInt(e.target.value))}>
             <option value={5}>5</option>
@@ -138,7 +144,7 @@ const NewQuiz = () => {
             <option value={20}>20</option>
           </select>
         </div>
-        <div className='choose-mode'>
+        <div className='choose-select'>
           <label htmlFor='time-limit'>Tiempo límite (segundos): </label>
           <select id='time-limit' value={timeLimit} onChange={(e) => setTimeLimit(parseInt(e.target.value))}>
             <option value={10}>10</option>
@@ -151,7 +157,7 @@ const NewQuiz = () => {
         <div className='choose-mode'>
           <p>(Para jugar a distancia, marca la siguiente casilla)</p>
           <div className='choose-mode_check'>
-          <label htmlFor='remote-mode'>Modo Remoto</label>
+          <label htmlFor='remote-mode' className='choose-type'>Modo Remoto
             <input
               type='checkbox'
               id='remote-mode'
@@ -159,14 +165,16 @@ const NewQuiz = () => {
               checked={remoteMode}
               onChange={() => setRemoteMode(!remoteMode)}
             />
+            <i></i>
+            </label>
           </div>
         </div>
         </div>
         <button className='start-button' onClick={handleCreateGame}>
           Iniciar Juego
         </button>
-        {error && <p className='error'>{error}</p>}
       </div>
+      {error && <div className='error-message'><img src={errorImage} alt='Imagen alerta'/><p className='error'>{error}</p></div>}
     </>
   );
 };
