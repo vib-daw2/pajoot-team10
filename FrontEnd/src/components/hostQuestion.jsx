@@ -46,7 +46,7 @@ const toggleMute = () => {
   return (
     <div className='question-container'>
       <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
-      {!muted && <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />}
+      <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>

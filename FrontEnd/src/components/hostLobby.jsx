@@ -45,7 +45,7 @@ const HostLobby = () => {
   return (
     <div className='lobby-container'>
       <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
-      {!muted && <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />}
+      <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />
       <p>Código</p>
 
       {game && (<h1>{game.pin}</h1>)}
