@@ -39,7 +39,12 @@ const PlayerTimeUp = () => {
       </div>
       {mensajeRacha && (
         <div className='answer-streak'>
-          <img src='./assets/gif/cat-onfire.gif' className='streak-image' alt='Gato en racha' />
+          {answeredCorrectly ? (
+            <img src='./assets/gif/cat-onfire.gif' className='streak-image' alt='Gato en racha' />
+          ) : ( 
+            <img src='./assets/gif/cat-cry.gif' className='streak-image' alt='Gato triste' />
+          )
+          }
           <p>{mensajeRacha}</p>
         </div>
       )}
