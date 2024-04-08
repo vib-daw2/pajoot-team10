@@ -5,9 +5,9 @@ import useStore from '../store';
 
 const HostQuestion = () => {
 
-  const { game, setGame, question, setQuestion, muted} = useStore();
+  const { game, setGame, question, setQuestion, muted, setMuted, isMuted, setIsMuted} = useStore();
   const [targetDate, setTargetDate] = useState(Date.now() + game.timeLimit*1000 + 2000);
-  const audioRef = useRef(false);
+  const audioRef = useRef(null);
   const formatTime = ({ minutes, seconds }) => {
     // Puedes personalizar el formato según tus necesidades
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
@@ -25,13 +25,27 @@ useEffect(() => {
 },[])
 
 useEffect(() => {
-  if (audioRef.current) {
+  if (audioRef.current && !muted) {
     audioRef.current.play();
   }
-}, [audioRef]);
+}, [muted]);
+
+useEffect(() => {
+  if (audioRef.current) {
+    audioRef.current.volume = isMuted ? 0 : 1;
+  }
+}
+, [isMuted]);
+
    
+const toggleMute = () => {
+  setMuted(!muted);
+  setIsMuted(!isMuted);
+};
+
   return (
     <div className='question-container'>
+      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       {!muted && <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />}
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
