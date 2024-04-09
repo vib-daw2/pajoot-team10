@@ -414,6 +414,8 @@ io.on('connection', (socket) => {
 
         let game = games.games.filter((game) => game.pin == parsedData.pin)[0];
 
+        game.gameLive = true;
+
         //get the first question
 
         let question = game.gameData.questions.shift();
@@ -522,6 +524,13 @@ io.on('connection', (socket) => {
             // La partida con el código especificado no existe
             console.log('Intento de unirse a una partida inexistente con el código:', parsedData.pin);
             socket.emit('joinError', { message: 'La partida especificada no existe' });
+            return;
+        }
+
+        if(game.gameLive){
+            // La partida ya ha comenzado
+            console.log('Intento de unirse a una partida en curso con el código:', parsedData.pin);
+            socket.emit('joinError', { message: 'La partida ya ha comenzado' });
             return;
         }
 
