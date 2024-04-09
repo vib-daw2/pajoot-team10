@@ -7,11 +7,11 @@ class Games {
         this.games.push(game);
         return game;
     }
-    removeGame(hostId){
-        let game = this.getGameByPin(hostId);
+    removeGame(pin){
+        let game = this.getGameByPin(pin);
         
         if(game){
-            this.games = this.games.filter((game) => game.hostId !== hostId);
+            this.games = this.games.filter((game) => game.pin !== pin);
         }
         return game;
     }
