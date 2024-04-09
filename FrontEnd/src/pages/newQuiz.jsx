@@ -41,6 +41,12 @@ const NewQuiz = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!userLogged) {
+      window.location.href = '/';
+    }
+  }, []);
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
