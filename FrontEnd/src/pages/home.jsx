@@ -53,6 +53,20 @@ const Home = () => {
         );
       },[userLogged]);
 
+      useEffect(() => {
+        if(game){
+            setGame(null);
+        }
+        if(userLogged){
+            if(!userLogged.accessToken){
+                setUserLogged(null);
+            }
+            
+        }
+        },[]);
+
+
+
     const handleLogout = () => {
         // Cerrar sesión
         console.log('Cerrando sesión..');

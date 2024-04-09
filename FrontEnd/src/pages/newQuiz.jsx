@@ -35,6 +35,12 @@ const NewQuiz = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (game) {
+      window.location.href = '/';
+    }
+  }, []);
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
