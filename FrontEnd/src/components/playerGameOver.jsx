@@ -25,16 +25,16 @@ const PlayerGameOver = () => {
       <h1>¡Se acabó el juego!</h1>
       {playerPosition !== null && playerPosition <= 3 ? (
         <>
-          <h1>¡Has quedado {playerPosition}º!</h1>
+          <p>¡Enhorabuena! Has quedado </p><h1>{playerPosition}º</h1>
           <img src='./assets/gif/cat-win.gif' className='streak-image' alt='Gato victorioso' />
         </>
       ) : (
         <>
-        <h1>No te has clasificado...</h1>
+        <p>Vaya, no te has clasificado...</p>
         <img src='./assets/gif/cat-lose.gif' className='streak-image' alt='Gato perdedor' />
         </>
       )}
-      <button className='return-button' onClick={() => window.location.href = '/'}>Volver a Inicio</button>
+      <button className='return-button' onClick={() => window.location.href = '/'}>Volver al Inicio</button>
     </div>
   );
 };
