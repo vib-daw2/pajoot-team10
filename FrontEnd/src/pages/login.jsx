@@ -19,6 +19,8 @@ const Login = () => {
     const [errorImage, setErrorImage] = useState(null);
 
     useEffect(() => {
+        setErrorImage('./assets/img/error-red.png');
+
         if (userLogged) {
             navigate('/');
         }
@@ -62,7 +64,6 @@ const Login = () => {
                     navigate('/');
                 })
                 .catch((error) => {
-                    setErrorImage('./assets/img/error-red.png');
                     // Handle Errors here.
                     const errorCode = error.code;
                     const errorMessage = error.message;

@@ -473,6 +473,12 @@ hr {
         font-weight: 400;
         margin: 0;
     }
+    .form-top {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        margin: 0 8px 0 auto;
+    }
     .lobby-content {
         background-color: #FFF;
         border-radius: 4px;

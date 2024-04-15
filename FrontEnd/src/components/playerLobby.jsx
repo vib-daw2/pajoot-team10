@@ -25,10 +25,16 @@ const PlayerLobby = () => {
   }
 
   return (
+    <>
+    <button className='mute-button' onClick={toggleMute}>{muted ? (
+      <img src='./assets/img/silenciar.png' alt="Sonido silenciado" />
+    ) : (
+      <img src='./assets/img/activar.png' alt="Sonido activado" />
+    )}</button>
+
     <div className='lobby-container'>
       {game && game.remoteMode && (
         <>
-          <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
           {userLogged && userLogged.displayName && userLogged.displayName.toLowerCase() === 'nyan' ? (
             <audio id='lobby-music' src={Nyancatsound} loop autoPlay ref={audioRef} />
           ) : (
@@ -49,6 +55,7 @@ const PlayerLobby = () => {
       )}
       <p>Esperando a otros jugadores</p>
     </div>
+    </>
   );
 };
 
