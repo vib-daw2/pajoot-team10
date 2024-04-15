@@ -651,27 +651,27 @@ hr {
         margin: 0;
         color: #1C1C1C;
     }
-    .return-button {
-        font-family: "Montserrat";
-        font-size: 20px;
-        font-weight: 500;
-        color: #FFF;
-        padding: 16px 10px;
-        border-radius: 4px;
-        background-color:#037189;
-        border-style: none;
-        box-shadow: 2px 2px 2px 0 #003946;
-        width: 50%;
-        cursor: pointer;
-        &:active {
-            box-shadow: inset 1px 1px 2px 2px #015669;
-        }
-        &:disabled {
-            color: #3b3b3b;
-        }
-        &:hover {
-            background-color: #015669;
-        }
+}
+.return-button {
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 500;
+    color: #FFF;
+    padding: 16px 10px;
+    border-radius: 4px;
+    background-color:#037189;
+    border-style: none;
+    box-shadow: 2px 2px 2px 0 #003946;
+    width: 50%;
+    cursor: pointer;
+    &:active {
+        box-shadow: inset 1px 1px 2px 2px #015669;
+    }
+    &:disabled {
+        color: #3b3b3b;
+    }
+    &:hover {
+        background-color: #015669;
     }
 }
 .ranking-container,
@@ -687,9 +687,12 @@ hr {
         flex-direction: column;
         gap: 24px;
         .ranking-list {
+            display: flex;
             width: 100%;
             padding: 0;
             margin-top: 0;
+            gap: 16px;
+            align-items: flex-end;
             p {
                 font-family: "Rancho";
                 font-size: 40px;
@@ -698,25 +701,58 @@ hr {
                 list-style: none;
                 width: 100%;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
+                justify-content: flex-end;
                 gap:16px;
                 font-size: 20px;
                 font-family: "Montserrat";
-
+                .id-number {
+                    display: flex;
+                    .id-number-content {
+                    font-size: 70px;
+                    margin: 0;
+                    }
+                }
                 .ranking-image {
-                    width: 60px;
-                    height: auto;
+                    height: 60px;
+                    width: auto;
                     border-radius: 50%;
                 }
+
             }
         }
     }
-    .question-button_next {
-        width: 60%;
-    }
 }
 .podium-container {
-    width: unset;
+    width: 800px;
+    .podium-content {
+        align-items: center;
+        .ranking-list .ranking-player {
+            color: #1C1C1C;
+            font-weight: 600;
+            gap: 0;
+            .id-number {
+                margin-top: 16px;
+                width: 100%;
+                background-color:#016a81;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .ranking-image {
+                height: 102px;
+            }
+            &:nth-child(1) .id-number {
+                height: 280px;
+            }
+            &:nth-child(2) .id-number {
+                height: 200px;
+            }
+            &:nth-child(3) .id-number {
+                height: 120px;
+            }
+        }
+    }
 }
 .answer-container {
     min-width: 460px;
