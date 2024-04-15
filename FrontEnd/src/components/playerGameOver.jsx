@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { socket } from '../socket';
 import useStore from '../store';
 
 const PlayerGameOver = () => {
-
-  const { game, setGame, question, setQuestion, userLogged, setUserLogged, answeredCorrectly, setAnsweredCorrectly, racha, setRacha, mensajeRacha, setMensajeRacha } = useStore();
+  const { game, userLogged } = useStore();
   const [playerPosition, setPlayerPosition] = useState(null);
 
   useEffect(() => {
@@ -22,13 +20,21 @@ const PlayerGameOver = () => {
     }
   }, [game, userLogged]);
 
-  
   return (
     <div className='time-out'>
-        <h1>¡Se acabó el juego!</h1>
-        {playerPosition !== null && (
-        <h1>¡Has quedado {playerPosition}º!</h1>
+      <h1>¡Se acabó el juego!</h1>
+      {playerPosition !== null && playerPosition <= 3 ? (
+        <>
+          <h1>¡Has quedado {playerPosition}º!</h1>
+          <img src='./assets/gif/cat-win.gif' className='streak-image' alt='Gato victorioso' />
+        </>
+      ) : (
+        <>
+        <h1>No te has clasificado...</h1>
+        <img src='./assets/gif/cat-lose.gif' className='streak-image' alt='Gato perdedor' />
+        </>
       )}
+      <button className='return-button' onClick={() => window.location.href = '/'}>Volver a Inicio</button>
     </div>
   );
 };
