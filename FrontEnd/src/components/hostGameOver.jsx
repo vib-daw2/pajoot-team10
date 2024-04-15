@@ -11,6 +11,8 @@ const HostGameOver = () => {
   // Ordenar los jugadores por puntuación
   const sortedPlayers = players.sort((a, b) => b.gameData.score - a.gameData.score);
 
+  const topThreePlayers = sortedPlayers.slice(0, 3);
+
   function handleCloseGame(){
     socket.emit('closeGame', JSON.stringify({ pin: game.pin }));
     window.location.href = '/';
@@ -22,9 +24,8 @@ const HostGameOver = () => {
       <div className='podium-content'>
         <ul className='ranking-list'>
           {/* Mapear y renderizar los jugadores en orden de puntuación */}
-          {sortedPlayers.map((player, index) => (
+          {topThreePlayers.map((player, index) => (
             <li className='ranking-player' key={player.playerId}>
-              
               <img className='ranking-image' src={player.photo} alt={player.name} />
               {player.name}
               <div className='id-number'>
