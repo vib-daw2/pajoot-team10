@@ -745,6 +745,9 @@ hr {
                     background-color:#016a81;
                     align-items: flex-end;
                     justify-content: center;
+                    .id-number-content {
+                        margin: 0 0 16px 0;
+                    }
                 }
                 .ranking-image {
                     height: 102px;
