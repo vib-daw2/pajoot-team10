@@ -43,8 +43,14 @@ const HostLobby = () => {
   }
 
   return (
+    <>
+    <button className='mute-button' onClick={toggleMute}>{muted ? (
+        <img src='./assets/img/silenciar.png' alt="Sonido silenciado" />
+      ) : (
+        <img src='./assets/img/activar.png' alt="Sonido activado" />
+      )}</button>
+
     <div className='lobby-container'>
-      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />
       <p>Código</p>
 
@@ -65,7 +71,9 @@ const HostLobby = () => {
         <button className='lobby-button' onClick={() => socket.emit('startGame', JSON.stringify({ pin: game.pin }))}>Iniciar</button>
       </div>
     </div>
+    </>
   );
 };
+
 
 export default HostLobby;
