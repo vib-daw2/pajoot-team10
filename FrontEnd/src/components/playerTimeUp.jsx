@@ -35,7 +35,9 @@ const PlayerTimeUp = () => {
             <img src='./assets/gif/cat-no.gif' className='answer-image' alt='Gato negando' />
           )
         )}
-        <p className='answer-correct'>La respuesta correcta es: {question.opciones[question.respuesta]}</p>
+        <div className='answer-correct'>
+        <p>La respuesta correcta es:</p><p> {question.opciones[question.respuesta]}</p>
+        </div>
       </div>
       {mensajeRacha && (
         <div className='answer-streak'>

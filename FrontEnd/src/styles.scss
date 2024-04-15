@@ -43,10 +43,9 @@ hr {
 }
 .mute-button {
     display: flex;
-    margin: 0 0 0 auto;
+    margin: 0 8px 8px auto;
     background: transparent;
     border: none;
-    margin-bottom: 8px;
     padding: 0;
     &:hover {
         border: none;
@@ -729,7 +728,10 @@ hr {
         width: auto;
     }
     .answer-correct {
+        display: flex;
+        flex-direction: column;
         margin: 24px 0;
+        gap: 8px;
     }
 }
 .answer-streak {
