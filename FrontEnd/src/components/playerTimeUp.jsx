@@ -26,7 +26,6 @@ const PlayerTimeUp = () => {
       )}
       {game && game.remoteMode &&(  
         <div className='question-container ranking-container'>
-            <p className='time-out'>Se ha acabado el tiempo</p>
             <div className='ranking-content'>
               <h1>Clasificación</h1>
               <ul className='ranking-list'>
@@ -42,9 +41,10 @@ const PlayerTimeUp = () => {
             </div>
         </div>
       )}
+      <div>
       <div className='question-container answer-container'>
 
-        <h1>Respuesta {answeredCorrectly ? "Correcta!" : "Incorrecta!"}</h1>
+        <h1>¡Respuesta {answeredCorrectly ? "Correcta!" : "Incorrecta!"}</h1>
         {answeredCorrectly ? (
           <img src='./assets/gif/cat-yes.gif' className='answer-image' alt='Gato asintiendo' />
         ) : (
@@ -64,6 +64,8 @@ const PlayerTimeUp = () => {
           <p>{mensajeRacha}</p>
         </div>
       )}
+      </div>
+
     </div>
   );
 };
