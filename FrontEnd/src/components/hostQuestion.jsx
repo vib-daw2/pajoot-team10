@@ -68,9 +68,11 @@ const toggleMute = () => {
           <button className='question-button'><p>D)</p>{question.opciones.d}</button>
         </div>
         )}
-        <button className='question-button_next' onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Finalizar Tiempo</button>
-        <div className='question-answered'>
-          <p>Han contestado</p><h1 className='question-players'> {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h1><p>jugadores</p>
+        <div className='question-bottom'>
+          <div className='question-answered'>
+            <p>Han contestado</p><h1 className='question-players'> {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h1><p>jugadores</p>
+          </div>
+          <button className='question-button_next' onClick={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}>Finalizar Tiempo</button>
         </div>
     </div>
     </>

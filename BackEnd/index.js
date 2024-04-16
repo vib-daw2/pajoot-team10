@@ -523,14 +523,14 @@ io.on('connection', (socket) => {
         if (!game) {
             // La partida con el código especificado no existe
             console.log('Intento de unirse a una partida inexistente con el código:', parsedData.pin);
-            socket.emit('joinError', { message: 'La partida especificada no existe' });
+            socket.emit('joinError', { message: 'El código de partida no existe' });
             return;
         }
 
         if(game.gameLive){
             // La partida ya ha comenzado
             console.log('Intento de unirse a una partida en curso con el código:', parsedData.pin);
-            socket.emit('joinError', { message: 'La partida ya ha comenzado' });
+            socket.emit('joinError', { message: 'Esta partida ya ha comenzado' });
             return;
         }
 
