@@ -163,6 +163,7 @@ const NewQuiz = () => {
             <option value={20}>20</option>
             <option value={30}>30</option>
             <option value={60}>60</option>
+            <option value={90}>90</option>
           </select>
         </div>
         <div className='choose-mode'>

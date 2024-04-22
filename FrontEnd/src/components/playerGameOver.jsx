@@ -40,9 +40,10 @@ const PlayerGameOver = () => {
             {topThreePlayers.map((player, index) => (
               <li className='ranking-player' key={player.playerId}>
                 <img className='ranking-image' src={player.photo} alt={player.name} />
-                {player.name}
+                <p className='player-name'>{player.name}</p>
+                <p className='player-score'>{(player.gameData.score).toFixed()}</p>
                 <div className='id-number'>
-                <p className='id-number-content'>{index + 1}</p>
+                  <p className='id-number-content'>{index + 1}</p>
                 </div>
               </li>
             ))}
@@ -57,8 +58,8 @@ const PlayerGameOver = () => {
         </div>
       ) : (
         <div>
-        <p>Vaya, no te has clasificado...</p>
-        <img src='./assets/gif/cat-lose.gif' className='streak-image' alt='Gato perdedor' />
+          <p>Vaya, Has quedado </p><h2>{playerPosition}º</h2>
+          <img src='./assets/gif/cat-lose.gif' className='streak-image' alt='Gato perdedor' />
         </div>
       )}
 </div>

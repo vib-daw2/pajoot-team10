@@ -519,6 +519,7 @@ hr {
         padding: 24px;
         min-height: 200px;
         max-width: 1160px;
+        min-width: 1000px;
         align-items: center;
         margin: 0 32px;
         p {
@@ -574,6 +575,7 @@ hr {
     padding: 0;
     padding-bottom: 16px;
     margin-bottom: 32px;
+    min-width: 1160px;
     .form-verify_countdown {
         margin: 16px 0;
     }
@@ -618,6 +620,15 @@ hr {
         }
         .question-button:last-child {
             background-color: #D39927;
+        }
+    }
+    .host-buttons .question-button {
+        cursor:default;
+        &:hover {
+            filter: unset;
+        }
+        &:focus {
+            outline: none;
         }
     }
     .question-button_next {
@@ -726,6 +737,7 @@ hr {
 .ranking-container {
     width: 500px;
     min-height: 540px;
+    min-width: unset;
 }
 .ranking-container,
 .podium-container {
@@ -771,6 +783,43 @@ hr {
 
             }
         }
+        .rest-players {
+            width: 100%;
+            border: 1px solid #003946;
+            border-radius: 4px;
+            padding: 16px;
+            .ranking-list {
+                gap: 16px;
+                margin: 0;
+                flex-wrap: wrap;
+                .ranking-player {
+                    width: fit-content;
+                    gap: 8px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    border-right: 1px solid #003946;
+                    padding-right: 16px;
+                    p {
+                        font-size: 30px;
+                        margin: 0;
+                        color: #1C1C1C;          
+                    }
+                    .ranking-image {
+                        height: 50px;
+                        width: auto;
+                    }
+                    .player-name {
+                        font-family: "Montserrat";
+                        font-size: 20px;
+                    }
+                    .player-score {
+                        font-size: 20px;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
     }
     .question-button_next {
         width: unset;
@@ -789,6 +838,21 @@ hr {
                 color: #1C1C1C;
                 font-weight: 600;
                 gap: 0;
+                .player-name {
+                    font-size: 48px;
+                    color: #1C1C1C;
+                    width: unset;
+                    margin: 0;
+                    line-height: 100%;
+                }
+                .player-score {
+                    font-size: 24px;
+                    color: #1C1C1C;
+                    font-family: "Montserrat";
+                    font-weight: 400;
+                    width: unset;
+                    margin: 0;
+                }
                 .id-number {
                     margin-top: 16px;
                     width: 100%;
