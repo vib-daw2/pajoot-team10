@@ -4,7 +4,7 @@ import useStore from '../store';
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
-    const { userEmail, setUserEmail, verifiedEmail, setVerifiedEmail } = useStore();
+    const { userEmail, setUserEmail, verifiedEmail, setVerifiedEmail, userLogged, setUserLogged} = useStore();
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
@@ -38,7 +38,9 @@ const Create = () => {
         }
 
         let formdata = new FormData();
-        formdata.append('image', profileImage);
+        if (profileImage){
+            formdata.append('image', profileImage);
+        }
         formdata.append('email', verifiedEmail);
         formdata.append('user', user);
         formdata.append('password', password);
