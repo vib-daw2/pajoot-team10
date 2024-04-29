@@ -346,6 +346,15 @@ app.post("/api/verify-token", async (req, res) => {
  *           application/json:
  *             example:
  *               message: User created successfully
+ *               user:
+ *                 type: object
+ *                 properties:
+ *                   email:
+ *                     type: string
+ *                   displayName:
+ *                     type: string
+ *                   photoURL:
+ *                     type: string
  */
 app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
     console.log(req.body);
@@ -418,7 +427,6 @@ io.on('connection', (socket) => {
 
             io.to(player.socketId).emit('hostTimeUp', game);
         })
-        //io.emit('hostTimeUp',game)
     })
 
     socket.on("startGame", function(data) {
@@ -440,7 +448,6 @@ io.on('connection', (socket) => {
 
             io.to(player.socketId).emit('hostStartGame', question);
         })
-        //io.emit('hostStartGame', question);
     })
 
     socket.on("cancelGame", function(data) {
@@ -465,7 +472,6 @@ io.on('connection', (socket) => {
 
                 io.to(player.socketId).emit('hostGameOver', game);
             })
-            //io.emit('hostGameOver')
             return;
         }
 
@@ -474,7 +480,6 @@ io.on('connection', (socket) => {
 
             io.to(player.socketId).emit('hostNextQuestion', question);
         })
-        //io.emit('hostNextQuestion', question);
     })
 
     socket.on('createGame', async function (data) {
