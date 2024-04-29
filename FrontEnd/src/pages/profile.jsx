@@ -66,15 +66,21 @@ const Profile = () => {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         setProfileImage(file);
-        console.log(file);
     };
 
     const handleChooseAvatar = () => {
         setShowAvatarSelector(!showAvatarSelector);
     };
-    const handleSaveSelection = (selectedAvatar) => {
+    const handleSaveSelection = (selected) => {
         // Actualiza la imagen de perfil del usuario loggeado
-        setSelectedAvatar(selectedAvatar);
+        if (typeof selected === 'string') {
+            // Si es una URL, simplemente actualiza el estado
+            setSelectedAvatar(selected);
+        } else {
+            // Si es un archivo, crea una URL local y actualiza el estado
+            const avatarURL = URL.createObjectURL(selected);
+            setSelectedAvatar(avatarURL);
+        }
     };
     const handleSaveButtonClick = () => {
         // Actualiza la imagen de perfil del usuario loggeado al hacer clic en "Guardar"
@@ -132,9 +138,15 @@ const Profile = () => {
                     <form className="form-login form-create" onSubmit={handleSubmit}>
                         <p>Nombre</p>
                         <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" maxLength={20} value={user} onChange={handleInputChange} required/>
-                        <p>Avatar</p>
+                        <p>Imagen</p>
                         <img src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} onChange={handleImageChange} className='user-avatar' alt='Avatar-Usuario' />
+                        {profileImage && (
+                            <img src={URL.createObjectURL(profileImage)} alt="Profile" style={{ maxHeight: '140px' }} />
+                        )}
                         <button type='button' className='form-avatar_button' onClick={handleChooseAvatar}>Elegir otro</button>
+                        <div className='load-file'>
+                        <input type="file" accept="image/*" onChange={handleImageChange} />
+                        </div>
                         <input type='submit' className="form-login_button" value="Guardar"/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
