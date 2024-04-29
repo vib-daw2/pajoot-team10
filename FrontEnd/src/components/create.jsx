@@ -93,7 +93,13 @@ const Create = () => {
                         <input type="password" onChange={e => setPassword(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" pattern="^(?=.*[A-Z])(?=.*\d).{8,}$" required />
                         <p>Repite la contraseña</p>
                         <input type="password" onChange={e => setPassword2(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" pattern="^(?=.*[A-Z])(?=.*\d).{8,}$" required />
+                        <p>Añade una imagen</p>
+                        <div className='load-file'>
                         <input type="file" accept="image/*" onChange={handleImageChange} />
+                        </div>
+                        {profileImage && (
+                            <img src={URL.createObjectURL(profileImage)} alt="Profile" style={{ maxHeight: '140px' }} />
+                        )}
                         <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Creando...' : 'Crear usuario'} disabled={mutation.isLoading} />
                         {error && <p className="error-message">{error}</p>}
                     </form>

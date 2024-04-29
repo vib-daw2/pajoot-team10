@@ -947,6 +947,39 @@ hr {
     .form-login {
         align-items: flex-start;
     }
+    .load-file {
+        position: relative;
+        display: inline-block;
+        width: 120px;
+        cursor: pointer;
+        margin-bottom: 4px;
+        &:before {
+            content: 'Subir Archivo';
+            background-color: #1688A1;
+            border-style: none;
+            border-color: #037189;
+            box-shadow: 2px 2px 2px 0 #003946;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            &:hover {
+                background-color: #015669;
+            }
+
+        }
+        input[type=file] {
+            opacity: 0;
+            height: 40px;
+            width: 120px;
+            cursor: pointer;
+        }
+    }
+
 }
 .not-container {
     display: flex;
