@@ -3,15 +3,13 @@ const rateLimit = require("express-rate-limit");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const transporter = require("./utils/mailer");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const admin = require("firebase-admin");
-const serviceAccount = require("./firebase-adminsdk-credentials.json");
-const { send } = require("process");
 const multer = require('multer');
 const AWS = require('aws-sdk');
-const bodyParser = require('body-parser')
+const serviceAccount = require("./firebase-adminsdk-credentials.json");
+const transporter = require("./utils/mailer");
 const {Games} = require('./utils/games');
 const {Players} = require('./utils/players');
 // Mapa para almacenar las referencias a los temporizadores
@@ -362,6 +360,8 @@ app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
     }
 
     try {
+
+        if (userProfileImage){
         // Subir la imagen de perfil a AWS S3
         const uploadParams = {
             Bucket: 'pajoot',
@@ -371,6 +371,7 @@ app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
         };
 
         const uploadResult = await s3.upload(uploadParams).promise();
+
 
         // Ahora uploadResult.Location contiene la URL de la imagen en S3
 
@@ -384,9 +385,21 @@ app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
             photoURL: uploadResult.Location // URL de la imagen de perfil
         });
 
-        console.log(`Successfully created new user: ${userRecord.uid}`);
+        console.log(`Successfully created new user: ${userRecord}`);
 
-        res.json({ message: "User created successfully" });
+        res.json({ message: "User created successfully" , user: userRecord});
+
+    } else {
+        const userRecord = await admin.auth().createUser({
+            email: userEmail,
+            password: userPassword,
+            displayName: userDisplayName,
+        });
+
+        console.log(`Successfully created new user: ${userRecord}`);
+
+        res.json({ message: "User created successfully" , user: userRecord});
+    }
     } catch (error) {
         console.error(`Error creating new user: ${error}`);
         res.status(500).json({ error: "Internal server error" });
