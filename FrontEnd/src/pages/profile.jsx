@@ -180,8 +180,8 @@ const Profile = () => {
                         ) : (
                             <img 
                                 src={URL.createObjectURL(customAvatar)} 
+                                className='user-avatar' 
                                 alt="Profile" 
-                                style={{ maxHeight: '140px' }} 
                             />
                         )}
                         <button type='button' className='form-avatar_button' onClick={handleChooseAvatar}>Elegir otro</button>
