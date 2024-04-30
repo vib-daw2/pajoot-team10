@@ -188,7 +188,7 @@ const Profile = () => {
                         <div className='load-file'>
                         <input type="file" accept="image/*" onChange={handleCustomAvatarChange} id='customimgimput'/>
                         </div>
-                        <input type='submit' className="form-login_button" value="Guardar"/>
+                        <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Guardando...' : 'Guardar'} disabled={mutation.isLoading}/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
                     {showAvatarSelector && (
