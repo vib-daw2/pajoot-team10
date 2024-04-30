@@ -415,6 +415,33 @@ app.post("/api/create-user" ,upload.single('image'),async (req, res) => {
     }
 });
 
+app.post("/api/upload-photo", upload.single('image'), async (req, res) => {
+    try {
+        // Obtener la imagen del cuerpo de la solicitud
+        const image = req.file;
+
+        if (!image) {
+            return res.status(400).json({ error: "No se proporcionó ninguna imagen" });
+        }
+
+        // Subir la imagen a AWS S3
+        const uploadParams = {
+            Bucket: 'pajoot', // Reemplazar 'nombre_de_tu_bucket' con el nombre de tu bucket en AWS S3
+            Key: `profiles/${Date.now()}_${image.originalname}`, // Ruta en S3 donde se almacenará la imagen
+            Body: image.buffer, // Datos de la imagen
+            ContentType: image.mimetype // Tipo de contenido de la imagen
+        };
+
+        const uploadResult = await s3.upload(uploadParams).promise();
+
+        // Devolver la URL de la imagen subida
+        res.json({ url: uploadResult.Location });
+    } catch (error) {
+        console.error("Error al subir la imagen:", error);
+        res.status(500).json({ error: "Error interno del servidor al subir la imagen" });
+    }
+});
+
 //When a connection to server is made from client
 io.on('connection', (socket) => {
 
