@@ -47,6 +47,7 @@ const Profile = () => {
             // Crear formData para enviar la imagen al backend
             const formData = new FormData();
             formData.append('image', customAvatar);
+            formData.append('email', userLogged.email);
     
             // Hacer la petición al backend para subir la imagen a AWS y obtener la URL
             const response = await fetch('http://localhost:3001/api/upload-photo', {
